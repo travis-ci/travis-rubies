@@ -5,7 +5,7 @@ rvm get stable
 rvm reload
 
 rvm remove $RUBY
-rvm install $RUBY
+rvm install $RUBY --verify-downloads 1
 rvm prepare $RUBY
 
 gem install travis-artifacts
