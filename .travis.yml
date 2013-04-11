@@ -1,3 +1,4 @@
+language: c
 script: ./build.sh
 env:
   global:
