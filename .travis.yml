@@ -1,0 +1,10 @@
+script: ./build.sh
+env:
+  global:
+    - "ARTIFACTS_AWS_REGION=us-east-1"
+    - "ARTIFACTS_S3_BUCKET=travis-rubies"
+    - secure: "b4ck3t2tP5PluQV5OxlCls96uusgDIgc7zi+x+9eqqvDWgACnHGS+7pixqs3\nGKO1+6ENJf5Uo051xnuN4BrulUuwI2OTlJNVDeqBeVIz4pJNAK1FwcuI5Kju\ncOCAVSTuHvBp5Ccvl0Tu0yCCIF+E4Qv+IZ9kw+F6ns4c8/Grp5E="
+    - secure: "s4Yc2V9a6hLhbz5M2k+I2PH+Dk4BoOnqxJZnW9CkigXA+ElPqjbfvss35Lkp\nsSmX1xBYGrMzAqZ3yPT9Q3Fwu7J4MQbxZlxDne6ClabO29OCnX0lVB5FUglt\n3fQmGwQQwgKJAs98YumT89uFZ467b0ZjZs115XSVzNRw2LIHRkc="
+  matrix:
+    - "RUBY=ruby-head"
+    - "RUBY=jruby-head"
