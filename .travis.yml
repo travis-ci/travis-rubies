@@ -8,3 +8,4 @@ env:
   matrix:
     - "RUBY=ruby-head"
     - "RUBY=jruby-head"
+    - "RUBY=jruby-head-d20"
