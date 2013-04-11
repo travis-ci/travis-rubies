@@ -6,4 +6,4 @@ rvm install $RUBY
 rvm prepare $RUBY
 
 gem install travis-artifacts
-travis-artifacts upload --path "$RUBY.tar.bz2"
+travis-artifacts upload --path "$RUBY.tar.bz2" --target-path binary
