@@ -12,5 +12,11 @@ rvm remove $RUBY
 rvm install $RUBY --verify-downloads 1
 rvm prepare $RUBY
 
+# make sure bundler works
+rvm use $RUBY
+gem install bundler
+bundle install
+
+rvm use default
 gem install travis-artifacts
 travis-artifacts upload --path $RUBY.* --target-path binary
