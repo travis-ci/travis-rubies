@@ -8,7 +8,7 @@ echo -n > $rvm_path/user/md5
 echo -n > $rvm_path/user/sha512
 
 rvm remove $RUBY
-rvm install $RUBY --movable --verify-downloads 1
+rvm install $RUBY --verify-downloads 1
 rvm prepare $RUBY
 
 gem install travis-artifacts
