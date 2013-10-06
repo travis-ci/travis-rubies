@@ -6,7 +6,7 @@ rvm reload
 
 echo -n > $rvm_path/user/md5
 echo -n > $rvm_path/user/sha512
-echo -n > $rvm_path/.rvm/user/db || true
+echo -n > $rvm_path/user/db || true
 
 rvm remove $RUBY
 rvm install $RUBY --verify-downloads 1
