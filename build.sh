@@ -22,13 +22,11 @@ rvm prepare $RUBY
 
 #######################################################
 # make sure bundler works
-rvm use $RUBY
-gem install bundler
-bundle install
+rvm $RUBY do gem install bundler
+rvm $RUBY do bundle install
 
 #######################################################
 # publish to bucket
-rvm use default
 gem install travis-artifacts
 travis-artifacts upload --path $RUBY.* --target-path binary
 
