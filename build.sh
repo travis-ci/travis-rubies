@@ -14,6 +14,7 @@ echo -n > $rvm_path/user/db || true
 
 #######################################################
 # build the binary
+rvm alias delete $RUBY
 rvm remove $RUBY
 rvm install $RUBY --verify-downloads 1
 rvm prepare $RUBY
