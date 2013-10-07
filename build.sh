@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -ex --login
 [[ $RUBY ]] || (echo 'please set $RUBY' && exit 1)
 
 #######################################################
