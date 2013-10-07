@@ -1,5 +1,6 @@
-#!/bin/bash -ex --login
+#!/bin/bash -ex
 [[ $RUBY ]] || (echo 'please set $RUBY' && exit 1)
+source ~/.bashrc
 
 #######################################################
 # update rvm
