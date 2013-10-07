@@ -2,6 +2,27 @@
 [[ $RUBY ]] || (echo 'please set $RUBY' && exit 1)
 source ~/.bashrc
 
+travis_retry() {
+  local result=0
+  local count=1
+  while [ $count -le 3 ]; do
+    [ $result -ne 0 ] && {
+      echo -e "\n\033[33;1mThe command \"$@\" failed. Retrying, $count of 3.\033[0m\n" >&2
+    }
+    "$@"
+    result=$?
+    [ $result -eq 0 ] && break
+    count=$(($count + 1))
+    sleep 1
+  done
+
+  [ $count -eq 3 ] && {
+    echo "\n\033[33;1mThe command \"$@\" failed 3 times.\033[0m\n" >&2
+  }
+
+  return $result
+}
+
 #######################################################
 # update rvm
 rvm get stable
@@ -22,8 +43,8 @@ rvm prepare $RUBY
 
 #######################################################
 # make sure bundler works
-rvm $RUBY do gem install bundler
-rvm $RUBY do bundle install
+travis_retry rvm $RUBY do gem install bundler
+travis_retry rvm $RUBY do bundle install
 
 #######################################################
 # publish to bucket
