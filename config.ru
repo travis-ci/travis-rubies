@@ -80,7 +80,7 @@ These Ruby versions are available on Travis CI in addition to the preinstalled R
 <li style="color: <%= job.pending? ? "coral" : "dark" + job.color %>">
   <b><%= ruby %>:</b> <%= job.state %>
   <small>
-    (<%= job.finished_at || job.started_at %> &bull;
+    (<%= job.finished_at || job.started_at || "not yet started" %> &bull;
     <a href="/logs/<%= ruby %>">logs</a> &bull; <a href="/download/<%= ruby %>">download</a>)
   </small>
 </li>
