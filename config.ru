@@ -30,7 +30,11 @@ app = Sinatra.new do
   get '/logs/:ruby' do
     pass unless job = jobs.detect { |j| j.config['env'][/RUBY=(\S+)/, 1] == params[:ruby] }
     content_type :txt
-    job.log.body(false)
+    stream do |out|
+      job.log.body do |chunk|
+        out << chunk
+      end
+    end
   end
 
   get '/download/:ruby' do
