@@ -4,7 +4,7 @@ require 'travis/client'
 app = Sinatra.new do
   # Configuration
   enable :logging, :inline_templates
-  set :travis, uri: 'https://api.travis-ci.com/', access_token: ENV.fetch('TRAVIS_TOKEN')
+  set :travis, access_token: ENV.fetch('TRAVIS_TOKEN')
 
   # repository = Repository.find_by(slug: 'owner/repo')
   # Digest::SHA2.hexdigest(repository.slug + repository.last_build.request.token)
@@ -16,7 +16,7 @@ app = Sinatra.new do
   attr_reader :session
 
   def jobs
-    repo('travis-pro/travis-rubies').last_build.jobs
+    repo('travis-ci/travis-rubies').last_build.jobs
   end
 
   # list the overview

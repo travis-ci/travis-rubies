@@ -4,8 +4,8 @@ env:
   global:
     - "ARTIFACTS_AWS_REGION=us-east-1"
     - "ARTIFACTS_S3_BUCKET=travis-rubies"
-    - secure: "b4ck3t2tP5PluQV5OxlCls96uusgDIgc7zi+x+9eqqvDWgACnHGS+7pixqs3\nGKO1+6ENJf5Uo051xnuN4BrulUuwI2OTlJNVDeqBeVIz4pJNAK1FwcuI5Kju\ncOCAVSTuHvBp5Ccvl0Tu0yCCIF+E4Qv+IZ9kw+F6ns4c8/Grp5E="
-    - secure: "s4Yc2V9a6hLhbz5M2k+I2PH+Dk4BoOnqxJZnW9CkigXA+ElPqjbfvss35Lkp\nsSmX1xBYGrMzAqZ3yPT9Q3Fwu7J4MQbxZlxDne6ClabO29OCnX0lVB5FUglt\n3fQmGwQQwgKJAs98YumT89uFZ467b0ZjZs115XSVzNRw2LIHRkc="
+    - secure: "HPBQ5hUXh4vzDdZ9w8qXNsZ1x5CdYqrLyl+Mf8bzv2u429NddBnbNta8kPNyL/E9BJKTfiXPnc8HEZvR/wDVpDyZePhYcOkBzDoKhD7aPR/pjgWBkU31VHCtYIYLr9JbzV7ya6SL0Gf29C3msHirKlZBYOezMrEkEvW1JWNIEI4="
+    - secure: "C5AHd2jHvmZV18uu9c7K9EreXPf1suzJA4zVTWTS7v6Rvz+bGdjsvIRnkgU1E50JU3U3mHtPta7IK5tIPVAn+83kmfdQaHrNENohf3IXiukhA3tDZiAig8ljfGI0QqME7Nel4/RV+oxXDBUbcFUBOvim5bXas93H3aBEhUYbZ8E="
   matrix:
     - "RUBY=ruby-head"
     - "RUBY=ruby-2.1.0-preview1"
