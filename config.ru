@@ -3,7 +3,7 @@ require 'travis/client'
 
 app = Sinatra.new do
   # Configuration
-  enable :logging
+  enable :logging, :inline_templates
   set :travis, uri: 'https://api.travis-ci.com/', access_token: ENV.fetch('TRAVIS_TOKEN')
 
   # repository = Repository.find_by(slug: 'owner/repo')
@@ -15,14 +15,36 @@ app = Sinatra.new do
   before { @session = Travis::Client::Session.new(settings.travis) }
   attr_reader :session
 
-  # Check authenticity
-  before do
-    next if settings.signatures.include? env['HTTP_AUTHORIZATION']
-    halt 403, "requests need to come from Travis CI"
+  def jobs
+    repo('travis-pro/travis-rubies').last_build.jobs
   end
 
+  # list the overview
+  get '/' do
+    content = jobs.map do |job|
+      erb :job, locals: { job: job, ruby: job.config['env'][/RUBY=(\S+)/, 1] }, layout: false
+    end.join
+    erb :list, locals: { content: content }
+  end
+
+  get '/logs/:ruby' do
+    pass unless job = jobs.detect { |j| j.config['env'][/RUBY=(\S+)/, 1] == params[:ruby] }
+    content_type :txt
+    job.log.body(false)
+  end
+
+  get '/download/:ruby' do
+    compression = params[:ruby].start_with?('jruby') ? 'gz' : 'bz2'
+    redirect "https://s3.amazonaws.com/travis-rubies/binary/#{params[:ruby]}.tar.#{compression}"
+  end
+
+  # trigger a new job
   post '/rebuild/:ruby' do
-    repo('travis-pro/travis-rubies').last_build.jobs.each do |job|
+    unless settings.signatures.include? env['HTTP_AUTHORIZATION']
+      halt 403, "requests need to come from Travis CI"
+    end
+
+    jobs.each do |job|
       next unless job.config['env'].include? "RUBY=#{params[:ruby]}"
       logger.info "restarting #%s" % job.number
       restart job
@@ -33,3 +55,28 @@ app = Sinatra.new do
 end
 
 run app
+
+__END__
+
+@@ layout
+<html>
+  <head>
+    <title>Travis CI: Precompiled Ruby Versions</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css">
+    <style>
+    body { padding: 30px; }
+    </style>
+  </head>
+  <body><%= yield %></body>
+</html>
+
+@@ list
+These Ruby versions are available on Travis CI in addition to the preinstalled Ruby versions and the Ruby versions with binary builds supplied by RVM and Rubinius. The <i>head</i> versions will be automatically updated.
+<ul><%= content %></ul>
+
+@@ job
+<li style="color: <%= job.color %>">
+  <b><%= ruby %>:</b> <%= job.state %>
+  <small>(<%= job.finished_at %> &bull; <a href="/logs/<%= ruby %>">logs</a> &bull; <a href="/download/<%= ruby %>">download</a>)
+  </small>
+</li>
