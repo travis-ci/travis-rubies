@@ -4,7 +4,7 @@ require 'travis/client'
 app = Sinatra.new do
   # Configuration
   enable :logging, :inline_templates
-  set :travis, access_token: ENV.fetch('TRAVIS_TOKEN')
+  set :travis, uri: "https://api.travis-ci.org", access_token: ENV.fetch('TRAVIS_TOKEN')
 
   # repository = Repository.find_by(slug: 'owner/repo')
   # Digest::SHA2.hexdigest(repository.slug + repository.last_build.request.token)
