@@ -5,6 +5,9 @@ app = Sinatra.new do
   # Configuration
   enable :logging
   set :travis, uri: 'https://api.travis-ci.com/', access_token: ENV.fetch('TRAVIS_TOKEN')
+
+  # repository = Repository.find_by(slug: 'owner/repo')
+  # Digest::SHA2.hexdigest(repository.slug + repository.last_build.request.token)
   set :signatures, ENV.fetch('TRAVIS_SIGNATURES').split(':')
 
   # Travis client
