@@ -13,6 +13,5 @@ env:
     - "RUBY=jruby-head-d20"
     - "RUBY=jruby-head-d21"
     - "RUBY=ree-1.8.7-2011.12"
-    - "RUBY=kiji-head"
 notifications:
   email: false
