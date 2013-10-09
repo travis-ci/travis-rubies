@@ -79,6 +79,7 @@ __END__
 @@ list
 <p>These Ruby versions are available on Travis CI in addition to the preinstalled Ruby versions and the Ruby versions with binary builds supplied by RVM and Rubinius. The <i>head</i> versions will be automatically updated.</p>
 <%= content %>
+<p>As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p>
 
 @@ job
 <p style="color: <%= job.pending? ? "coral" : "dark" + job.color %>">
