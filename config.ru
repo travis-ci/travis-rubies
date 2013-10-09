@@ -21,8 +21,10 @@ app = Sinatra.new do
 
   # list the overview
   get '/' do
-    content = jobs.map do |job|
-      erb :job, locals: { job: job, ruby: job.config['env'][/RUBY=(\S+)/, 1] }, layout: false
+    content       = jobs.map do |job|
+      ruby        = job.config['env'][/RUBY=(\S+)/, 1]
+      description = job.log.body[/\[::RUBY_DESCRIPTION::\](.*)\[::RUBY_DESCRIPTION::\]/, 1]
+      erb :job, locals: { job: job, ruby: ruby, description: description }, layout: false
     end.join
     erb :list, locals: { content: content }
   end
@@ -75,14 +77,15 @@ __END__
 </html>
 
 @@ list
-These Ruby versions are available on Travis CI in addition to the preinstalled Ruby versions and the Ruby versions with binary builds supplied by RVM and Rubinius. The <i>head</i> versions will be automatically updated.
-<ul><%= content %></ul>
+<p>These Ruby versions are available on Travis CI in addition to the preinstalled Ruby versions and the Ruby versions with binary builds supplied by RVM and Rubinius. The <i>head</i> versions will be automatically updated.</p>
+<%= content %>
 
 @@ job
-<li style="color: <%= job.pending? ? "coral" : "dark" + job.color %>">
-  <b><%= ruby %>:</b> <%= job.state %>
+<p style="color: <%= job.pending? ? "coral" : "dark" + job.color %>">
+  <b><%= ruby %>:</b> <%= job.state %><br>
   <small>
-    (<%= job.finished_at || job.started_at || "not yet started" %> &bull;
-    <a href="/logs/<%= ruby %>">logs</a> &bull; <a href="/download/<%= ruby %>">download</a>)
+    <%= description || "???" %><br>
+    <%= job.finished_at || job.started_at || "not yet started" %> &bull;
+    <a href="/logs/<%= ruby %>">logs</a> &bull; <a href="/download/<%= ruby %>">download</a>
   </small>
-</li>
+</p>
