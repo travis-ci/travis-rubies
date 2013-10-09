@@ -58,3 +58,7 @@ echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies
 rvm_remote_server_path3=binary
 rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
 rvm use $RUBY --install --binary --fuzzy
+
+#######################################################
+# print out ruby version
+rvm $RUBY do ruby -e 'puts "[::RUBY_""DESCRIPTION::]#{RUBY_DESCRIPTION}[::RUBY_""DESCRIPTION::]"'
