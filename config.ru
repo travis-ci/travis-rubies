@@ -48,10 +48,8 @@ app = Sinatra.new do
       halt 403, "requests need to come from Travis CI"
     end
 
-    ruby = params[:ruby].sub('-head', '')
-
     jobs.each do |job|
-      next unless job.config['env'].include? "RUBY=#{ruby}"
+      next unless job.config['env'].include? "RUBY=#{params[:ruby]}"
       logger.info "restarting #%s" % job.number
       restart job
     end
