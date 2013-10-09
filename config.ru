@@ -44,8 +44,10 @@ app = Sinatra.new do
       halt 403, "requests need to come from Travis CI"
     end
 
+    ruby = params[:ruby].sub('-head', '')
+
     jobs.each do |job|
-      next unless job.config['env'].include? "RUBY=#{params[:ruby]}"
+      next unless job.config['env'].include? "RUBY=#{ruby}"
       logger.info "restarting #%s" % job.number
       restart job
     end
@@ -75,8 +77,10 @@ These Ruby versions are available on Travis CI in addition to the preinstalled R
 <ul><%= content %></ul>
 
 @@ job
-<li style="color: <%= job.color %>">
+<li style="color: <%= job.pending? ? "coral" : "dark" + job.color %>">
   <b><%= ruby %>:</b> <%= job.state %>
-  <small>(<%= job.finished_at %> &bull; <a href="/logs/<%= ruby %>">logs</a> &bull; <a href="/download/<%= ruby %>">download</a>)
+  <small>
+    (<%= job.finished_at || job.started_at %> &bull;
+    <a href="/logs/<%= ruby %>">logs</a> &bull; <a href="/download/<%= ruby %>">download</a>)
   </small>
 </li>
