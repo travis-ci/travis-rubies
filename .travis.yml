@@ -8,6 +8,8 @@ env:
     - secure: "C5AHd2jHvmZV18uu9c7K9EreXPf1suzJA4zVTWTS7v6Rvz+bGdjsvIRnkgU1E50JU3U3mHtPta7IK5tIPVAn+83kmfdQaHrNENohf3IXiukhA3tDZiAig8ljfGI0QqME7Nel4/RV+oxXDBUbcFUBOvim5bXas93H3aBEhUYbZ8E="
   matrix:
     - "RUBY=ruby-head"
+    - "RUBY=ruby-1.9.3-p484"
+    - "RUBY=ruby-2.0.0-p353"
     - "RUBY=ruby-2.1.0-preview1"
     - "RUBY=ruby-2.1.0-preview2"
     - "RUBY=jruby-head"
