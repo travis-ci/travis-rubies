@@ -47,6 +47,7 @@ app = Sinatra.new do
   # trigger a new job
   post '/rebuild/:ruby' do
     unless settings.signatures.include? env['HTTP_AUTHORIZATION']
+      logger.warn "untrusted signature: %p" % env['HTTP_AUTHORIZATION']
       halt 403, "requests need to come from Travis CI"
     end
 
