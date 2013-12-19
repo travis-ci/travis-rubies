@@ -1,10 +1,13 @@
 require 'sinatra/base'
 require 'travis/client'
+require 'nokogiri'
+require 'open-uri'
 
 app = Sinatra.new do
   # Configuration
   enable :logging, :inline_templates
   set :travis, uri: "https://api.travis-ci.org", access_token: ENV.fetch('TRAVIS_TOKEN')
+  set skip_rubies: %w[jruby-head-d20 jruby-head-d21]
 
   # repository = Repository.find_by(slug: 'owner/repo')
   # Digest::SHA2.hexdigest(repository.slug + repository.last_build.request.token)
@@ -21,10 +24,11 @@ app = Sinatra.new do
 
   # list the overview
   get '/' do
-    content       = jobs.map do |job|
-      ruby        = job.config['env'][/RUBY=(\S+)/, 1]
-      description = job.log.body[/\[::RUBY_DESCRIPTION::\](.*)\[::RUBY_DESCRIPTION::\]/, 1]
-      erb :job, locals: { job: job, ruby: ruby, description: description }, layout: false
+    doc     = Nokogiri::XML open("https://s3.amazonaws.com/travis-rubies/")
+    content = doc.css('Contents').map do |element|
+      ruby  = element.css('Key').text[%r{binary/(.*)\.tar}, 1]
+      date  = Time.parse(element.css('LastModified').text).to_s
+      erb :job, locals: { ruby: ruby, date: date }, layout: false
     end.join
     erb :list, locals: { content: content }
   end
@@ -83,11 +87,9 @@ __END__
 <p>As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p>
 
 @@ job
-<p style="color: <%= job.pending? ? "coral" : "dark" + job.color %>">
-  <b><%= ruby %>:</b> <%= job.state %><br>
+<p>
+  <b><%= ruby %></b><br>
   <small>
-    <%= description || "???" %><br>
-    <%= job.finished_at || job.started_at || "not yet started" %> &bull;
-    <a href="/logs/<%= ruby %>">logs</a> &bull; <a href="/download/<%= ruby %>">download</a>
+    <%= date %> &bull; <a href="/download/<%= ruby %>">download</a>
   </small>
 </p>
