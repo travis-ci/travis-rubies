@@ -6,6 +6,5 @@ env:
     - "ARTIFACTS_S3_BUCKET=travis-rubies"
     - secure: "HPBQ5hUXh4vzDdZ9w8qXNsZ1x5CdYqrLyl+Mf8bzv2u429NddBnbNta8kPNyL/E9BJKTfiXPnc8HEZvR/wDVpDyZePhYcOkBzDoKhD7aPR/pjgWBkU31VHCtYIYLr9JbzV7ya6SL0Gf29C3msHirKlZBYOezMrEkEvW1JWNIEI4="
     - secure: "C5AHd2jHvmZV18uu9c7K9EreXPf1suzJA4zVTWTS7v6Rvz+bGdjsvIRnkgU1E50JU3U3mHtPta7IK5tIPVAn+83kmfdQaHrNENohf3IXiukhA3tDZiAig8ljfGI0QqME7Nel4/RV+oxXDBUbcFUBOvim5bXas93H3aBEhUYbZ8E="
-    - "RUBY=ruby-head"
 notifications:
   email: false
