@@ -1,6 +1,6 @@
 #!/bin/bash -ex
-[[ $RUBY ]] || ([[ $TRAVIS_BRANCH ]] && RUBY=$TRAVIS_BRANCH)
-[[ $RUBY ]] || (echo 'please set $RUBY' && exit 1)
+[[ $RUBY ]] || {[[ $TRAVIS_BRANCH ]] && RUBY=$TRAVIS_BRANCH}
+[[ $RUBY ]] || {echo 'please set $RUBY' && exit 1}
 echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
 
 source ~/.bashrc
