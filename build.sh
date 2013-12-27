@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 [[ $RUBY ]] || { [[ $TRAVIS_BRANCH ]] && export RUBY=$TRAVIS_BRANCH; }
 [[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
 echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
