@@ -28,6 +28,7 @@ travis_retry() {
 
 #######################################################
 # update rvm
+rvm remove 1.8.7
 rvm get stable
 rvm reload
 
