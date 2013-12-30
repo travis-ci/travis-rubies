@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'shellwords'
 require 'nokogiri'
 require 'open-uri'
 require 'gh'
@@ -20,14 +21,7 @@ module Travis
 
     post '/rebuild/:ruby' do
       check_auth
-      time    = Time.now.utc.to_s
-      payload = params[:payload] || "no payload"
-
-      branches.each do |branch|
-        next unless branch.start_with? params[:ruby]
-        write(branch, "last_payload", "time: #{time}\n\npayload:\n#{payload}")
-      end
-
+      build params[:ruby]
       "OK"
     end
 
@@ -37,8 +31,14 @@ module Travis
       halt 403, "requests need to come from Travis CI"
     end
 
-    def write(branch, path, content)
-      payload = { message: "Update #{path}", path: path, content: Base64.strict_encode64(content), branch: branch }
+    def build(ruby)
+      content = "export RUBY=%s\n" % Shellwords.escape(ruby)
+      message = "trigger new build for %s" % ruby
+      write("build_info.sh", content, message)
+    end
+
+    def write(path, content, message)
+      payload = { message: message, path: path, content: Base64.strict_encode64(content), branch: "build" }
       current = gh["repos/#{settings.slug}/contents/#{path}?ref=#{branch}"]
       gh.put("repos/#{settings.slug}/contents/#{path}", payload.merge('sha' => current['sha']))
     rescue GH::Error => error
