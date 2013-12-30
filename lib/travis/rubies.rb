@@ -7,7 +7,7 @@ require 'gh'
 module Travis
   class Rubies < Sinatra::Base
     set github_token: ENV.fetch("GITHUB_TOKEN"), slug: 'travis-ci/travis-rubies', signatures: ENV.fetch('TRAVIS_SIGNATURES').split(':')
-    set skip_rubies: %w[jruby-head-d20 jruby-head-d21], inline_templates: true
+    set skip_rubies: %w[jruby-head-d20 jruby-head-d21], inline_templates: true, branch: "build"
 
     get '/' do
       doc     = Nokogiri::XML open("https://s3.amazonaws.com/travis-rubies/")
@@ -38,20 +38,13 @@ module Travis
     end
 
     def write(path, content, message)
-      payload = { message: message, path: path, content: Base64.strict_encode64(content), branch: "build" }
-      current = gh["repos/#{settings.slug}/contents/#{path}?ref=#{branch}"]
+      gh      = GH.with(token: settings.github_token)
+      payload = { message: message, path: path, content: Base64.strict_encode64(content), branch: settings.branch }
+      current = gh["repos/#{settings.slug}/contents/#{path}?ref=#{settings.branch}"]
       gh.put("repos/#{settings.slug}/contents/#{path}", payload.merge('sha' => current['sha']))
     rescue GH::Error => error
       raise error unless payload
       gh.put("repos/#{settings.slug}/contents/#{path}", payload)
-    end
-
-    def gh
-      @gh ||= GH.with(token: settings.github_token)
-    end
-
-    def branches
-      @branches ||= gh["repos/#{settings.slug}/branches"].map { |b| b["name"] }
     end
   end
 end
