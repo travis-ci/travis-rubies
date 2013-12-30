@@ -1,1 +1,1 @@
-export RUBY=jruby-head
+export RUBY=2.1.0
