@@ -4,6 +4,7 @@ source ./build_info.sh
 echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
 
 source ~/.bashrc
+unset DYLD_LIBRARY_PATH
 
 travis_retry() {
   local result=0
