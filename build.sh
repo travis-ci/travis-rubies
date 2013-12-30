@@ -32,6 +32,7 @@ travis_retry() {
 rvm remove 1.8.7
 rvm get stable
 rvm reload
+rvm cleanup all
 
 #######################################################
 # get rid of binary meta data
