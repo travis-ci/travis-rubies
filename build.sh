@@ -49,7 +49,7 @@ rvm prepare $RUBY
 
 #######################################################
 # make sure bundler works
-echo "gem 'rails'" > Gemfile
+echo "source 'https://rubygems.org'; gem 'rails'" > Gemfile
 travis_retry rvm $RUBY do gem install bundler
 travis_retry rvm $RUBY do bundle install
 
