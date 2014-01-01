@@ -1,1 +1,1 @@
-export RUBY=rbx-head
+export RUBY=ruby-head
