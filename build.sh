@@ -72,6 +72,7 @@ fold_end check.1
 #######################################################
 # publish to bucket
 fold_start publish "upload to S3"
+gem install faraday -v 0.8.9
 gem install travis-artifacts
 travis-artifacts upload --path $RUBY.* --target-path binary
 fold_end publish
