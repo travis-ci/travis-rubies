@@ -78,7 +78,7 @@ fold_end check.1
 fold_start publish "upload to S3"
 gem install faraday -v 0.8.9
 gem install travis-artifacts
-travis-artifacts upload --path $RUBY.* --target-path $TRAVIS_OS/binary
+travis-artifacts upload --path $RUBY.* --target-path $TRAVIS_OS_NAME/binary
 fold_end publish
 
 #######################################################
@@ -86,7 +86,7 @@ fold_end publish
 fold_start check.2 "make sure it installs"
 rvm remove $RUBY
 echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies
-rvm_remote_server_path3=$TRAVIS_OS/binary
+rvm_remote_server_path3=$TRAVIS_OS_NAME/binary
 rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
 rvm install $RUBY --binary
 fold_end check.2
