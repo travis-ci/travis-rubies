@@ -88,6 +88,7 @@ rvm remove $RUBY
 echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies
 rvm_remote_server_path3=$TRAVIS_OS_NAME/binary
 rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
+cat $rvm_path/user/db
 rvm install $RUBY --binary
 fold_end check.2
 
