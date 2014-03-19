@@ -70,8 +70,8 @@ fold_start build "build $RUBY"
 rvm alias delete $RUBY
 rvm remove $RUBY
 
-case $RUBY
-ruby-1.8.*) rvm install $RUBY --verify-downloads 1;;
+case $RUBY in
+ruby-1.8*)  rvm install $RUBY --verify-downloads 1;;
 ruby-*)     rvm install $RUBY --verify-downloads 1 --movable;;
 *)          rvm install $RUBY --verify-downloads 1;;
 esac
