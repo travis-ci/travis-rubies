@@ -69,7 +69,7 @@ fold_end rvm.2
 fold_start build "build $RUBY"
 rvm alias delete $RUBY
 rvm remove $RUBY
-rvm install $RUBY --verify-downloads 1
+rvm install $RUBY --verify-downloads 1 --movable | rvm install $RUBY --verify-downloads 1
 rvm prepare $RUBY
 fold_end build
 
