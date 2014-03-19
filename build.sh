@@ -31,6 +31,14 @@ travis_retry() {
   return $result
 }
 
+travis_rvm_os_path() {
+  if which sw_vers >> /dev/null; then
+    echo "osx/$(sw_vers -productVersion | cut -d. -f1,2)/$(uname -m)"
+  else
+    echo "$(lsb_release -i -s | tr '[:upper:]' '[:lower:]')/$(lsb_release -r -s)/$(uname -m)"
+  fi
+}
+
 fold_start() {
   echo -e "travis_fold:start:$1\033[33;1m$2\033[0m"
 }
@@ -78,15 +86,15 @@ fold_end check.1
 fold_start publish "upload to S3"
 gem install faraday -v 0.8.9
 gem install travis-artifacts
-travis-artifacts upload --path $RUBY.* --target-path $TRAVIS_OS_NAME/binary
+travis-artifacts upload --path $RUBY.* --target-path binaries/$(travis_rvm_os_path)
 fold_end publish
 
 #######################################################
 # make sure it installs
 fold_start check.2 "make sure it installs"
 rvm remove $RUBY
-echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies
-rvm_remote_server_path3=$TRAVIS_OS_NAME/binary
+echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies/binaries
+rvm_remote_server_type3=rubies
 rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
 cat $rvm_path/user/db
 rvm install $RUBY --binary
