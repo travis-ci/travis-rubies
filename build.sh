@@ -121,11 +121,15 @@ fold_end publish
 #######################################################
 # make sure it installs
 fold_start check.2 "make sure it installs"
-rvm remove $RUBY
-echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies/binaries
-rvm_remote_server_type3=rubies
-rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
-cat $rvm_path/user/db
-rvm install $RUBY --binary
+if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+  rvm remove $RUBY
+  echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies/binaries
+  rvm_remote_server_type3=rubies
+  rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
+  cat $rvm_path/user/db
+  rvm install $RUBY --binary
+else
+  echo "This is a Pull Request, skipping."
+fi
 fold_end check.2
 
