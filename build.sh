@@ -72,7 +72,7 @@ if which sw_vers >> /dev/null; then
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
   rvm autolibs smf
   sudo mkdir -p /etc/openssl
-  "sudo chown -R $USER: /etc/openssl"
+  sudo chown -R $USER: /etc/openssl
   fold_end rvm.3
 fi
 
