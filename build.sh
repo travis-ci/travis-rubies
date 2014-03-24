@@ -65,6 +65,15 @@ echo -n > $rvm_path/user/db || true
 fold_end rvm.2
 
 #######################################################
+# install smf
+if which sw_vers >> /dev/null; then
+  fold_start rvm.3 "setting up smf"
+  curl -L https://get.smf.sh | sh
+  rvm autolibs smf
+  fold_end rvm.3
+fi
+
+#######################################################
 # build the binary
 fold_start build "build $RUBY"
 rvm alias delete $RUBY
