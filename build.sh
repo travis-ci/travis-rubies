@@ -10,6 +10,9 @@ fi
 source ~/.bashrc
 unset DYLD_LIBRARY_PATH
 
+# speed up git clone
+export rvm_git_clone_depth=1
+
 travis_retry() {
   local result=0
   local count=1
