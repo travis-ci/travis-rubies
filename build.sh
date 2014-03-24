@@ -122,6 +122,7 @@ fold_end publish
 # make sure it installs
 fold_start check.2 "make sure it installs"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+  rvm use 1.9.3 --fuzzy
   rvm remove $RUBY
   echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies/binaries
   rvm_remote_server_type3=rubies
