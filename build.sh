@@ -66,15 +66,17 @@ echo -n > $rvm_path/user/db || true
 fold_end rvm.2
 
 #######################################################
-# install smf
+# install smf etc
 if which sw_vers >> /dev/null; then
-  fold_start rvm.3 "setting up smf"
+  fold_start rvm.3 "OSX specific setup"
   curl -L https://get.smf.sh | sh
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
   rvm autolibs smf
   sudo mkdir -p /etc/openssl
   sudo chown -R $USER: /etc/openssl
   rvm use 1.9.3
+  mkdir -p $rvm_path/patchsets/ruby
+  echo "" > $rvm_path/patchsets/ruby/osx_static
   fold_end rvm.3
 fi
 
