@@ -74,6 +74,7 @@ if which sw_vers >> /dev/null; then
   rvm autolibs smf
   sudo mkdir -p /etc/openssl
   sudo chown -R $USER: /etc/openssl
+  rvm use 1.9.3
   fold_end rvm.3
 fi
 
