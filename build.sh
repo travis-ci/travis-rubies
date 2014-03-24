@@ -87,9 +87,9 @@ rvm alias delete $RUBY
 rvm remove $RUBY
 
 case $RUBY in
-ruby-1.8*)  rvm install $RUBY --verify-downloads 1;;
-ruby-*)     rvm install $RUBY --verify-downloads 1 --movable;;
-*)          rvm install $RUBY --verify-downloads 1;;
+ruby-1.8*)  rvm install $RUBY --verify-downloads 1 --disable-install-doc;;
+ruby-*)     rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc;;
+*)          rvm install $RUBY --verify-downloads 1 --disable-install-doc;;
 esac
 
 rvm prepare $RUBY
