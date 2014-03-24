@@ -73,7 +73,7 @@ if which sw_vers >> /dev/null; then
   rvm autolibs smf
   sudo mkdir -p /etc/openssl
   sudo chown -R $USER: /etc/openssl
-  rvm use 1.9.3
+  rvm use 2.0.0 --fuzzy
   mkdir -p $rvm_path/patchsets/ruby
   echo "" > $rvm_path/patchsets/ruby/osx_static
   fold_end rvm.3
