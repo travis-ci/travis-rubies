@@ -52,7 +52,7 @@ fold_end() {
 # update rvm
 fold_start rvm.1 "update rvm"
 rvm remove 1.8.7
-rvm get stable
+rvm get head
 rvm reload
 rvm cleanup all
 fold_end rvm.1
