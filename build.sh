@@ -110,6 +110,7 @@ fold_end check.1
 # publish to bucket
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+  rvm use 1.9.3 --fuzzy
   gem install faraday -v 0.8.9
   gem install travis-artifacts
   travis-artifacts upload --path $RUBY.* --target-path binaries/$(travis_rvm_os_path)
@@ -122,7 +123,6 @@ fold_end publish
 # make sure it installs
 fold_start check.2 "make sure it installs"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-  rvm use 1.9.3 --fuzzy
   rvm remove $RUBY
   echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies/binaries
   rvm_remote_server_type3=rubies
