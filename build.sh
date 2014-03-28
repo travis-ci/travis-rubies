@@ -110,10 +110,9 @@ fold_end check.1
 # publish to bucket
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-  rvm use 1.9.3 --fuzzy
-  gem install faraday -v 0.8.9
-  gem install travis-artifacts
-  travis-artifacts upload --path $RUBY.* --target-path binaries/$(travis_rvm_os_path)
+  rvm use 1.9.3 do gem install faraday -v 0.8.9
+  rvm use 1.9.3 do gem install travis-artifacts
+  rvm use 1.9.3 do travis-artifacts upload --path $RUBY.* --target-path binaries/$(travis_rvm_os_path)
 else
   echo "This is a Pull Request, not publishing."
 fi
