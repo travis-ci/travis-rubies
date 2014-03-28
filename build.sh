@@ -7,6 +7,8 @@ announce() {
 
 announce source ./build_info.sh
 [[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
+export RUBY=$(rvm strings $RUBY)
+export RUBY=${RUBY//[[:blank:]]/}
 echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
 
 announce unset CC
