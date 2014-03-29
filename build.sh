@@ -103,7 +103,7 @@ announce rvm remove $RUBY
 case $RUBY in
 ruby-1.8*)  announce rvm install $RUBY --verify-downloads 1 --disable-install-doc;;
 ruby-*)     announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc;;
-*)          announce rvm install $RUBY --verify-downloads 1 --disable-install-doc;;
+*)          announce rvm install $RUBY --verify-downloads 1;;
 esac
 
 announce rvm prepare $RUBY
