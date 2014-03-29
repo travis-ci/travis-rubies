@@ -14,6 +14,7 @@ module Travis::Rubies
     post '/rebuild/:ruby' do
       check_auth
       Update.build params[:ruby]
+      Update.build 'ruby-head-clang' if params[:ruby] == 'ruby-head'
       "OK"
     end
 
