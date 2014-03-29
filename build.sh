@@ -144,7 +144,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   rvm_remote_server_type3=rubies
   rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
   announce cat $rvm_path/user/db
-  announce rvm install $RUBY --binary
+  announce travis_retry rvm install $RUBY --binary
 else
   echo "This is a Pull Request, skipping."
 fi
