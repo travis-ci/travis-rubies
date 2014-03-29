@@ -1,1 +1,1 @@
-export RUBY=2.1.0
+export RUBY=ree-1.8.7-2011.12
