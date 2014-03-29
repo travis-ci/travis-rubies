@@ -1,1 +1,1 @@
-export RUBY=ruby-2.0.0-p353
+export RUBY=jruby-1.7.11
