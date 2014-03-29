@@ -1,1 +1,1 @@
-export RUBY=ruby-1.9.3-p545-railsexpress
+export RUBY=2.1.0
