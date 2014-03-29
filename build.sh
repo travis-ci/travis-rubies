@@ -112,7 +112,7 @@ fold_end build
 #######################################################
 # make sure bundler works
 fold_start check.1 "make sure bundler works"
-echo "source 'https://rubygems.org'; gem 'rails'" > Gemfile
+echo "source 'https://rubygems.org'; gem 'sinatra'" > Gemfile
 announce travis_retry rvm $RUBY do gem install bundler
 announce travis_retry rvm $RUBY do bundle install
 fold_end check.1
