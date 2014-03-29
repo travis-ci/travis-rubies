@@ -118,9 +118,13 @@ fold_end build
 #######################################################
 # make sure bundler works
 fold_start check.1 "make sure bundler works"
-echo "source 'https://rubygems.org'; gem 'sinatra'" > Gemfile
-announce travis_retry rvm $RUBY do gem install bundler
-announce travis_retry rvm $RUBY do bundle install
+if [ -n "${SKIP_CHECK}" ]; then
+  echo '$SKIP_CHECK is set, skipping bundler check'
+else
+  echo "source 'https://rubygems.org'; gem 'sinatra'" > Gemfile
+  announce travis_retry rvm $RUBY do gem install bundler
+  announce travis_retry rvm $RUBY do bundle install
+fi
 fold_end check.1
 
 #######################################################
