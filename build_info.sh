@@ -1,2 +1,1 @@
-export RUBY=jruby-head
-export SKIP_CHECK=1
+export RUBY=ruby-2.0.0-p353
