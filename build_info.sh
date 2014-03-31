@@ -1,1 +1,1 @@
-export RUBY=rbx
+export RUBY=rbx-2.2.6
