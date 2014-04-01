@@ -23,7 +23,7 @@ module Travis::Rubies
 
     def os_archs
       @os_archs ||= rubies.group_by { |r| OsArch.new(r.os, r.os_version, r.arch) }.
-        map { |a,r| a.rubies = r.sort_by(&:last_modified).reverse; a }
+        map { |a,r| a.rubies = r.sort_by(&:name).reverse; a }
     end
   end
 end
