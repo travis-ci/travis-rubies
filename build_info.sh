@@ -1,1 +1,1 @@
-export RUBY=macruby
+export RUBY=maglev
