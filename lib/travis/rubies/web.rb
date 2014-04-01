@@ -46,7 +46,7 @@ __END__
 @@ rubinius
 <p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/">Travis CI</a>.</p>
 <div class="rubinius"><%= erb(:list) %></div>
-<p>The <a href="http://rubini.us/">Rubinius</a> is responsible for compiling and providing these binaries.</p>
+<p>The <a href="http://rubini.us/">Rubinius</a> team is responsible for compiling and providing these binaries.</p>
 
 @@ list
 <div class="rubies">
