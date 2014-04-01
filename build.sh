@@ -4,7 +4,6 @@ announce() {
   $@
 }
 
-
 announce source ./build_info.sh
 [[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
 export RUBY=$(rvm strings $RUBY)
@@ -101,6 +100,12 @@ announce rvm alias delete $RUBY
 announce rvm remove $RUBY
 
 case $RUBY in
+mruby*)
+  announce export SKIP_CHECK=1
+  if which apt-get >> /dev/null; then
+    announce sudo apt-get -q install gperf
+  fi
+  announce rvm install $RUBY --verify-downloads 1;;
 ruby-1.*)
   if which sw_vers >> /dev/null; then
     echo "not building $RUBY on OSX, can't statically compile it"

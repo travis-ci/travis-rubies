@@ -1,2 +1,1 @@
-export RUBY=mruby
-export SKIP_CHECK=1
+export RUBY=mruby-1.0.0
