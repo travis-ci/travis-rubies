@@ -44,7 +44,7 @@ __END__
 <p>As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p>
 
 @@ rubinius
-<p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/">Travis CI</a>. The <i>head</i> versions will be automatically updated.</p>
+<p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/">Travis CI</a>.</p>
 <div class="rubinius"><%= erb(:list) %></div>
 <p>The <a href="http://rubini.us/">Rubinius</a> is responsible for compiling and providing these binaries.</p>
 
