@@ -4,20 +4,29 @@ require 'open-uri'
 
 module Travis::Rubies
   class List
-    PATTERN = %r{binaries/(?<os>.*)/(?<os_version>.*)/(?<arch>.*)/(?<name>.*)\.tar}
+    def self.travis
+      new("https://s3.amazonaws.com/travis-rubies/", "binaries/")
+    end
+
+    def self.rubinius
+      new("http://binaries.rubini.us")
+    end
+
     Ruby    = Struct.new(:name, :os, :os_version, :arch, :last_modified)
     OsArch  = Struct.new(:os, :os_version, :arch, :rubies)
     attr_reader :xml
 
-    def initialize(content = open("https://s3.amazonaws.com/travis-rubies/"))
-      @xml = Nokogiri::XML(content)
+    def initialize(content, prefix = "")
+      content  = open(content) if content.start_with? 'http'
+      @pattern = %r{#{prefix}(?<os>.*)/(?<os_version>.*)/(?<arch>.*)/(?<name>.*)\.tar\.(?<format>[^\.]+)$}
+      @xml     = Nokogiri::XML(content)
     end
 
     def rubies
       @xml.css('Contents').map do |element|
-        next unless match  = PATTERN.match(element.css('Key').text)
+        next unless match  = @pattern.match(element.css('Key').text)
         time = Time.parse(element.css('LastModified').text)
-        Ruby.new(match[:name], match[:os], match[:os_version], match[:arch], time)
+        Ruby.new(match[:name].sub('rubinius', 'rbx'), match[:os], match[:os_version], match[:arch], time)
       end.compact
     end
 

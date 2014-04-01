@@ -7,8 +7,13 @@ module Travis::Rubies
     enable :inline_templates
 
     get '/' do
-      @list = List.new
-      erb :list
+      @list = List.travis
+      erb :travis
+    end
+
+    get '/rubinius' do
+      @list = List.rubinius
+      erb :rubinius
     end
 
     post '/rebuild/:ruby' do
@@ -33,8 +38,17 @@ end
 
 __END__
 
+@@ travis
+<p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/rubinius">Rubinius</a>. The <i>head</i> versions will be automatically updated.</p>
+<div class="travis"><%= erb(:list) %></div>
+<p>As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p>
+
+@@ rubinius
+<p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/">Travis CI</a>. The <i>head</i> versions will be automatically updated.</p>
+<div class="rubinius"><%= erb(:list) %></div>
+<p>The <a href="http://rubini.us/">Rubinius</a> is responsible for compiling and providing these binaries.</p>
+
 @@ list
-<p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, JRuby and Rubinius. The <i>head</i> versions will be automatically updated.</p>
 <div class="rubies">
   <% @list.os_archs.each do |os_arch| %>
     <div class="os_arch">
@@ -47,7 +61,6 @@ __END__
     </div>
   <% end %>
 </div>
-<p>As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p>
 
 @@ layout
 
@@ -63,7 +76,12 @@ __END__
     .os_arch {
       float: left;
       padding: 0 20px;
+    }
+    .travis .os_arch {
       width: 250px;
+    }
+    .rubinius .os_arch {
+      width: 150px;
     }
     .os_arch li * {
       white-space: nowrap;
