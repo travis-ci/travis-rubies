@@ -69,6 +69,7 @@ __END__
     <title>Travis CI: Precompiled Ruby Versions</title>
     <link rel="stylesheet" href="http://docs.travis-ci.com/style.css">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,800' rel='stylesheet' type='text/css'>
+    <link rel="icon" type="image/png" href="https://travis-ci.org/favicon.ico">
     <style>
     .rubies {
       overflow: hidden;
