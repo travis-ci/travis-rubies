@@ -4,23 +4,6 @@ announce() {
   $@
 }
 
-announce source ./build_info.sh
-[[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
-export RUBY=$(rvm strings $RUBY)
-export RUBY=${RUBY//[[:blank:]]/}
-echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
-
-announce unset CC
-if [ `expr $RUBY : '.*-clang$'` -gt 0 ]; then
-  announce export CC=${RUBY##*-}
-fi
-
-announce source ~/.bashrc
-announce unset DYLD_LIBRARY_PATH
-
-# speed up git clone
-announce export rvm_git_clone_depth=1
-
 travis_retry() {
   local result=0
   local count=1
@@ -77,9 +60,17 @@ echo "done"
 fold_end rvm.2
 
 #######################################################
+# prepare env
+fold_start rvm.3 "set up env for rvm"
+announce source ~/.bashrc
+announce unset DYLD_LIBRARY_PATH
+announce export rvm_git_clone_depth=1 # speed up git clone
+fold_end rvm.3
+
+#######################################################
 # install smf etc
 if which sw_vers >> /dev/null; then
-  fold_start rvm.3 "OSX specific setup"
+  fold_start rvm.4 "OSX specific setup"
   echo "\$ curl -L https://get.smf.sh | sh"
   curl -L https://get.smf.sh | sh
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
@@ -90,8 +81,22 @@ if which sw_vers >> /dev/null; then
   announce mkdir -p $rvm_path/patchsets/ruby
   echo '$ echo "" > $rvm_path/patchsets/ruby/osx_static'
   echo "" > $rvm_path/patchsets/ruby/osx_static
-  fold_end rvm.3
+  fold_end rvm.4
 fi
+
+#######################################################
+# check $RUBY
+fold_start ruby "check which ruby to build"
+announce source ./build_info.sh
+[[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
+export RUBY=$(rvm strings $RUBY)
+announce export RUBY=${RUBY//[[:blank:]]/}
+echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
+announce unset CC
+if [ `expr $RUBY : '.*-clang$'` -gt 0 ]; then
+  announce export CC=${RUBY##*-}
+fi
+fold_end ruby
 
 #######################################################
 # build the binary
