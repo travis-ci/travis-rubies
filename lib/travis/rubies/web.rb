@@ -6,6 +6,10 @@ module Travis::Rubies
     set :signatures, ENV.fetch('TRAVIS_SIGNATURES').split(':')
     enable :inline_templates
 
+    before do
+      redirect 'http://rubies.travis-ci.org' if request.ssl? and request.get?
+    end
+
     get '/' do
       @list = List.travis
       erb :travis
