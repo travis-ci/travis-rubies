@@ -82,6 +82,11 @@ if which sw_vers >> /dev/null; then
   echo '$ echo "" > $rvm_path/patchsets/ruby/osx_static'
   echo "" > $rvm_path/patchsets/ruby/osx_static
   fold_end rvm.4
+else
+  fold_start rvm.4 "Linux specific setup"
+  announce sudo apt-get update
+  announce sudo apt-get install libssl1.0.0 openssl
+  fold_end rvm.4
 fi
 
 #######################################################
