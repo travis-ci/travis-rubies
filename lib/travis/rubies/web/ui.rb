@@ -10,6 +10,11 @@ module Travis::Rubies::Web
       erb env['travis.template']
     end
 
+    get '/index.txt' do
+      content_type :txt
+      rubies.map { |r| url(r.slug) }.join("\n")
+    end
+
     get '/:os/:os_version/:arch/:name.tar*' do
       not_found("ruby #{params[:name]} not found") unless ruby
       redirect(ruby.url)
