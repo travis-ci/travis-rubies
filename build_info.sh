@@ -1,1 +1,1 @@
-export RUBY=mruby-1.0.0
+export RUBY=jamesgolick
