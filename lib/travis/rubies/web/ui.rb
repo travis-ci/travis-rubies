@@ -2,11 +2,8 @@ module Travis::Rubies::Web
   class UI < Sinatra::Base
     enable :inline_templates
 
-    before do
-      redirect 'http://rubies.travis-ci.org' if request.ssl? and request.get?
-    end
-
     get '/' do
+      redirect 'http://rubies.travis-ci.org' if request.ssl?
       erb env['travis.template']
     end
 
