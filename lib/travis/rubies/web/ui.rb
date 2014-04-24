@@ -3,21 +3,25 @@ module Travis::Rubies::Web
     enable :inline_templates
 
     get '/' do
+      Travis::Rubies.meter(:view, :index)
       redirect 'http://rubies.travis-ci.org' if request.ssl?
       erb env['travis.template']
     end
 
     get '/index.txt' do
+      Travis::Rubies.meter(:view, 'index.txt')
       content_type :txt
       rubies.map { |r| url(r.slug) }.join("\n")
     end
 
     get '/:os/:os_version/:arch/:name.tar*' do
+      Travis::Rubies.meter(:download, params[:os], params[:os_version], params[:arch], params[:name])
       not_found("ruby #{params[:name]} not found") unless ruby
       redirect(ruby.url)
     end
 
     get '/:os/:os_version/:arch/:name' do
+      Travis::Rubies.meter(:view, params[:os], params[:os_version], params[:arch], params[:name])
       not_found(erb("<p>Ruby version not found! :(</p>")) unless ruby
       erb :ruby
     end
