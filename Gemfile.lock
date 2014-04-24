@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/eric/metriks-librato_metrics.git
-  revision: 6ceeb78f419d990e5815443f7627aca848aa3810
+  revision: c606d2bc82b2eb4e05ddee6efc0ec87ca34b499e
   specs:
     metriks-librato_metrics (0.0)
       metriks (>= 0.9.9.6)
