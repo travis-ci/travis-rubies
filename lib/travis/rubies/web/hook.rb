@@ -6,6 +6,7 @@ module Travis::Rubies::Web
       check_auth
       Travis::Rubies::Update.build params[:ruby]
       Travis::Rubies::Update.build 'ruby-head-clang' if params[:ruby] == 'ruby-head'
+      Travis::Rubies.meter(:build, params[:ruby])
       "OK"
     end
 
