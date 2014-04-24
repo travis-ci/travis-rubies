@@ -7,6 +7,8 @@ module Travis::Rubies
     require 'travis/rubies/web/hook'
 
     Map = Rack::Builder.app do
+      use Rack::CommonLogger if ENV['RACK_ENV'] == 'production'
+
       map '/rebuild' do
         run Hook
       end
