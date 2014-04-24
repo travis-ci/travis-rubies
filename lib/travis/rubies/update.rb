@@ -27,7 +27,7 @@ module Travis::Rubies
       gh.put("repos/#{@slug}/contents/#{path}", payload.merge('sha' => current['sha']))
     rescue GH::Error => error
       raise error unless payload
-      gh.put("repos/#{@slug}/contents/#{path}", payload)
+      gh.put("repos/#{@slug}/contents/#{path}", payload) rescue raise(error)
     end
   end
 end
