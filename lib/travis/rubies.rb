@@ -20,8 +20,11 @@ module Travis
     extend self
 
     def meter(*args)
-      name = args.map { |a| a.to_s.gsub(/[^A-Za-z0-9.:\-_]/, '_').gsub(/__+/, '_') }.reject(&:empty?).join('.')
-      ::Metriks.meter("rubies.#{name}").mark
+      prefix = "rubies"
+      args.each do |arg|
+        arg = arg.to_s.gsub(/[^A-Za-z0-9\.:\-_]/, '_').gsub(/__+/, '_')
+        ::Metriks.meter(prefix << '.' << arg).mark
+      end
     end
   end
 end

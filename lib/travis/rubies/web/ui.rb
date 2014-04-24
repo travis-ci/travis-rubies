@@ -16,6 +16,7 @@ module Travis::Rubies::Web
 
     get '/:os/:os_version/:arch/:name.tar*' do
       Travis::Rubies.meter(:download, params[:os], params[:os_version], params[:arch], params[:name])
+      Travis::Rubies.meter(:ruby, params[:name])
 
       if ruby
         Travis::Rubies.meter(:found, params[:os], params[:os_version], params[:arch], params[:name])
