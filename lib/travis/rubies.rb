@@ -2,9 +2,12 @@ require 'metriks'
 
 if email = ENV['LIBRATO_EMAIL'] and token = ENV['LIBRATO_TOKEN']
   require 'metriks/librato_metrics_reporter'
-  Metriks::LibratoMetricsReporter.new(email, token, source: 'travis-rubies').start
+  $stderr.puts 'sending metrics to librato'
+  on_error = proc {|ex| $stderr.puts "librato error: #{ex.message} (#{ex.response.body})"}
+  Metriks::LibratoMetricsReporter.new(email, token, source: 'travis-rubies', on_error: on_error).start
 else
   require 'metriks/reporter/logger'
+  $stderr.puts 'sending metrics to stderr'
   Metriks::Reporter::Logger.new(:logger => Logger.new($stderr)).start
 end
 
