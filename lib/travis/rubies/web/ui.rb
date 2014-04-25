@@ -14,6 +14,11 @@ module Travis::Rubies::Web
       rubies.map { |r| url(r.slug) }.join("\n")
     end
 
+    get '/usage' do
+      Travis::Rubies.meter(:view, 'usage')
+      erb :usage
+    end
+
     get '/:os/:os_version/:arch/:name.tar*' do
       Travis::Rubies.meter(:download, params[:os], params[:os_version], params[:arch], params[:name])
       Travis::Rubies.meter(:ruby, params[:name])
@@ -65,6 +70,24 @@ module Travis::Rubies::Web
 end
 
 __END__
+
+@@ usage
+<p>This website provides up to date, precompiled, (mostly) statically linked Ruby versions. You can download these directly by choosing the desired version for your operating system from the <a href="/">list of versions</a> for your Operating System.</p>
+<p>In addition, it integrates well with different Ruby versioning tools.</p>
+
+<p><h2>Ruby Version Manager (RVM)</h2></p>
+<p><a href="https://github.com/wayneeseguin/rvm/releases/tag/1.25.23">RVM 1.25.23</a> or later will automatically try to download binaries (after first trying the RVM server, the JRuby server and then the Rubinius server).</p>
+<p>Combine the <code>reinstall</code> command with the <code>--binary</code> flag to keep recompiled Ruby versions up to date:<p>
+<p><pre><code>rvm reinstall ruby-head --binary</code></pre></p>
+<p>If you have an outdated RVM version, update it by running <code>rvm get stable</code>.</p>
+
+<p><h2>rbenv and chruby</h2></p>
+<p>Manually download the appropriate Ruby version and place in the a subdirectory in <code>~/.rbenv/versions</code> or <code>/opt/rubies</code>, respectively.</p>
+<p>Alternatively, you can use a Ruby installer to automatically fetch binaries (see below).</p>
+
+<p><h2>ruby-install</h2></p>
+<p>After the <a href="https://github.com/postmodern/ruby-install/pull/138">pull request adding binary support</a> has been merged, you can use this feature to download binaries from our server.</p>
+<p><pre><code>ruby-install --binary -M https://rubies.travis-ci.org/ ruby 2.1.1</code></pre></p>
 
 @@ travis
 <p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/rubinius">Rubinius</a>. The <i>head</i> versions will be automatically updated.</p>
@@ -139,6 +162,7 @@ __END__
         <ul>
           <li><a href="/">Travis Rubies</a></li>
           <li><a href="/rubinius">Rubinius</a></li>
+          <li><a href="/usage">Usage</a></li>
         </ul>
       </div>
     </div>
