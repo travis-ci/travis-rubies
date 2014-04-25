@@ -20,14 +20,14 @@ module Travis::Rubies::Web
     end
 
     get '/:os/:os_version/:arch/:name.tar*' do
-      Travis::Rubies.meter(:download, params[:os], params[:os_version], params[:arch], params[:name])
+      Travis::Rubies.meter(:download, params[:os], params[:os_version])
       Travis::Rubies.meter(:ruby, params[:name])
 
       if ruby
-        Travis::Rubies.meter(:found, params[:os], params[:os_version], params[:arch], params[:name])
+        Travis::Rubies.meter(:found, params[:name])
         redirect(ruby.url)
       else
-        Travis::Rubies.meter(:missing, params[:os], params[:os_version], params[:arch], params[:name])
+        Travis::Rubies.meter(:missing, params[:name])
         not_found("ruby #{params[:name]} not found")
       end
     end
