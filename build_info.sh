@@ -1,1 +1,1 @@
-export RUBY=jruby
+export RUBY=mruby-head
