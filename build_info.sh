@@ -1,1 +1,1 @@
-export RUBY=ruby-2.1.2-clang
+export RUBY=mruby-head
