@@ -146,7 +146,9 @@ fold_end check.1
 # publish to bucket
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-  announce rvm 2.0.0 --fuzzy do gem install travis-artifacts --no-rdoc --no-ri
+  announce rvm 2.0.0 --fuzzy do gem --version
+  announce rvm 2.0.0 --fuzzy do gem list
+  travis_retry announce rvm 2.0.0 --fuzzy do gem --debug install travis-artifacts --no-rdoc --no-ri
   announce rvm 2.0.0 --fuzzy do travis-artifacts upload --path $RUBY.* --target-path binaries/$(travis_rvm_os_path)
 else
   echo "This is a Pull Request, not publishing."
