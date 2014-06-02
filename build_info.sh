@@ -1,1 +1,1 @@
-export RUBY=maglev
+export RUBY=ruby-head
