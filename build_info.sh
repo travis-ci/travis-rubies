@@ -1,1 +1,1 @@
-export RUBY=mruby-head
+export RUBY=1.8.7
