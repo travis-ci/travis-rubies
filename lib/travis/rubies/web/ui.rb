@@ -158,7 +158,7 @@ __END__
   <body>
     <div id="navigation">
       <div class="wrapper">
-        <a href="/" class="logo-home"><img src="http://docs.travis-ci.com/images/travisci-small.png" alt="Travis Logo"></a>
+        <a href="/" class="logo-home"><img src="http://docs.travis-ci.com/images/logo.svg" alt="Travis Logo"></a>
         <ul>
           <li><a href="/">Travis Rubies</a></li>
           <li><a href="/rubinius">Rubinius</a></li>
