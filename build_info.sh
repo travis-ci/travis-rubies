@@ -1,1 +1,1 @@
-export RUBY=2.1.3
+export RUBY=2.2.0-preview1
