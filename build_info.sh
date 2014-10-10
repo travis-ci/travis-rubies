@@ -1,1 +1,1 @@
-export RUBY=2.0.0-p576
+export RUBY=ruby-head
