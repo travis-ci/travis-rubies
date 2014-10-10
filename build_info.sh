@@ -1,1 +1,1 @@
-export RUBY=ruby-head-clang
+export RUBY=2.0.0-p576
