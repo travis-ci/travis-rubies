@@ -1,5 +1,5 @@
 language: c
-os: [linux, osx]
+os: osx
 osx_image: mavericks
 before_install: rvm get head
 script: ./build.sh
