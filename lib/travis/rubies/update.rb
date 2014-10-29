@@ -10,7 +10,7 @@ module Travis::Rubies
 
     def initialize(options = {})
       @github_token = options[:github_token] || ENV.fetch("GITHUB_TOKEN")
-      @branches     = options[:branches]     || ['build', 'osx-10.8']
+      @branches     = options[:branches]     || ['build']
       @slug         = options[:slug]         || 'travis-ci/travis-rubies'
     end
 
