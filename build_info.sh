@@ -1,1 +1,1 @@
-export RUBY=ruby-2.1.5
+export RUBY=ruby-1.9.3-p551
