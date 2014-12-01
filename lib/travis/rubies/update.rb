@@ -12,15 +12,20 @@ module Travis::Rubies
       @github_token = options[:github_token] || ENV.fetch("GITHUB_TOKEN")
       @branches     = options[:branches]     || ['build']
       @slug         = options[:slug]         || 'travis-ci/travis-rubies'
+      @commit       = options[:commit]
+      @commit_url   = options[:commit_url]
     end
 
     def build(ruby)
       content = "export RUBY=%s\n" % Shellwords.escape(ruby)
       message = "trigger new build for %s" % ruby
+      message << " #{@commit}"      if @commit
+      message << "\n#{@commit_url}" if @commit_url
       @branches.each { |branch| write("build_info.sh", content, message, branch) }
     end
 
     def write(path, content, message, branch)
+      puts "#{path} #{content} #{message} #{branch}"
       gh      = GH.with(token: @github_token)
       payload = { message: message, path: path, content: Base64.strict_encode64(content), branch: branch }
       current = gh["repos/#{@slug}/contents/#{path}?ref=#{branch}"]

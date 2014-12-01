@@ -1,11 +1,18 @@
+require 'json'
+
 module Travis::Rubies::Web
   class Hook < Sinatra::Base
     set :signatures, ENV.fetch('TRAVIS_SIGNATURES').split(':')
 
+    before do
+      request.body.rewind
+      @payload = JSON.parse(params[:payload])
+    end
+
     post '/:ruby' do
       check_auth
-      Travis::Rubies::Update.build params[:ruby]
-      Travis::Rubies::Update.build 'ruby-head-clang' if params[:ruby] == 'ruby-head'
+      Travis::Rubies::Update.build params[:ruby],     commit: @payload["commit"], commit_url: @payload["commit_url"]
+      Travis::Rubies::Update.build 'ruby-head-clang', commit: @payload["commit"], commit_url: @payload["commit_url"] if params[:ruby] == 'ruby-head'
       Travis::Rubies.meter(:build, params[:ruby])
       "OK"
     end
