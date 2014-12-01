@@ -19,7 +19,7 @@ module Travis::Rubies
     def build(ruby)
       content = "export RUBY=%s\n" % Shellwords.escape(ruby)
       message = "trigger new build for %s" % ruby
-      message << " #{@commit}"      if @commit
+      message << " (#{@commit[0,7]})"      if @commit
       message << "\n#{@commit_url}" if @commit_url
       @branches.each { |branch| write("build_info.sh", content, message, branch) }
     end
