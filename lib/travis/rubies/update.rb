@@ -25,7 +25,6 @@ module Travis::Rubies
     end
 
     def write(path, content, message, branch)
-      puts "#{path} #{content} #{message} #{branch}"
       gh      = GH.with(token: @github_token)
       payload = { message: message, path: path, content: Base64.strict_encode64(content), branch: branch }
       current = gh["repos/#{@slug}/contents/#{path}?ref=#{branch}"]
