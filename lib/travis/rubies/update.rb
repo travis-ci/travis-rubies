@@ -21,7 +21,7 @@ module Travis::Rubies
       message = "trigger new build for %s" % ruby
       message << " (#{@commit[0,7]})"      if @commit
       message << "\n#{@commit_url}" if @commit_url
-      @branches.each { |branch| write("build_info.sh", content, message, branch) }
+      @branches.each { |branch| write("build_info.sh", content, message, branch); sleep 2 }
     end
 
     def write(path, content, message, branch)
