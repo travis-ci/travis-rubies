@@ -3,7 +3,9 @@ os:
   - linux
   - osx
 osx_image: mavericks
-before_install: rvm get head
+before_install: 
+  - rvm get head
+  - git fetch --unshallow
 script: ./build.sh
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 env:
