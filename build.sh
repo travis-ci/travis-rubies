@@ -76,8 +76,9 @@ if which sw_vers >> /dev/null; then
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
   if which brew > /dev/null; then
     announce rvm autolibs homebrew
+  else
+    announce rvm autolibs smf
   fi
-  announce rvm autolibs smf
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
   announce rvm use 2.0.0 --fuzzy
