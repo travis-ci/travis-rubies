@@ -127,7 +127,12 @@ ruby-1.*)
   else
     announce rvm install $RUBY --verify-downloads 1 --disable-install-doc
   fi;;
-ruby-*) announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc;;
+ruby-*)
+  if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+    curl -L https://get.smf.sh | sh
+    rvm autolibs smf
+  fi
+  announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc;;
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
