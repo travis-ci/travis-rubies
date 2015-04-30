@@ -1,1 +1,1 @@
-export RUBY=jruby-9.0.0.0.pre2
+export RUBY=mruby-head
