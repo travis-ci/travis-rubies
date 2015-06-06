@@ -128,7 +128,7 @@ ruby-1.*)
     announce rvm install $RUBY --verify-downloads 1 --disable-install-doc
   fi;;
 ruby-*)
-  if [[ $RUBY = *head ]]; then
+  if [[ $RUBY = *head ]] || [[ $RUBY = *head-clang ]]; then
     announce export SKIP_CHECK=1
   fi
   if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
