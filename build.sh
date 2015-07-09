@@ -158,8 +158,8 @@ fold_end check.1
 # publish to bucket
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-  ARTIFACTS_KEY=$ARTIFACTS_AWS_ACCESS_KEY_ID
-  ARTIFACTS_SECRET=$ARTIFACTS_AWS_SECRET_ACCESS_KEY
+  export ARTIFACTS_KEY=$ARTIFACTS_AWS_ACCESS_KEY_ID
+  export ARTIFACTS_SECRET=$ARTIFACTS_AWS_SECRET_ACCESS_KEY
 
   mkdir -p $HOME/bin
   PATH=$HOME/bin:$PATH
