@@ -158,9 +158,14 @@ fold_end check.1
 # publish to bucket
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
-  announce rvm 2.0.0 --fuzzy do gem install faraday_middleware -v 0.9.1
-  announce rvm 2.0.0 --fuzzy do gem install travis-artifacts --no-rdoc --no-ri
-  announce rvm 2.0.0 --fuzzy do travis-artifacts upload --path $RUBY.* --target-path binaries/$(travis_rvm_os_path)
+  ARTIFACTS_KEY=$ARTIFACTS_AWS_ACCESS_KEY_ID
+  ARTIFACTS_SECRET=$ARTIFACTS_AWS_SECRET_ACCESS_KEY
+
+  mkdir -p $HOME/bin
+  PATH=$HOME/bin:$PATH
+
+  curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
+  announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
 else
   echo "This is a Pull Request, not publishing."
 fi
