@@ -47,6 +47,7 @@ function update_mvn() {
   wget http://mirrors.ibiblio.org/apache/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz
   tar xzf apache-maven-$VERSION-bin.tar.gz
   export PATH=$PWD/apache-maven-$VERSION/bin:$PATH
+  announce cat /etc/mavenrc
   mvn -version
 }
 
