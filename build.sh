@@ -43,12 +43,13 @@ fold_end() {
 
 function update_mvn() {
   VERSION=$1
-  echo "Updating maven to $VERSION"
+  fold_start mvn.1 "update mvn to $VERSION"
   wget http://mirrors.ibiblio.org/apache/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz
   tar xzf apache-maven-$VERSION-bin.tar.gz
   export PATH=$PWD/apache-maven-$VERSION/bin:$PATH
-  announce cat /etc/mavenrc
+  export M2_HOME=$PWD/apache-maven-$VERSION
   mvn -version
+  fold_end mvn.1
 }
 
 #######################################################
