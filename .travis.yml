@@ -12,8 +12,7 @@ matrix:
     dist: trusty
   - os: osx
   allow_failures:
-  - os: linux
-    dist: trusty
+  - dist: trusty
   fast_finish: true
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
