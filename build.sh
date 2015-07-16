@@ -41,6 +41,14 @@ fold_end() {
   echo -e "\ntravis_fold:end:$1\r"
 }
 
+function update_mvn() {
+  VERSION=$1
+  echo "Updating maven to $VERSION"
+  wget http://mirrors.ibiblio.org/apache/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz
+  tar xzf apache-maven-$VERSION-bin.tar.gz
+  export PATH=$PWD/apache-maven-$VERSION/bin:$PATH
+}
+
 #######################################################
 # update rvm
 fold_start rvm.1 "update rvm"
@@ -136,6 +144,9 @@ ruby-*)
     rvm autolibs smf
   fi
   announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc;;
+jruby-head)
+  update_mvn 3.3.3
+  announce rvm install $RUBY --verify-downloads 1;;
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
