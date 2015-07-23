@@ -9,10 +9,10 @@ matrix:
   include:
   - os: linux
   - os: linux
-    dist: trusty
+    sudo: 9000
   - os: osx
   allow_failures:
-  - dist: trusty
+  - sudo: 9000
   fast_finish: true
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
