@@ -12,8 +12,10 @@ matrix:
     sudo: 9000
   - os: osx
     osx_image: xcode6.4
+  - os: osx
   allow_failures:
   - sudo: 9000
+  - os: osx
   fast_finish: true
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
