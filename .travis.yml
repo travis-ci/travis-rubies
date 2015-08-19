@@ -11,6 +11,7 @@ matrix:
   - os: linux
     sudo: 9000
   - os: osx
+    osx_image: xcode6.4
   allow_failures:
   - sudo: 9000
   fast_finish: true
