@@ -1,1 +1,1 @@
-export RUBY=jruby-d19
+export RUBY=ruby-head
