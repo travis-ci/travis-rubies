@@ -9,12 +9,13 @@ matrix:
   include:
   - os: linux
   - os: linux
-    services: [docker]
+    services: docker
+    group: edge
   - os: osx
     osx_image: xcode6.4
   - os: osx
   allow_failures:
-  - services: [docker]
+  - services: docker
   - os: osx
   fast_finish: true
 
