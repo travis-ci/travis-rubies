@@ -55,6 +55,7 @@ function update_mvn() {
 #######################################################
 # update rvm
 fold_start rvm.1 "update rvm"
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 announce rvm remove 1.8.7
 announce rvm get head
 announce rvm reload
