@@ -1,1 +1,1 @@
-export RUBY=jruby-9.0.3.0
+export RUBY=jruby-9.0.1.0
