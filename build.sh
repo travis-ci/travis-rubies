@@ -138,6 +138,8 @@ ruby-1.*)
   else
     announce rvm install $RUBY --verify-downloads 1 --disable-install-doc
   fi;;
+
+  rvm $RUBY do ldd `which ruby`
 ruby-*)
   if [[ $RUBY = *head ]] || [[ $RUBY = *head-clang ]]; then
     announce export SKIP_CHECK=1
