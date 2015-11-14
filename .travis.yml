@@ -1,6 +1,7 @@
 language: c
 
 script:
+- find / -name libruby.so.1.8
 - unset JRUBY_OPTS
 - ./build.sh
 
