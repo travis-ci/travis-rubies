@@ -52,13 +52,11 @@ function update_mvn() {
   fold_end mvn.1
 }
 
-function show_links() {
-  if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
-    otool -L $@
-  else
-    ldd $@
-  fi
-}
+if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+  show_links='otool -L'
+else
+  show_links='ldd'
+fi
 
 #######################################################
 # update rvm
@@ -161,8 +159,7 @@ jruby-head)
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
-announce command -v ruby
-announce show_links `command -v ruby`
+announce find $rvm_path/rubies/$RUBY -print -name ruby -exec $show_links {} \;
 
 announce rvm prepare $RUBY
 fold_end build
@@ -208,7 +205,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   announce travis_retry rvm install $RUBY --binary --use
 
   announce command -v ruby
-  announce show_links `command -v ruby`
+  announce $show_links `command -v ruby`
 
 else
   echo "This is a Pull Request, skipping."
