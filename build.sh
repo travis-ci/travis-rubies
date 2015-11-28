@@ -52,6 +52,14 @@ function update_mvn() {
   fold_end mvn.1
 }
 
+function show_links() {
+  if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
+    otool -L $@
+  else
+    ldd $@
+  fi
+}
+
 #######################################################
 # update rvm
 fold_start rvm.1 "update rvm"
@@ -152,6 +160,8 @@ jruby-head)
   announce rvm install $RUBY --verify-downloads 1;;
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
+
+show_links `command -v ruby`
 
 announce rvm prepare $RUBY
 fold_end build
