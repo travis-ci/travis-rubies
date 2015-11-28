@@ -159,7 +159,8 @@ jruby-head)
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
-announce find $rvm_path/rubies/$RUBY -print -name ruby -exec $show_links {} \;
+announce find $rvm_path/rubies/$RUBY -type f -name ruby -print -exec $show_links {} \;
+announce find $rvm_path/rubies/$RUBY -type f -name libruby\*.so -print -exec $show_links {} \;
 
 announce rvm prepare $RUBY
 fold_end build
@@ -202,7 +203,10 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   rvm_remote_server_type3=rubies
   rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
   announce cat $rvm_path/user/db
-  announce travis_retry rvm use $RUBY --binary --install
+  announce travis_retry rvm install $RUBY --binary
+
+  rvm reload
+  rvm use $RUBY
 
   announce command -v ruby
   announce $show_links `command -v ruby`
