@@ -1,1 +1,1 @@
-export RUBY=ruby-2.3.0-preview1
+export RUBY=ruby-2.3.0-preview1-clang
