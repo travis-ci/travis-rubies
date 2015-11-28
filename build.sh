@@ -161,7 +161,8 @@ jruby-head)
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
-show_links `command -v ruby`
+announce command -v ruby
+announce show_links `command -v ruby`
 
 announce rvm prepare $RUBY
 fold_end build
@@ -205,6 +206,10 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   rvm_remote_server_verify_downloads3=1" > $rvm_path/user/db
   announce cat $rvm_path/user/db
   announce travis_retry rvm install $RUBY --binary
+
+  announce command -v ruby
+  announce show_links `command -v ruby`
+
 else
   echo "This is a Pull Request, skipping."
 fi
