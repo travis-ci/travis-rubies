@@ -154,6 +154,7 @@ jruby-head)
 esac
 
 announce find $rvm_path/rubies/$RUBY -type f -name \\*.so -print {} \;
+announce find $rvm_path/rubies/$RUBY -type f -name ruby -print {} \;
 
 announce rvm prepare $RUBY
 fold_end build
