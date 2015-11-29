@@ -153,6 +153,8 @@ jruby-head)
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
+announce find $rvm_path/rubies/$RUBY -type f -name \\*.so -print {} \;
+
 announce rvm prepare $RUBY
 fold_end build
 
