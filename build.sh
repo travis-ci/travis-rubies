@@ -182,6 +182,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   if [[ $RUBY == ruby-1.8.7* ]]; then
     announce ln -s $rvm_path/rubies/$RUBY $rvm_path/rubies/ruby-1.8.7
     announce cp -f $RUBY.tar.bz2 ruby-1.8.7.tar.bz2
+    announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) ruby-1.8.7.tar.bz2
   fi
   announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
 else
