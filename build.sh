@@ -156,6 +156,10 @@ esac
 announce rvm prepare $RUBY
 fold_end build
 
+if [[ $RUBY == ruby-1.8.7* ]]; then
+  announce ln -s $rvm_path/rubies/$RUBY $rvm_path/rubies/ruby-1.8.7
+fi
+
 #######################################################
 # make sure bundler works
 fold_start check.1 "make sure bundler works"
@@ -180,7 +184,6 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
 
   curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
   if [[ $RUBY == ruby-1.8.7* ]]; then
-    announce ln -s $rvm_path/rubies/$RUBY $rvm_path/rubies/ruby-1.8.7
     announce cp -f $RUBY.tar.bz2 ruby-1.8.7.tar.bz2
     announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) ruby-1.8.7.tar.bz2
   fi
