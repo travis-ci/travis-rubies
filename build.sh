@@ -153,9 +153,6 @@ jruby-head)
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
-find $rvm_path/rubies/$RUBY -type f -name \*.so -print -exec ldd {} \;
-find $rvm_path/rubies/$RUBY -type f -name ruby -print -exec ldd {} \;
-
 announce rvm prepare $RUBY
 fold_end build
 
@@ -182,8 +179,9 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   PATH=$HOME/bin:$PATH
 
   curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
-  if [[ $RUBY == *1.8.7* ]]; then
-    cp -f $RUBY.tar.bz2 ruby-1.8.7.tar.bz2
+  if [[ $RUBY == ruby-1.8.7* ]]; then
+    announce ln -s $rvm_path/rubies/$RUBY $rvm_path/rubies/ruby-1.8.7
+    announce cp -f $RUBY.tar.bz2 ruby-1.8.7.tar.bz2
   fi
   announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
 else
