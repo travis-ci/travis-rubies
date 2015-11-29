@@ -109,7 +109,7 @@ fi
 fold_start ruby "check which ruby to build"
 announce source ./build_info.sh
 [[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
-#export RUBY=$(rvm strings $RUBY)
+export RUBY=$(rvm strings $RUBY)
 announce export RUBY=${RUBY//[[:blank:]]/}
 echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
 announce unset CC
@@ -182,6 +182,9 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   PATH=$HOME/bin:$PATH
 
   curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
+  if [[ $RUBY == *1.8.7* ]]; then
+    cp -f $RUBY.tar.bz2 ruby-1.8.7.tar.bz2
+  fi
   announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
 else
   echo "This is a Pull Request, not publishing."
