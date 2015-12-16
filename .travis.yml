@@ -20,6 +20,7 @@ after_failure:
   - find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
   - bash -n $HOME/.rvm/bin/rvm
   - cat -n $HOME/.rvm/bin/rvm
+  - cat -n "${rvm_scripts_path:="$rvm_path/scripts"}/rvm"
 
 env:
   global:
