@@ -18,7 +18,8 @@ matrix:
 
 after_failure:
   - find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
-  - cat $HOME/.rvm/bin/rvm
+  - bash -n $HOME/.rvm/bin/rvm
+  - cat -n $HOME/.rvm/bin/rvm
 
 env:
   global:
