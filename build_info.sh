@@ -1,1 +1,1 @@
-export RUBY=ruby-2.2.4-clang
+export RUBY=ruby-2.1.8
