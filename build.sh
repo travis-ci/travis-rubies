@@ -169,7 +169,7 @@ fi
 fold_end check.1
 
 fold_start check.2 "Find linked shared objects for $RUBY"
-announce rvm $RUBY do ldd `rvm $RUBY do command -v ruby`
+announce rvm $RUBY do ldd `rvm $RUBY do bash -c "command -v ruby"`
 fold_end check.2
 
 #######################################################
