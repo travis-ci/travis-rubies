@@ -168,6 +168,10 @@ else
 fi
 fold_end check.1
 
+fold_start check.2 "Find linked shared objects for $RUBY"
+announce rvm $RUBY do ldd `command -v ruby`
+fold_end check.2
+
 #######################################################
 # publish to bucket
 fold_start publish "upload to S3"
