@@ -7,10 +7,22 @@ script:
 matrix:
   include:
   - os: linux
+    sudo: required
+    dist: precise
+    group: edge
+    before_script: "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+  - os: linux
     before_script: "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
     services: docker
     group: edge
-  
+  - os: osx
+    osx_image: xcode6.4
+  - os: osx
+  allow_failures:
+  - services: docker
+  - os: osx
+  fast_finish: true
+
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
 env:
