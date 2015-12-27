@@ -142,10 +142,6 @@ ruby-*)
   if [[ $RUBY = *head ]] || [[ $RUBY = *head-clang ]]; then
     announce export SKIP_CHECK=1
   fi
-  if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
-    curl -L https://get.smf.sh | sh
-    rvm autolibs smf
-  fi
   announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc -C --without-tcl,--without-tk;;
 jruby-head)
   update_mvn 3.3.3
