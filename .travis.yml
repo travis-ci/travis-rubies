@@ -23,7 +23,7 @@ matrix:
   - os: osx
   fast_finish: true
 
-after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
+after_failure: find $rvm_path/log/ -type f -print exec cat {} \;
 
 env:
   global:
