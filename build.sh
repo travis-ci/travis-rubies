@@ -85,7 +85,11 @@ if which sw_vers >> /dev/null; then
   echo "\$ curl -L https://get.smf.sh | sh"
   curl -L https://get.smf.sh | sh
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
-  announce rvm autolibs smf
+  if which brew > /dev/null; then
+    announce rvm autolibs homebrew
+  else
+    announce rvm autolibs smf
+  fi
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
   announce rvm use 2.0.0 --fuzzy
@@ -195,3 +199,4 @@ else
   echo "This is a Pull Request, skipping."
 fi
 fold_end check.2
+
