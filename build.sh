@@ -86,8 +86,11 @@ if which sw_vers >> /dev/null; then
   curl -L https://get.smf.sh | sh
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
   if which brew > /dev/null; then
+    set +e
+    announce brew update
     announce brew update
     announce brew upgrade openssl
+    set -e
     announce rvm autolibs homebrew
   else
     announce rvm autolibs smf
