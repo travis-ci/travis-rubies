@@ -2,7 +2,6 @@ language: c
 
 script:
 - unset JRUBY_OPTS
-- cat ~/.rvmrc
 - ./build.sh
 
 matrix:
