@@ -55,18 +55,6 @@ function update_mvn() {
 #######################################################
 # update rvm
 fold_start rvm.1 "update rvm"
-if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
-  cat > ~/.rvmrc <<EOF
-export rvm_user_install_flag=1
-export rvm_path="/home/travis/.rvm"
-export rvm_project_rvmrc=0
-export rvm_silence_path_mismatch_check_flag=1
-export rvm_max_time_flag=5
-export rvm_autoupdate_flag=0
-export rvm_without_gems="rubygems-bundler"
-export rvm_with_default_gems="rake=~>10.2.2 bundler=~>1.6.0"
-EOF
-fi
 announce rvm remove 1.8.7
 announce rvm get head
 announce rvm reload
