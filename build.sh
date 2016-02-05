@@ -168,6 +168,17 @@ else
 fi
 fold_end check.1
 
+# make sure rdiscount works
+fold_start check.2 "make sure native extension can be built"
+if [ -n "${SKIP_CHECK}" ]; then
+  echo '$SKIP_CHECK is set, skipping rdiscount check'
+else
+  echo "source 'https://rubygems.org'; gem 'sinatra'" > Gemfile
+  announce travis_retry rvm $RUBY do gem install rdiscount
+  announce travis_retry rvm $RUBY do gem uninstall rdiscount
+fi
+fold_end check.2
+
 #######################################################
 # publish to bucket
 fold_start publish "upload to S3"
