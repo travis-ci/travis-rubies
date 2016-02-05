@@ -175,7 +175,7 @@ if [ -n "${SKIP_CHECK}" ]; then
 else
   echo "source 'https://rubygems.org'; gem 'sinatra'" > Gemfile
   announce travis_retry rvm $RUBY do gem install rdiscount
-  announce travis_retry rvm $RUBY do gem uninstall rdiscount
+  announce travis_retry rvm $RUBY do gem uninstall -x rdiscount
 fi
 fold_end check.2
 
