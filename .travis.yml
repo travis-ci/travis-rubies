@@ -24,8 +24,7 @@ matrix:
   fast_finish: true
 
 after_failure:
-  - pushd /Users/travis/.rvm/src/ruby-head && otool -L miniruby && popd
-  - find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
+  - find $rvm_path/log/ -type f -print -exec cat {} \;
 
 env:
   global:
