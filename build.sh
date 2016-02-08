@@ -56,7 +56,7 @@ function update_mvn() {
 # update rvm
 fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
-announce rvm get head
+announce rvm get stable
 announce rvm reload
 announce rvm cleanup all
 fold_end rvm.1
@@ -167,17 +167,6 @@ else
   announce travis_retry rvm $RUBY do bundle install
 fi
 fold_end check.1
-
-# make sure rdiscount works
-fold_start check.2 "make sure native extension can be built"
-if [ -n "${SKIP_CHECK}" ]; then
-  echo '$SKIP_CHECK is set, skipping rdiscount check'
-else
-  echo "source 'https://rubygems.org'; gem 'sinatra'" > Gemfile
-  announce travis_retry rvm $RUBY do gem install rdiscount
-  announce travis_retry rvm $RUBY do gem uninstall -x rdiscount
-fi
-fold_end check.2
 
 #######################################################
 # publish to bucket
