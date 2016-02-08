@@ -25,6 +25,7 @@ matrix:
 
 after_failure:
   - find $rvm_path/log/ -type f -print -name \*openssl\* -exec cat {} \;
+  - find $HOME/.sm/src/openssl-1.0.2e/ -name \*.log -print -exec cat {} \;
 
 env:
   global:
