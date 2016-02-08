@@ -24,7 +24,7 @@ matrix:
   fast_finish: true
 
 after_failure:
-  - find $rvm_path/log/ -type f -print -exec cat {} \;
+  - find $rvm_path/log/ -type f -print -name \*openssl\* -exec cat {} \;
 
 env:
   global:
