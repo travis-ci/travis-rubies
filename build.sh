@@ -56,7 +56,7 @@ function update_mvn() {
 # update rvm
 fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
-announce rvm get head
+announce rvm get stable
 announce rvm reload
 announce rvm cleanup all
 fold_end rvm.1
