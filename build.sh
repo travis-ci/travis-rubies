@@ -109,7 +109,7 @@ fi
 fold_start ruby "check which ruby to build"
 announce source ./build_info.sh
 [[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
-# export RUBY=$(rvm strings $RUBY)
+export RUBY=$(rvm strings $RUBY)
 announce export RUBY=${RUBY//[[:blank:]]/}
 echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
 announce unset CC
