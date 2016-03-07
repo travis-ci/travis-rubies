@@ -7,6 +7,11 @@ script:
 matrix:
   include:
   - os: linux
+    sudo: required
+    dist: precise
+    group: edge
+    before_script: "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+  - os: linux
     before_script:
       - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
       - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
@@ -14,7 +19,12 @@ matrix:
     group: edge
   - os: osx
     before_install: sw_vers
+    osx_image: xcode6.4
+  - os: osx
+    before_install: sw_vers
     osx_image: xcode7.2
+  - os: osx
+    before_install: sw_vers
   allow_failures:
   - services: docker
   - os: osx
