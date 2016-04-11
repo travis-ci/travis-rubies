@@ -146,7 +146,7 @@ ruby-*)
     curl -L https://get.smf.sh | sh
     rvm autolibs smf
   fi
-  announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc -C --without-tcl,--without-tk;;
+  announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
 jruby-head)
   update_mvn 3.3.3
   announce rvm install $RUBY --verify-downloads 1;;
