@@ -1,1 +1,1 @@
-export RUBY=ruby-2.1.10-clang
+export RUBY=ruby-head
