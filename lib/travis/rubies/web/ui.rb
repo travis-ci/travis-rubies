@@ -130,7 +130,7 @@ __END__
 <html>
   <head>
     <title>Travis CI: Precompiled Ruby Versions</title>
-    <link rel="stylesheet" href="http://docs.travis-ci.com/assets/stylesheets/main.css">
+    <link rel="stylesheet" href="/assets/main.css">
     <link rel="icon" type="image/png" href="https://travis-ci.org/favicon.ico">
     <style>
     .rubies {
@@ -176,7 +176,7 @@ __END__
   <footer>
     <div class="row">
       <div class="small-6 medium-6 large-6 columns">
-        <img alt="The Travis CI logo" src="http://docs.travis-ci.com/images/ui/footer-logo.svg">
+        <img alt="The Travis CI logo" src="/assets/footer-logo.svg">
       </div>
       <div class="small-6 medium-2 large-2 columns">
         <h3>&copy;Travis CI, GmbH</h3>
