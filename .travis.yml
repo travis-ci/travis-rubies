@@ -34,13 +34,5 @@ matrix:
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
-env:
-  global:
-    - ARTIFACTS_S3_REGION=us-east-1
-    - ARTIFACTS_S3_BUCKET=travis-rubies
-    - ARTIFACTS_PERMISSIONS=public-read
-    - secure: "ULn72j3IX7DRzhyxMSY+HNB+4rObVgIFScVsgGesazDk7vTXGTt14J3H3B6knALMTGz+KNIcyqXLrr2DF0O5LGFBBjAjQxjv69wOOxA/CnyZGHJcMspKhRntXDy66vvB7jcfYYa94ekVJ440QEaTlw9hjal/Wl2CsqUVSHvFadY="
-    - secure: "lhCm8NxZ6OTj/Mb/P2BNQiF8+3y5IWnWlBQ+FwpiU1/ITITzVXlcZN9JXwSnGQ0ir7JSw/sApJAMOlgwYVh8q+GU4XOpX1AtwT5iF/ZfPUk3Oma2jibMO7I9gj4ie3f40cT76NmfPoqXvuT9Ha72hXOWA2PN/3jEeeU9hiJ+feU="
-
 notifications:
   email: false
