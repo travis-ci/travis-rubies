@@ -31,7 +31,7 @@ module Travis::Rubies
         time = Time.parse(element.css('LastModified').text)
         size = Integer(element.css('Size').text)
         url  = File.join(@url, element.css('Key').text)
-        Ruby.new(match[:slug], match[:name].sub('rubinius', 'rbx'), match[:os], match[:os_version], match[:arch], time, size, url)
+        Ruby.new(match[:slug], match[:name], match[:os], match[:os_version], match[:arch], time, size, url)
       end.compact
     end
 
