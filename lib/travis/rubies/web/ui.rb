@@ -130,8 +130,7 @@ __END__
 <html>
   <head>
     <title>Travis CI: Precompiled Ruby Versions</title>
-    <link rel="stylesheet" href="http://docs.travis-ci.com/assets/stylesheets/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/main.css">
     <link rel="icon" type="image/png" href="https://travis-ci.org/favicon.ico">
     <style>
     .rubies {
@@ -140,66 +139,81 @@ __END__
     .os_arch {
       float: left;
       padding: 0 20px;
-    }
-    .travis .os_arch {
       width: 250px;
     }
-    .rubinius .os_arch {
-      width: 150px;
+    .os_arch:nth-child(3n+1){
+      clear: left;
     }
     .os_arch li * {
       white-space: nowrap;
     }
-    #content {
-      min-height: 70vh;
-    }
     </style>
   </head>
   <body>
-    <div id="navigation">
-      <div class="wrapper">
-        <a href="/" class="logo-home"><img src="http://docs.travis-ci.com/images/logo.svg" alt="Travis Logo"></a>
-        <ul>
+
+<div class="wrapper">
+  <header class="top">
+    <div class="row topbar">
+      <h1 id="logo" class="logo">
+        <a href="http://travis-ci.org/" title="Travis CI">Travis</a>
+      </h1>
+      <nav>
+        <ul id="navigation" class="navigation">
           <li><a href="/">Travis Rubies</a></li>
           <li><a href="/rubinius">Rubinius</a></li>
           <li><a href="/usage">Usage</a></li>
         </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="content" class="row">
+    <main id="main" class="main" data-swiftype-index='true'>
+      <%= yield %>
+    </main>
+  </div>
+
+  <footer>
+    <div class="row">
+      <div class="small-6 medium-6 large-6 columns">
+        <img alt="The Travis CI logo" src="/assets/footer-logo.svg">
+      </div>
+      <div class="small-6 medium-2 large-2 columns">
+        <h3>&copy;Travis CI, GmbH</h3>
+        <p>Rigaer Straße 8<br>10247 Berlin, Germany</p>
+      </div>
+
+      <div class="small-6 medium-2 large-2 columns">
+        <h3>Help</h3>
+        <ul>
+          <li><a href="http://docs.travis-ci.com/">Documentation</a></li>
+          <li><a href="http://blog.travis-ci.com/">Blog</a></li>
+          <li><a href="mailto:support@travis-ci.com">Email</a></li>
+          <li><a href="https://twitter.com/travisci">Twitter</a></li>
+        </ul>
+      </div>
+      <div class="small-6 medium-2 large-2 columns">
+        <h3>Travis CI Status</h3>
+        <ul>
+          <li><div class="status-circle status">Status:</div>
+            <a href="http://www.traviscistatus.com/">Travis CI Status</a>
+          </li>
+        </ul>
       </div>
     </div>
+  </footer>
+</div>
 
-    <div id="content">
-      <div class="wrapper">
-        <div class="pad">
-          <%= yield %>
-        </div>
-      </div>
-    </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $.get('https://pnpcptp8xh9k.statuspage.io/api/v2/status.json').then(function(response) {
+    if(response.status && response.status.indicator) {
+      $('.status-circle').addClass(response.status.indicator);
+    }
+  });
+});
+</script>
 
-    <footer>
-      <div class="wrapper">
-        <div class="large-6 columns left">
-          <div id="travis-logo">
-            <img src="http://docs.travis-ci.com/images/travis-mascot-200px.png" id="travis-mascot">
-          </div>
-          <div id="travis-address">
-            <p>&copy; 2014 Travis CI GmbH,<br> Prinzessinnenstr. 20, 10969 Berlin, Germany</p>
-          </div>
-        </div>
-
-        <div class="large-6 columns right">
-          <div id="footer-nav">
-            <ul class="left">
-              <li><a href="mailto:contact@travis-ci.com">Email</a></li>
-              <li><a href="http://chat.travis-ci.com">Live Chat</a></li>
-              <li><a href="http://docs.travis-ci.com">Docs</a></li>
-              <li><a href="http://status.travis-ci.com">Status</a></li>
-            </ul>
-          </div>
-          <div id="berlin-sticker">
-            <img src="http://docs.travis-ci.com/images/made-in-berlin-badge.png" id="made-in-berlin">
-          </div>
-        </div>
-      </div>
-    </footer>
   </body>
 </html>

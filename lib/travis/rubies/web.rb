@@ -8,6 +8,7 @@ module Travis::Rubies
 
     Map = Rack::Builder.app do
       use Rack::CommonLogger if ENV['RACK_ENV'] == 'production'
+      use Rack::Static, :urls => ['/assets'], :root => 'public'
 
       map '/rebuild' do
         run Hook
