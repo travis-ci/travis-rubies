@@ -19,6 +19,11 @@ module Travis::Rubies::Web
       erb :usage
     end
 
+    get '/:os/:os_version/:arch/rubinius-:rbx_version.tar*' do |os, os_version, arch, rbx_version, ext|
+      # For rubinius binaries, requests, redirect to rubini.us
+      redirect("http:///binaries.rubini.us/#{os}/#{os_version}/#{arch}/rubinius-#{rbx_version}.tar#{ext}")
+    end
+
     get '/:os/:os_version/:arch/:name.tar*' do
       Travis::Rubies.meter(:download, params[:os], params[:os_version])
       Travis::Rubies.meter(:ruby, params[:name])
