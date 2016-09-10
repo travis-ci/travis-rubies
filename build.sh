@@ -191,7 +191,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   PATH=$HOME/bin:$PATH
 
   curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
-  announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
+  announce artifacts upload --debug --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
 else
   echo "This is a Pull Request, not publishing."
 fi
