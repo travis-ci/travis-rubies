@@ -142,7 +142,7 @@ ruby-*)
   fi
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 --movable --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
 jruby-head)
-  update_mvn 3.3.3
+  update_mvn 3.3.9
   announce rvm install $RUBY --verify-downloads 1;;
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
