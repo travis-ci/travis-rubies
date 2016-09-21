@@ -144,7 +144,7 @@ ruby-*)
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems ignore"
   fi
-  if ! brew > /dev/null; then
+  if ! command -v brew >&/dev/null; then
     MOVABLE="--movable"
   fi
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
