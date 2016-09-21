@@ -85,11 +85,7 @@ if which sw_vers >> /dev/null; then
   echo "\$ curl -L https://get.smf.sh | sh"
   curl -L https://get.smf.sh | sh
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
-  if which brew > /dev/null; then
-    announce rvm autolibs homebrew
-  else
-    announce rvm autolibs smf
-  fi
+  announce rvm autolibs smf
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
   announce rvm use 2.0.0 --fuzzy
@@ -144,10 +140,7 @@ ruby-*)
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems ignore"
   fi
-  if ! command -v brew >&/dev/null; then
-    MOVABLE="--movable"
-  fi
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
+  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 --movable --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
 jruby-head)
   update_mvn 3.3.3
   announce rvm install $RUBY --verify-downloads 1;;
