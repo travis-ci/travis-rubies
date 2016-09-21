@@ -141,10 +141,6 @@ ruby-1.*)
     announce rvm install $RUBY --verify-downloads 1 --disable-install-doc
   fi;;
 ruby-*)
-  if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
-    curl -L https://get.smf.sh | sh
-    rvm autolibs smf
-  fi
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems ignore"
   fi
