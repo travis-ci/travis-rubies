@@ -191,7 +191,7 @@ fold_end publish
 
 #######################################################
 # make sure it installs
-fold_start check.2 "make sure it installs"
+fold_start check.3 "make sure it installs"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   announce rvm remove $RUBY
   echo "rvm_remote_server_url3=https://s3.amazonaws.com/travis-rubies/binaries
@@ -202,5 +202,5 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
 else
   echo "This is a Pull Request, skipping."
 fi
-fold_end check.2
+fold_end check.3
 
