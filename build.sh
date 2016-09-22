@@ -82,8 +82,10 @@ fold_end rvm.3
 # install smf etc
 if which sw_vers >> /dev/null; then
   fold_start rvm.4 "OSX specific setup"
-  echo "\$ curl -L https://get.smf.sh | sh"
-  curl -L https://get.smf.sh | sh
+  echo "\$ yes | ruby -e \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)\""
+  yes | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+  echo "\$ curl -kL https://get.smf.sh | sh"
+  curl -kL https://get.smf.sh | sh
   export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
   announce rvm autolibs smf
   announce sudo mkdir -p /etc/openssl
