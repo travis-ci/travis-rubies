@@ -56,7 +56,7 @@ function update_mvn() {
 # update rvm
 fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
-rvm_reload_flag=1 source '/Users/travis/.rvm/scripts/rvm'
+announce rvm_reload_flag=1 source $rvm_path/scripts/rvm
 announce rvm get head
 announce rvm reload
 announce rvm cleanup all
