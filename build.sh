@@ -44,7 +44,7 @@ fold_end() {
 function update_mvn() {
   VERSION=$1
   fold_start mvn.1 "update mvn to $VERSION"
-  wget http://mirrors.ibiblio.org/apache/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz
+  curl -O http://mirrors.ibiblio.org/apache/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz
   tar xzf apache-maven-$VERSION-bin.tar.gz
   export PATH=$PWD/apache-maven-$VERSION/bin:$PATH
   export M2_HOME=$PWD/apache-maven-$VERSION
