@@ -18,9 +18,36 @@ module Travis::Rubies::Web
     end
 
     def check_auth
-      return if settings.signatures.include? env['HTTP_AUTHORIZATION']
-      logger.warn "untrusted signature: %p" % env['HTTP_AUTHORIZATION']
-      halt 403, "requests need to come from Travis CI"
+      payload = JSON.parse(request.body.read.fetch('payload',''))
+      signature = request.env["HTTP_SIGNATURE"]
+
+      pkey = OpenSSL::PKey::RSA.new(public_key)
+
+      if pkey.verify(
+          OpenSSL::Digest::SHA1.new,
+          Base64.decode64(signature),
+          payload.to_json
+      )
+        status 200
+        "Signature verification succeeded"
+      else
+        status 403
+        "Signature verification failed; requests must come from Travis CI"
+      end
+    rescue
+      status 500
+      "Exception encountered while verifying signature"
+    end
+
+    def public_key
+      conn = Faraday.new(:url => API_HOST) do |faraday|
+        faraday.adapter Faraday.default_adapter
+      end
+
+      response = conn.get '/config'
+      JSON.parse(response.body)["config"]["notifications"]["webhook"]["public_key"]
+    rescue
+      ''
     end
   end
 end
