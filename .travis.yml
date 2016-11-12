@@ -25,6 +25,9 @@ matrix:
   - os: osx
     before_install: sw_vers
     osx_image: xcode7.2
+  - os: osx
+    before_install: sw_vers
+    osx_image: xcode8.1sneakpeak
   allow_failures:
   - services: docker
   - os: osx
