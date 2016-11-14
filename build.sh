@@ -84,9 +84,13 @@ function travis_nanoseconds() {
 
 function ensure_gpg_key() {
   local key_id="409B6B1796C275462A1703113804BB82D39DC0E3"
+  local gpg_cmd="gpg"
 
-  gpg2 --list-keys $key_id || gpg2 --keyserver hkp://keys.gnupg.net --recv-keys $key_id
+  if command -v gpg2; then
+    gpg_cmd="gpg2"
+  fi
 
+  $gpg_cmd --list-keys $key_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key_id
 }
 
 #######################################################
