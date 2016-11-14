@@ -82,10 +82,18 @@ function travis_nanoseconds() {
   $cmd -u $format
 }
 
+function ensure_gpg_key() {
+  local key_id="409B6B1796C275462A1703113804BB82D39DC0E3"
+
+  gpg2 --list-keys $key_id || gpg2 --keyserver hkp://keys.gnupg.net --recv-keys $key_id
+
+}
+
 #######################################################
 # update rvm
 fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
+ensure_gpg_key
 announce rvm get stable
 announce rvm reload
 announce rvm cleanup all
