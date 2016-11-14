@@ -8,7 +8,7 @@ matrix:
   include:
   - os: osx
     before_install: sw_vers
-    osx_image: xcode8.1sneakpeak
+    osx_image: xcode8.1sneakpeek
   allow_failures:
   - services: docker
   - os: osx
