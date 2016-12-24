@@ -90,6 +90,14 @@ function ensure_gpg_key() {
     gpg_cmd="gpg2"
   fi
 
+  if ! command -v $gpg_cmd; then
+    if command -v sw_vers; then
+      brew install $gpg_cmd
+    else
+      sudo apt-get install $gpg_cmd
+    fi
+  fi
+
   $gpg_cmd --list-keys $key_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key_id
 }
 
