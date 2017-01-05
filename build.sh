@@ -101,6 +101,15 @@ function ensure_gpg_key() {
   $gpg_cmd --list-keys $key_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key_id
 }
 
+function install_autoconf() {
+  pushd /tmp
+  wget http://ftp.gnu.org/gnu/autoconf/autoconf-latest.tar.gz
+  tar xvf autoconf-latest.tar.gz
+  pushd autoconf-*
+  ./configure
+  make && sudo make install
+}
+
 #######################################################
 # update rvm
 fold_start rvm.1 "update rvm"
@@ -131,6 +140,7 @@ fold_end rvm.3
 #######################################################
 # install smf etc
 if which sw_vers >> /dev/null; then
+  announce install_autoconf
   fold_start rvm.4 "OSX specific setup"
   echo "\$ yes | ruby -e \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)\""
   yes | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
