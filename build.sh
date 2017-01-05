@@ -108,6 +108,8 @@ function install_autoconf() {
   pushd autoconf-*
   ./configure
   make && sudo make install
+  popd
+  popd
 }
 
 #######################################################
