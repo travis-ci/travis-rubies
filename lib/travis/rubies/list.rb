@@ -68,7 +68,7 @@ module Travis::Rubies
     end
 
     def split_ruby_name(name)
-      md = /(?<name>[jm]?ruby|ruby-enterprise|.*)(-(?<version>head|\d(\.\d)+))?/.match(name)
+      md = /(?<name>[jm]?ruby|ruby-enterprise|[^-]*)(-(?<version>head|\d(\.\d)+))?/.match(name)
 
       if md[:name] == 'ruby-enterprise'
         name = 'ree'
