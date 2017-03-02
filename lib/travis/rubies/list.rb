@@ -41,7 +41,18 @@ module Travis::Rubies
 
     def os_archs
       @os_archs ||= rubies.group_by { |r| OsArch.new(r.os, r.os_version, r.arch) }.
-        map { |a,r| a.rubies = r.sort_by(&:name).reverse; a }
+        map do |a,r|
+          a.rubies = r.sort do |ruby1, ruby2|
+            begin
+              v1=ruby1.name.split("-")[1]
+              v2=ruby2.name.split("-")[1]
+              Gem::Version.new(v1) <=> Gem::Version.new(v2)
+            rescue
+              0
+            end
+          end.reverse
+          a
+        end
     end
   end
 end
