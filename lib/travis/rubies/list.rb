@@ -6,6 +6,8 @@ module Travis::Rubies
   class List
     include Enumerable
 
+    FIXNUM_MAX = (2**(0.size * 8 -2) -1)
+
     def self.travis
       new("https://s3.amazonaws.com/travis-rubies/", "binaries/")
     end
@@ -14,7 +16,7 @@ module Travis::Rubies
       new("http://binaries.rubini.us")
     end
 
-    Ruby    = Struct.new(:slug, :name, :os, :os_version, :arch, :last_modified, :file_size, :url)
+    Ruby    = Struct.new(:slug, :name, :impl, :version, :os, :os_version, :arch, :last_modified, :file_size, :url)
     OsArch  = Struct.new(:os, :os_version, :arch, :rubies)
     attr_reader :xml
 
@@ -31,7 +33,9 @@ module Travis::Rubies
         time = Time.parse(element.css('LastModified').text)
         size = Integer(element.css('Size').text)
         url  = File.join(@url, element.css('Key').text)
-        Ruby.new(match[:slug], match[:name], match[:os], match[:os_version], match[:arch], time, size, url)
+
+        impl, version = split_ruby_name(match[:name])
+        Ruby.new(match[:slug], match[:name], impl, version, match[:os], match[:os_version], match[:arch], time, size, url)
       end.compact
     end
 
@@ -44,15 +48,34 @@ module Travis::Rubies
         map do |a,r|
           a.rubies = r.sort do |ruby1, ruby2|
             begin
-              v1=ruby1.name.split("-")[1]
-              v2=ruby2.name.split("-")[1]
-              Gem::Version.new(v1) <=> Gem::Version.new(v2)
+              if ruby1.impl == ruby2.impl
+                Gem::Version.new(ruby1.version) <=> Gem::Version.new(ruby2.version)
+              else
+                ruby1.impl <=> ruby2.impl
+              end
             rescue
               0
             end
           end.reverse
           a
         end
+    end
+
+    def vers(str)
+      Gem::Version.new str
+    rescue
+      Gem::Version.new FIXNUM_MAX
+    end
+
+    def split_ruby_name(name)
+      md = /(?<name>[jm]?ruby|ruby-enterprise|.*)(-(?<version>head|\d(\.\d)+))?/.match(name)
+
+      if md[:name] == 'ruby-enterprise'
+        name = 'ree'
+      else
+        name = md[:name]
+      end
+      [ name, md[:version] ]
     end
   end
 end
