@@ -77,8 +77,10 @@ end
 __END__
 
 @@ usage
-<p>This website provides up to date, precompiled, (mostly) statically linked Ruby versions. You can download these directly by choosing the desired version for your operating system from the <a href="/">list of versions</a> for your Operating System.</p>
-<p>In addition, it integrates well with different Ruby versioning tools.</p>
+<p>This website provides up to date, precompiled Ruby versions.
+You can download these directly by choosing the desired version for your operating system from the <a href="/">list of versions</a> for your Operating System.</p>
+<p>Linux archives are statically linked, can be used with different Ruby versioning tools as described below.</p>
+<p>Newer Mac archives are dynamically linked, and may not be usable on all systems. See <a href="https://github.com/travis-ci/travis-rubies/issues/26">travis-ci/travis-rubies#26</a>.</p>
 
 <p><h2>Ruby Version Manager (RVM)</h2></p>
 <p><a href="https://github.com/wayneeseguin/rvm/releases/tag/1.25.23">RVM 1.25.23</a> or later will automatically try to download binaries (after first trying the RVM server, the JRuby server and then the Rubinius server).</p>
