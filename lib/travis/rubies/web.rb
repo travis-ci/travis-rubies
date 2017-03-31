@@ -1,5 +1,6 @@
 require 'travis/rubies'
 require 'sinatra/base'
+require 'rack/cache'
 
 module Travis::Rubies
   module Web
@@ -8,6 +9,10 @@ module Travis::Rubies
 
     Map = Rack::Builder.app do
       use Rack::CommonLogger if ENV['RACK_ENV'] == 'production'
+      use Rack::Cache,
+        metastore:    'heap:/',
+        entitystore:  'heap:/',
+        verbose:      true
       use Rack::Static, :urls => ['/assets'], :root => 'public'
 
       map '/rebuild' do

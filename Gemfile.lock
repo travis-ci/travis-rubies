@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/eric/metriks-librato_metrics.git
-  revision: ccbeb751ec5fc4edfe446d8a67a423b96ebe86c7
+  remote: https://github.com/eric/metriks-librato_metrics
+  revision: 3acb88b36c014a8b93bdd91a867c1b3db781ad4e
   specs:
-    metriks-librato_metrics (1.0.2)
+    metriks-librato_metrics (1.0.6)
       metriks (>= 0.9.9.6)
 
 GEM
@@ -37,6 +37,8 @@ GEM
     puma (2.10.2)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
+    rack-cache (1.6.1)
+      rack (>= 0.4)
     rack-protection (1.5.3)
       rack
     sinatra (1.4.5)
@@ -54,4 +56,11 @@ DEPENDENCIES
   metriks-librato_metrics!
   nokogiri
   puma
+  rack-cache
   sinatra
+
+RUBY VERSION
+   ruby 2.3.4p301
+
+BUNDLED WITH
+   1.14.6
