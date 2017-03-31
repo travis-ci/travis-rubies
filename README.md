@@ -10,3 +10,7 @@ https://travis-ci.org/travis-ci/travis-rubies
 
 Once the build completes, the new version should show up here:
 http://rubies.travis-ci.org/
+
+## web
+
+You are looking at the `build` branch. The actual web app can be found on the [master](https://github.com/travis-ci/travis-rubies/tree/master) branch.
