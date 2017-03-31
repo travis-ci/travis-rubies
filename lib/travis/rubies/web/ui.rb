@@ -3,7 +3,7 @@ module Travis::Rubies::Web
     enable :inline_templates
 
     before do
-      expires ENV['CACHE_TTL'] || 300, :public, :must_revalidate
+      expires ENV['CACHE_TTL']&.to_i || 300, :public, :must_revalidate
     end
 
     get '/' do
