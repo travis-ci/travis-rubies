@@ -6,10 +6,11 @@ It is a sinatra app that you can find in `lib/travis/rubies/web/ui.rb`.
 
 The compiled styles are copied over from the [docs repo](https://github.com/travis-ci/docs-travis-ci-com/).
 
-The `web` branch is deployed as `master` on Heroku. To deploy run
+## Deployment
 
-```bash
-$ git push heroku web:master
+To deploy travis-rubies, use the `#deploys` channel:
+
 ```
-
-This assumes that you have heroku set up as remote.
+.deploy travis-rubies to staging
+.deploy travis-rubies to production
+```
