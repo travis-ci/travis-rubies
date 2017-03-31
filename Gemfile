@@ -9,4 +9,4 @@ gem 'nokogiri'
 gem 'gh'
 
 gem 'metriks', '>= 0.9.9.6'
-gem 'metriks-librato_metrics', github: 'eric/metriks-librato_metrics'
+gem 'metriks-librato_metrics', git: 'https://github.com/eric/metriks-librato_metrics'

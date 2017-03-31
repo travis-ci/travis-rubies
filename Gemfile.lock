@@ -1,8 +1,8 @@
 GIT
-  remote: git://github.com/eric/metriks-librato_metrics.git
-  revision: ccbeb751ec5fc4edfe446d8a67a423b96ebe86c7
+  remote: https://github.com/eric/metriks-librato_metrics
+  revision: 3acb88b36c014a8b93bdd91a867c1b3db781ad4e
   specs:
-    metriks-librato_metrics (1.0.2)
+    metriks-librato_metrics (1.0.6)
       metriks (>= 0.9.9.6)
 
 GEM
