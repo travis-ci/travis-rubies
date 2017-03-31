@@ -2,6 +2,10 @@ module Travis::Rubies::Web
   class UI < Sinatra::Base
     enable :inline_templates
 
+    before do
+      expires ENV['CACHE_TTL'] || 300, :public, :must_revalidate
+    end
+
     get '/' do
       Travis::Rubies.meter(:view, :index)
       redirect 'http://rubies.travis-ci.org' if request.ssl?
