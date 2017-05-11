@@ -203,7 +203,7 @@ ruby-1.*)
     echo "not building $RUBY on OSX, can't statically compile it"
     exit
   else
-    announce rvm install $RUBY --verify-downloads 1 --disable-install-doc
+    announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc
   fi;;
 ruby-*)
   if [[ $RUBY = *head* ]]; then
