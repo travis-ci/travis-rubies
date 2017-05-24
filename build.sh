@@ -144,16 +144,6 @@ fold_end rvm.3
 if which sw_vers >> /dev/null; then
   announce install_autoconf
   fold_start rvm.4 "OSX specific setup"
-  echo "\$ yes | ruby -e \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)\""
-  yes | ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-  echo "\$ curl -kL https://get.smf.sh | sh"
-  curl -kL https://get.smf.sh | sh
-  export PATH="${PATH}:/Users/travis/.sm/bin:/Users/travis/.sm/pkg/active/bin:/Users/travis/.sm/pkg/active/sbin"
-  if [[ -n $(sw_vers -productVersion | grep ^10\.10) ]]; then
-    sudo mkdir -p /usr/local/etc/openssl
-    announce sudo curl -o /usr/local/etc/openssl/cert.pem -L http://curl.haxx.se/ca/cacert.pem
-    export SSL_CERT_FILE=/usr/local/etc/openssl/cacert.pem
-  fi
   announce rvm autolibs homebrew
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
