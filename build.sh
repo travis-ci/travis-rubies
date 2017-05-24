@@ -164,6 +164,7 @@ if which sw_vers >> /dev/null; then
   fold_end rvm.4
 else
   fold_start rvm.4 "Linux specific setup"
+  MOVABLE_FLAG="--movable"
   announce sudo apt-get update
   announce sudo apt-get install libssl1.0.0 openssl
   fold_end rvm.4
@@ -203,13 +204,13 @@ ruby-1.*)
     echo "not building $RUBY on OSX, can't statically compile it"
     exit
   else
-    announce rvm install $RUBY --verify-downloads 1 --movable --disable-install-doc
+    announce rvm install $RUBY --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc
   fi;;
 ruby-*)
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems ignore"
   fi
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 --movable --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
+  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
 jruby-head)
   update_mvn 3.3.9
   announce rvm install $RUBY --verify-downloads 1;;
