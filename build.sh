@@ -154,7 +154,7 @@ if which sw_vers >> /dev/null; then
     announce sudo curl -o /usr/local/etc/openssl/cert.pem -L http://curl.haxx.se/ca/cacert.pem
     export SSL_CERT_FILE=/usr/local/etc/openssl/cacert.pem
   fi
-  announce rvm autolibs smf
+  announce rvm autolibs homebrew
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
   announce rvm use 2.0.0 --fuzzy
