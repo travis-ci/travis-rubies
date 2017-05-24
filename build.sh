@@ -92,7 +92,7 @@ function ensure_gpg_key() {
 
   if ! command -v $gpg_cmd; then
     if command -v sw_vers; then
-      brew install $gpg_cmd
+      env HOMEBREW_NO_AUTO_UPDATE=1 brew install $gpg_cmd
     else
       sudo apt-get install $gpg_cmd
     fi
