@@ -242,6 +242,10 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   mkdir -p $HOME/bin
   PATH=$HOME/bin:$PATH
 
+  for f in $RUBY.*; do
+    openssl dgst -sha512 -out $f.sha512.txt
+  done
+
   curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
   announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
 else
