@@ -4,6 +4,8 @@ script:
 - unset JRUBY_OPTS
 - ./build.sh
 
+cache: ccache
+
 matrix:
   include:
   - os: linux
