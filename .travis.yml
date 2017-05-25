@@ -28,10 +28,6 @@ matrix:
   - os: osx
     before_install: sw_vers
     osx_image: xcode8.1
-  allow_failures:
-  - services: docker
-  - os: osx
-  fast_finish: true
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
