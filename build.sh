@@ -239,6 +239,7 @@ fi
 # publish to bucket
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+  set -v
   mkdir -p $HOME/bin
   PATH=$HOME/bin:$PATH
 
@@ -248,6 +249,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
 
   curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
   announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
+  set +v
 else
   echo "This is a Pull Request, not publishing."
 fi
