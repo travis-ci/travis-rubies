@@ -1,3 +1,4 @@
+# coding: utf-8
 module Travis::Rubies::Web
   class UI < Sinatra::Base
     enable :inline_templates
@@ -86,32 +87,32 @@ You can download these directly by choosing the desired version for your operati
 <p>Linux archives are statically linked, can be used with different Ruby versioning tools as described below.</p>
 <p>Newer Mac archives are dynamically linked, and may not be usable on all systems. See <a href="https://github.com/travis-ci/travis-rubies/issues/26">travis-ci/travis-rubies#26</a>.</p>
 
-<p><h2>Ruby Version Manager (RVM)</h2></p>
+<h2 class="h2--green">Ruby Version Manager (RVM)</h2>
 <p><a href="https://github.com/wayneeseguin/rvm/releases/tag/1.25.23">RVM 1.25.23</a> or later will automatically try to download binaries (after first trying the RVM server, the JRuby server and then the Rubinius server).</p>
 <p>Combine the <code>reinstall</code> command with the <code>--binary</code> flag to keep recompiled Ruby versions up to date:<p>
 <p><pre><code>rvm reinstall ruby-head --binary</code></pre></p>
 <p>If you have an outdated RVM version, update it by running <code>rvm get stable</code>.</p>
 
-<p><h2>rbenv and chruby</h2></p>
+<h2 class="h2--green">rbenv and chruby</h2>
 <p>Manually download the appropriate Ruby version and place in the a subdirectory in <code>~/.rbenv/versions</code> or <code>/opt/rubies</code>, respectively.</p>
 <p>Alternatively, you can use a Ruby installer to automatically fetch binaries (see below).</p>
 
-<p><h2>ruby-install</h2></p>
+<h2 class="h2--green">ruby-install</h2>
 <p>After the <a href="https://github.com/postmodern/ruby-install/pull/138">pull request adding binary support</a> has been merged, you can use this feature to download binaries from our server.</p>
 <p><pre><code>ruby-install --binary -M https://rubies.travis-ci.org/ ruby 2.1.1</code></pre></p>
 
 @@ travis
-<p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/rubinius">Rubinius</a>. The <i>head</i> versions will be automatically updated.</p>
+<p class="text--medium">These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/rubinius">Rubinius</a>. The <i>head</i> versions will be automatically updated.</p>
 <div class="travis"><%= erb(:list) %></div>
-<p>As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p>
+<p class="text--medium">As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p>
 
 @@ rubinius
-<p>These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/">Travis CI</a>.</p>
+<p class="text--medium">These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/">Travis CI</a>.</p>
 <div class="rubinius"><%= erb(:list) %></div>
-<p>The <a href="http://rubini.us/">Rubinius</a> team is responsible for compiling and providing these binaries.</p>
+<p class="text--medium">The <a href="http://rubini.us/">Rubinius</a> team is responsible for compiling and providing these binaries.</p>
 
 @@ ruby
-<p><h2><%= ruby.name %></h2></p>
+<h2 class="h2--teal"><%= ruby.name %></h2>
 <p>
   <%= format_size(ruby.file_size) %>, <%= ruby.last_modified %><br>
   <%= format_arch(ruby) %>, <%= ruby.arch %>
@@ -126,7 +127,7 @@ You can download these directly by choosing the desired version for your operati
 <div class="rubies">
   <% rubies.os_archs.each do |os_arch| %>
     <div class="os_arch">
-      <h3><%= format_arch(os_arch) %></h3>
+      <h3 class="h3"><%= format_arch(os_arch) %></h3>
       <ul>
         <% os_arch.rubies.each do |ruby| %>
           <li><a href="<%= url("#{ruby.os}/#{ruby.os_version}/#{ruby.arch}/#{ruby.name}") %>"><%= ruby.name %></a></li>
@@ -141,88 +142,88 @@ You can download these directly by choosing the desired version for your operati
 <html>
   <head>
     <title>Travis CI: Precompiled Ruby Versions</title>
-    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://styleguide.travis-ci.com/css/style.css">
     <link rel="icon" type="image/png" href="data:image/png;base64,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">
     <style>
     .rubies {
-      overflow: hidden;
-    }
-    .os_arch {
-      float: left;
-      padding: 0 20px;
-      width: 250px;
-    }
-    .os_arch:nth-child(3n+1){
-      clear: left;
-    }
-    .os_arch li * {
-      white-space: nowrap;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between
     }
     </style>
   </head>
   <body>
 
 <div class="wrapper">
-  <header class="top">
-    <div class="row topbar">
-      <h1 id="logo" class="logo">
-        <a href="http://travis-ci.org/" title="Travis CI">Travis</a>
+  <header class="topbar" role="banner">
+    <div class="layout-inner">
+      <h1 class="logo">
+        <a href="http://travis-ci.org/" title="Travis CI">
+          <svg width="100.266px" height="22px" viewBox="0 0 100.266 22" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+            <title>Travis CI logo</title>
+	    <image xlink:href="https://styleguide.travis-ci.com/images/logos/travis-header-logo.svg" x="0" y="0" width="100.266px" height="22px" />
+          </svg>
+        </a>
       </h1>
-      <nav>
-        <ul id="navigation" class="navigation">
-          <li><a href="/">Travis Rubies</a></li>
-          <li><a href="/rubinius">Rubinius</a></li>
-          <li><a href="/usage">Usage</a></li>
+      <nav class="navigation">
+        <ul class="navigation-list">
+          <li><a class="navigation-anchor" href="/" title="List Travis Rubies">Travis Rubies</a></li>
+          <li><a class="navigation-anchor" href="/rubinius" title="List Rubinius">Rubinius</a></li>
+          <li><a class="navigation-anchor" href="/usage" title="Usage guide">Usage</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <div id="content" class="row">
-    <main id="main" class="main" data-swiftype-index='true'>
+  <main class="layout-main" role="main">
+    <div class="layout-inner" data-swiftype-index='true'>
       <%= yield %>
-    </main>
-  </div>
+    </div>
+  </main>
 
   <footer class="footer">
-    <div class="inner row">
+    <div class="layout-inner">
       <div class="footer-elem">
-        <div class="travis-footer">
-          <img alt="The Travis CI logo" src="/assets/footer-logo.svg"></div>
-      </div>
-
-      <div class="footer-elem">
-        <h3 class="footer-title">&copy;Travis CI, GmbH</h3>
-        <address>Rigaer Straße 8<br>10247 Berlin, Germany</address>
-        <ul>
-          <li><a href="https://docs.travis-ci.com/imprint.html" title="Imprint">Imprint</a></li>
-          <li><a href="https://travisci.workable.com/" title="Jobs at Travis CI">Jobs</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-elem">
-        <h3 class="footer-title">Help</h3>
-        <ul>
-          <li><a href="https://docs.travis-ci.com" title="Travis CI Docs">Documentation</a></li>
-          <li><a href="https://blog.travis-ci.com/" title="Travis CI Blog">Blog</a></li>
-          <li><a href="mailto:support@travis-ci.com" title="Email Travis CI support">Email</a></li>
-          <li><a href="https://twitter.com/travisci" title="Travis CI on Twitter">Twitter</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-elem">
-        <h3 class="footer-title">Travis CI Status</h3>
-        <ul>
-          <li><div class="status-circle status">Status:</div>
-            <a href="http://www.traviscistatus.com/">Travis CI Status</a>
-          </li>
-        </ul>
-      </div>
+        <svg width="142px" height="45.381px" viewBox="0 0 142 45.381" enable-background="new 0 0 142 45.381" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+          <title>Travis CI Mascot</title>
+	  <image xlink:href="https://styleguide.travis-ci.com/images/logos/travis-footer-logo.svg" x="0" y="0" width="142px" height="45.381px" />
+        </svg>
     </div>
-  </footer>
+
+    <div class="footer-elem">
+      <h3 class="footer-title">©Travis CI, GmbH</h3>
+      <address>Rigaer Straße 8<br>10247 Berlin, Germany</address>
+      <ul>
+        <li><a href="https://docs.travis-ci.com/imprint.html" title="Imprint">Imprint</a></li>
+        <li><a href="https://travisci.workable.com/" title="Jobs at Travis CI">Jobs</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-elem">
+      <h3 class="footer-title">Help</h3>
+      <ul>
+        <li><a href="https://docs.travis-ci.com" title="Travis CI Docs">Documentation</a></li>
+        <li><a href="https://blog.travis-ci.com/" title="Travis CI Blog">Blog</a></li>
+        <li><a href="mailto:support@travis-ci.com" title="Email Travis CI support">Email</a></li>
+        <li><a href="https://twitter.com/travisci" title="Travis CI on Twitter">Twitter</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-elem">
+      <h3 class="footer-title">Travis CI Status</h3>
+      <ul>
+        <li><div class="status-circle status">Status:</div>
+          <a href="http://www.traviscistatus.com/">Travis CI Status</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
 <script>
 $(document).ready(function() {
   $.get('https://pnpcptp8xh9k.statuspage.io/api/v2/status.json').then(function(response) {
