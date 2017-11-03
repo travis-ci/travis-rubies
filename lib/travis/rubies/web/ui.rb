@@ -221,16 +221,13 @@ You can download these directly by choosing the desired version for your operati
 </footer>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	crossorigin="anonymous"></script>
 <script>
-$(document).ready(function() {
-  $.get('https://pnpcptp8xh9k.statuspage.io/api/v2/status.json').then(function(response) {
-    if(response.status && response.status.indicator) {
-      $('.status-circle').addClass(response.status.indicator);
-    }
-  });
+ fetch('https://pnpcptp8xh9k.statuspage.io/api/v2/status.json').then(function(response) {
+   return response.json();
+ }).then(function(data) {
+   if (data.status && data.status.indicator) {
+     document.querySelector('.status-circle').classList.add(data.status.indicator);
+   }
 });
 </script>
 
