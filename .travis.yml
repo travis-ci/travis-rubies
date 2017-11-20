@@ -6,20 +6,23 @@ script:
 
 cache: ccache
 
+before_script: |-2
+  if [[ "$(uname)" == Linux ]]; then
+    echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems;
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3;
+    sudo apt-get install haveged;
+    sudo service haveged start;
+  fi
+
 matrix:
   include:
   - os: linux
     sudo: required
-    dist: precise
+    dist: xenial
     group: edge
-    before_script: "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
   - os: linux
-    before_script:
-      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-      - "sudo apt-get install haveged"
-      - "sudo service haveged start"
-    services: docker
+    sudo: required
+    dist: trusty
     group: edge
   - os: osx
     before_install: sw_vers
