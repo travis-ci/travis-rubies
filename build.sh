@@ -200,7 +200,14 @@ ruby-*)
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems ignore"
   fi
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
+
+  CONFIGURE_OPTS=( --without-tcl --without-tk --without-gmp )
+  case $RUBY in
+  ruby-2.4*|ruby-2.5*)
+    CONFIGURE_OPTS+=( --enable-install-static-library );;
+  esac
+
+  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -- ${CONFIGURE_OPTS[@]};;
 jruby-head)
   update_mvn 3.3.9
   announce rvm install $RUBY --verify-downloads 1;;
@@ -268,4 +275,3 @@ else
   echo "This is a Pull Request, skipping."
 fi
 fold_end check.3
-
