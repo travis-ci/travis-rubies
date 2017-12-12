@@ -200,13 +200,11 @@ ruby-*)
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems ignore"
   fi
-
   CONFIGURE_OPTS=( --without-tcl --without-tk --without-gmp )
   case $RUBY in
   ruby-2.4*|ruby-2.5*)
     CONFIGURE_OPTS+=( --enable-install-static-library );;
   esac
-
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -- ${CONFIGURE_OPTS[@]};;
 jruby-head)
   update_mvn 3.3.9
