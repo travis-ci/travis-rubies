@@ -20,7 +20,13 @@ matrix:
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
     services: docker
-    group: edge
+  - os: linux
+    dist: xenial
+    before_script:
+      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+      - "sudo apt-get install haveged"
+      - "sudo service haveged start"
   - os: osx
     before_install: sw_vers
     osx_image: xcode6.4
