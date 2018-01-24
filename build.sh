@@ -206,7 +206,7 @@ ruby-*)
   fi
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
 
-  if [[ $RUBY = ruby-2.5 || $RUBY = *head* ]]; then
+  if [[ $RUBY = ruby-2.5* || $RUBY = *head* ]]; then
     update_rubygems
   fi;;
 jruby-head)
