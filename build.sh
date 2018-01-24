@@ -112,6 +112,10 @@ function install_autoconf() {
   popd
 }
 
+function update_rubygems() {
+  announce gem update --system
+}
+
 #######################################################
 # update rvm
 fold_start rvm.1 "update rvm"
@@ -200,7 +204,11 @@ ruby-*)
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems ignore"
   fi
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp;;
+  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+
+  if [[ $RUBY = ruby-2.5 || $RUBY = *head* ]]; then
+    update_rubygems
+  fi;;
 jruby-head)
   update_mvn 3.3.9
   announce rvm install $RUBY --verify-downloads 1;;
