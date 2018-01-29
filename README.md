@@ -14,3 +14,4 @@ http://rubies.travis-ci.org/
 ## web
 
 You are looking at the `build` branch. The actual web app can be found on the [master](https://github.com/travis-ci/travis-rubies/tree/master) branch.
+
