@@ -40,7 +40,9 @@ matrix:
   - os: osx
     before_install:
       - sw_vers
-      - eval $(gimme 1.10)
+      - curl -sL -o ~/bin/gimme https://raw.githubusercontent.com/travis-ci/gimme/master/gimme
+      - chmod +x ~/bin/gimme
+      - eval $(~/bin/gimme 1.10)
     osx_image: xcode9.3beta
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
