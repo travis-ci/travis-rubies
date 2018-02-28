@@ -29,7 +29,11 @@ matrix:
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
   - os: osx
-    before_install: sw_vers
+    before_install:
+      - sw_vers
+      - rvm get head
+      - rvm reload
+      - rvm use --install $TRAVIS_RUBY_VERSION
     osx_image: xcode6.4
   - os: osx
     before_script:
