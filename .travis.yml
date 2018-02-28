@@ -23,6 +23,13 @@ matrix:
   - os: linux
     dist: xenial
     language: generic
+    before_install:
+      - |
+         sudo systemctl stop apt-daily.service &&
+         sudo systemctl kill --kill-who=all apt-daily.service &&
+         while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
+           sleep 1
+         done
     before_script:
       - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
       - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
