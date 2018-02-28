@@ -32,7 +32,15 @@ matrix:
     before_install: sw_vers
     osx_image: xcode6.4
   - os: osx
-    before_install: sw_vers
+    before_script:
+      - sudo apt-get install gnup2
+      - curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+    before_install:
+      - sw_vers
+      - unset -f cd
+    install:
+      - unset -f pushd
+      - unset -f popd
     osx_image: xcode7.2
   - os: osx
     before_install: sw_vers
