@@ -248,7 +248,7 @@ fi
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   mkdir -p $HOME/bin
-  PATH=$HOME/bin:$HOME/.local/bin:$PATH
+  PATH=$HOME/bin:$PATH
 
   for f in $RUBY.*; do
     base=${f%%.*}
@@ -256,7 +256,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   done
 
   install_awscli
-  aws s3 cp $RUBY.* binaries/$(travis_rvm_os_path)/
+  ~/.local/bin/aws s3 cp $RUBY.* binaries/$(travis_rvm_os_path)/
 else
   echo "This is a Pull Request, not publishing."
 fi
