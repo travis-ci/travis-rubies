@@ -248,7 +248,7 @@ fi
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   mkdir -p $HOME/bin
-  PATH=$HOME/bin:$PATH
+  PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
   for f in $RUBY.*; do
     base=${f%%.*}
