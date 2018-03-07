@@ -43,6 +43,10 @@ fold_end() {
   echo -e "\ntravis_fold:end:$1\r"
 }
 
+function install_awscli() {
+  pip install --user awscli
+}
+
 function update_mvn() {
   VERSION=$1
   fold_start mvn.1 "update mvn to $VERSION"
@@ -251,8 +255,8 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
     openssl dgst -sha512 -out ${base}.sha512.txt $f
   done
 
-  curl -sL https://raw.githubusercontent.com/travis-ci/artifacts/master/install | bash
-  announce artifacts upload --target-paths binaries/$(travis_rvm_os_path) $RUBY.*
+  install_awscli
+  aws s3 cp $RUBY.* binaries/$(travis_rvm_os_path)/
 else
   echo "This is a Pull Request, not publishing."
 fi
