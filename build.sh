@@ -44,7 +44,7 @@ fold_end() {
 }
 
 function install_awscli() {
-  pip install --user awscli
+  pip install --user --install-option="--install-scripts=$HOME/.local/bin" awscli
 }
 
 function update_mvn() {
@@ -248,7 +248,7 @@ fi
 fold_start publish "upload to S3"
 if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   mkdir -p $HOME/bin
-  PATH=$HOME/bin:$PATH
+  PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
   for f in $RUBY.*; do
     base=${f%%.*}
@@ -256,7 +256,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   done
 
   install_awscli
-  ~/.local/bin/aws s3 cp $RUBY.* binaries/$(travis_rvm_os_path)/
+  aws s3 cp $RUBY.* binaries/$(travis_rvm_os_path)/
 else
   echo "This is a Pull Request, not publishing."
 fi
