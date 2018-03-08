@@ -54,7 +54,7 @@ matrix:
     install:
       - unset -f pushd
       - unset -f popd
-    osx_image: xcode7.2
+    osx_image: xcode8
   - os: osx
     before_script:
       - curl -sSL https://rvm.io/mpapis.asc | gpg --import -
