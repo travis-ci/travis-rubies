@@ -36,8 +36,6 @@ matrix:
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
   - os: osx
-    before_script:
-      - curl -sSL https://rvm.io/mpapis.asc | gpg --import -
     before_install:
       - sw_vers
       - unset -f cd
@@ -46,8 +44,6 @@ matrix:
       - unset -f popd
     osx_image: xcode6.4
   - os: osx
-    before_script:
-      - curl -sSL https://rvm.io/mpapis.asc | gpg --import -
     before_install:
       - sw_vers
       - unset -f cd
@@ -56,8 +52,6 @@ matrix:
       - unset -f popd
     osx_image: xcode7.3
   - os: osx
-    before_script:
-      - curl -sSL https://rvm.io/mpapis.asc | gpg --import -
     before_install:
       - sw_vers
       - unset -f cd
@@ -68,9 +62,6 @@ matrix:
   - os: osx
     before_install:
       - sw_vers
-      - curl -sL -o gimme https://raw.githubusercontent.com/travis-ci/gimme/master/gimme
-      - chmod +x gimme
-      - eval $(./gimme 1.10)
     osx_image: xcode9.3beta
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat

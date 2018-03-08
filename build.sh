@@ -104,6 +104,7 @@ function ensure_gpg_key() {
   fi
 
   $gpg_cmd --list-keys $key_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key_id
+  curl -sSL https://rvm.io/mpapis.asc | $gpg_cmd --import -
 }
 
 function install_autoconf() {
