@@ -257,7 +257,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
 
   install_awscli
   for f in $RUBY.*; do
-    aws s3 cp $RUBY.* binaries/$(travis_rvm_os_path)/ --acl=public-read
+    aws s3 cp $f s3://travis-rubies/binaries/$(travis_rvm_os_path)/ --acl=public-read
   done
 else
   echo "This is a Pull Request, not publishing."
