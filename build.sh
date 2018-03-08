@@ -44,7 +44,7 @@ fold_end() {
 }
 
 function install_awscli() {
-  command -v pip >/dev/null || (curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
+  command -v pip >/dev/null || (curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user --install-option="--install-scripts=$HOME/.local/bin")
   pip install --user --install-option="--install-scripts=$HOME/.local/bin" awscli
 }
 
@@ -116,6 +116,8 @@ function install_autoconf() {
   popd
   popd
 }
+
+PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 #######################################################
 # update rvm
