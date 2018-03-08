@@ -44,6 +44,7 @@ fold_end() {
 }
 
 function install_awscli() {
+  command -v pip >/dev/null || (curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
   pip install --user --install-option="--install-scripts=$HOME/.local/bin" awscli
 }
 
