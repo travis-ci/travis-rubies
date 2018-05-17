@@ -7,6 +7,10 @@ script:
 
 cache: ccache
 
+env:
+  global:
+    - UPLOAD=false
+
 matrix:
   include:
   - os: linux

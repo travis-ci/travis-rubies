@@ -219,6 +219,8 @@ jruby-head)
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
+find .rvm/rubies/ruby-*/bin -perm -0100 -type f -print -exec head -1 {} \;
+
 announce rvm prepare $RUBY
 fold_end build
 
@@ -249,8 +251,8 @@ fi
 
 #######################################################
 # publish to bucket
-fold_start publish "upload to S3"
-if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
+if [[ $TRAVIS_PULL_REQUEST == 'false' && $UPLOAD != 'false' ]]; then
+  fold_start publish "upload to S3"
   mkdir -p $HOME/bin
   PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
@@ -263,10 +265,10 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
   for f in $RUBY.*; do
     aws s3 cp $f s3://travis-rubies/binaries/$(travis_rvm_os_path)/ --acl=public-read
   done
+  fold_end publish
 else
   echo "This is a Pull Request, not publishing."
 fi
-fold_end publish
 
 #######################################################
 # make sure it installs
