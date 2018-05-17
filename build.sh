@@ -210,6 +210,8 @@ ruby-*)
   fi
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
 
+  announce find ~/.rvm/rubies/ruby-*/bin -perm -0100 -type f -print -exec head -1 {} \;
+
   if [[ $RUBY = ruby-2.5* || $RUBY = *head* ]]; then
     announce rvm use $RUBY do gem update --system
   fi;;
