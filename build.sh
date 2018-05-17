@@ -219,7 +219,7 @@ jruby-head)
 *)      announce rvm install $RUBY --verify-downloads 1;;
 esac
 
-find .rvm/rubies/ruby-*/bin -perm -0100 -type f -print -exec head -1 {} \;
+find ~/.rvm/rubies/ruby-*/bin -perm -0100 -type f -print -exec head -1 {} \;
 
 announce rvm prepare $RUBY
 fold_end build
