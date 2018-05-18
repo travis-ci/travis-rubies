@@ -125,7 +125,7 @@ PATH=$HOME/bin:$HOME/.local/bin:$PATH
 fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
 ensure_gpg_key
-announce rvm get stable
+announce rvm get head
 announce rvm reload
 announce rvm cleanup all
 fold_end rvm.1
