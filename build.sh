@@ -207,9 +207,9 @@ ruby-1.*)
 ruby-*)
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   if [[ $RUBY = *head* ]]; then
-    announce rvm rubygems 2.7.6
+    announce rvm rubygems 2.7.6 --force
   fi
-  announce rvm rubygems current
+  announce rvm rubygems current --force
   ;;
 jruby-head)
   update_mvn 3.3.9
