@@ -12,6 +12,10 @@ matrix:
   - os: osx
     before_install:
       - sw_vers
+    osx_image: xcode9.3
+  - os: osx
+    before_install:
+      - sw_vers
     osx_image: xcode9.4
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
