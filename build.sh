@@ -142,7 +142,7 @@ fold_end rvm.2
 #######################################################
 # prepare env
 fold_start rvm.3 "set up env for rvm"
-announce source ~/.bashrc
+# announce source ~/.bashrc
 announce unset DYLD_LIBRARY_PATH
 announce export rvm_git_clone_depth=1 # speed up git clone
 fold_end rvm.3
