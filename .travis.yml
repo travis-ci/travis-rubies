@@ -9,61 +9,10 @@ cache: ccache
 
 matrix:
   include:
-  - os: linux
-    sudo: required
-    dist: precise
-    group: edge
-    before_script: "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-  - os: linux
-    before_script:
-      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-      - "sudo apt-get install haveged"
-      - "sudo service haveged start"
-    services: docker
-  - os: linux
-    dist: xenial
-    language: generic
-    before_install:
-      - |
-         sudo systemctl stop apt-daily.service &&
-         sudo systemctl kill --kill-who=all apt-daily.service &&
-         while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
-           sleep 1
-         done
-    before_script:
-      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-      - "sudo apt-get install haveged"
-      - "sudo service haveged start"
   - os: osx
     before_install:
       - sw_vers
-      - unset -f cd
-    install:
-      - unset -f pushd
-      - unset -f popd
-    osx_image: xcode6.4
-  - os: osx
-    before_install:
-      - sw_vers
-      - unset -f cd
-    install:
-      - unset -f pushd
-      - unset -f popd
-    osx_image: xcode7.3
-  - os: osx
-    before_install:
-      - sw_vers
-      - unset -f cd
-    install:
-      - unset -f pushd
-      - unset -f popd
-    osx_image: xcode8.3
-  - os: osx
-    before_install:
-      - sw_vers
-    osx_image: xcode9.3beta
+    osx_image: xcode9.4
 
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
