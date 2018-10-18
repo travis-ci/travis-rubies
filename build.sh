@@ -142,7 +142,9 @@ fold_end rvm.2
 #######################################################
 # prepare env
 fold_start rvm.3 "set up env for rvm"
-announce source ~/.bashrc
+if [[ -f ~/.bashrc ]]; then
+  announce source ~/.bashrc
+fi
 announce unset DYLD_LIBRARY_PATH
 announce export rvm_git_clone_depth=1 # speed up git clone
 fold_end rvm.3
@@ -281,4 +283,3 @@ else
   echo "This is a Pull Request, skipping."
 fi
 fold_end check.3
-
