@@ -48,7 +48,7 @@ function install_awscli() {
     announce brew install awscli
   else
     command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
-    pip install --upgrade pip
+    pip install --user --upgrade pip
     announce pip install --user awscli
   fi
 }
