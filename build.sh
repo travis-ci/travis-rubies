@@ -44,9 +44,13 @@ fold_end() {
 }
 
 function install_awscli() {
-  command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
-  pip install --upgrade pip
-  announce pip install --user awscli
+  if which sw_vers >> /dev/null; then
+    announce brew install awscli
+  else
+    command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
+    pip install --upgrade pip
+    announce pip install --user awscli
+  fi
 }
 
 function update_mvn() {
