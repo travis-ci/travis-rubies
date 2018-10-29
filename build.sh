@@ -126,8 +126,8 @@ PATH=$HOME/bin:$HOME/.local/bin:$PATH
 fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
 ensure_gpg_key
-announce rvm get head --auto-dotfiles
 rm -f ~/.rvmrc
+announce rvm get head --auto-dotfiles
 announce rvm reload
 announce rvm cleanup all
 fold_end rvm.1
@@ -159,7 +159,7 @@ if which sw_vers >> /dev/null; then
   announce rvm autolibs homebrew
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
-  announce rvm use 2.0.0 --fuzzy
+  # announce rvm use 2.0.0 --fuzzy
   announce mkdir -p $rvm_path/patchsets/ruby
   echo '$ echo "" > $rvm_path/patchsets/ruby/osx_static'
   echo "" > $rvm_path/patchsets/ruby/osx_static
