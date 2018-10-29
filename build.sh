@@ -44,8 +44,8 @@ fold_end() {
 }
 
 function install_awscli() {
-  command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user --install-option="--install-scripts=$HOME/.local/bin")
-  pip install --user --install-option="--install-scripts=$HOME/.local/bin" awscli
+  command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
+  pip install --user awscli
 }
 
 function update_mvn() {
@@ -258,7 +258,7 @@ if [[ $TRAVIS_PULL_REQUEST == 'false' ]]; then
     openssl dgst -sha512 -out ${base}.sha512.txt $f
   done
 
-  install_awscli
+  command -v aws || install_awscli
   for f in $RUBY.*; do
     aws s3 cp $f s3://travis-rubies/binaries/$(travis_rvm_os_path)/ --acl=public-read
   done
