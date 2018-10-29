@@ -44,14 +44,14 @@ fold_end() {
 }
 
 function install_awscli() {
-  command -v pip >/dev/null || (curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user --install-option="--install-scripts=$HOME/.local/bin")
+  command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user --install-option="--install-scripts=$HOME/.local/bin")
   pip install --user --install-option="--install-scripts=$HOME/.local/bin" awscli
 }
 
 function update_mvn() {
   VERSION=$1
   fold_start mvn.1 "update mvn to $VERSION"
-  curl -O http://mirrors.ibiblio.org/apache/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz
+  curl -sSO http://mirrors.ibiblio.org/apache/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz
   tar xzf apache-maven-$VERSION-bin.tar.gz
   export PATH=$PWD/apache-maven-$VERSION/bin:$PATH
   export M2_HOME=$PWD/apache-maven-$VERSION
