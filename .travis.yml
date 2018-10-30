@@ -72,6 +72,9 @@ matrix:
     osx_image: xcode9.4 # macOS 10.13
     cache: *osx_cache
 
+before_cache:
+  - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
+  
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
 notifications:
