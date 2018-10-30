@@ -204,19 +204,19 @@ mruby*)
   if which apt-get >> /dev/null; then
     announce sudo apt-get -q install gperf
   fi
-  announce rvm install $RUBY --verify-downloads 1;;
+  announce rvm install $RUBY --autolibs=disable --verify-downloads 1;;
 ruby-1.*)
   if which sw_vers >> /dev/null; then
     echo "not building $RUBY on OSX, can't statically compile it"
     exit
   else
-    announce rvm install $RUBY --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc
+    announce rvm install $RUBY --autolibs=disable --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc
   fi;;
 ruby-*)
   if [[ $RUBY = *head* ]]; then
     EXTRA_FLAGS="--rubygems 2.7.7 --force"
   fi
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  announce rvm install $RUBY $EXTRA_FLAGS --autolibs=disable --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 jruby-head)
   update_mvn 3.3.9
@@ -252,6 +252,7 @@ if [[ $RUBY != jruby* ]]; then
   fold_end check.2
 fi
 
+if
 #######################################################
 # publish to bucket
 fold_start publish "upload to S3"
