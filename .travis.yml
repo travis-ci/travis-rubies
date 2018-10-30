@@ -5,10 +5,6 @@ script:
 - test -f ~/.rvmrc && cat ~/.rvmrc || true
 - ./build.sh
 
-osx_cache: &osx_cache
-  ccache: true
-  directories:
-    - /usr/local/Cellar/python
 cache: ccache
 
 matrix:
@@ -48,7 +44,10 @@ matrix:
       - unset -f pushd
       - unset -f popd
     osx_image: xcode6.4
-    cache: *osx_cache
+    cache: &osx_cache
+      ccache: true
+      directories:
+        - /usr/local/Cellar/python
   - os: osx
     before_install:
       - sw_vers
