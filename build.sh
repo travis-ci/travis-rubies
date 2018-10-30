@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 announce() {
   travis_time_start
   echo \$ $@
