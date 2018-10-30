@@ -252,7 +252,6 @@ if [[ $RUBY != jruby* ]]; then
   fold_end check.2
 fi
 
-if
 #######################################################
 # publish to bucket
 fold_start publish "upload to S3"
