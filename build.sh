@@ -161,6 +161,7 @@ if which sw_vers >> /dev/null; then
   announce install_autoconf
   fold_start rvm.4 "OSX specific setup"
   announce rvm autolibs homebrew
+  announce rvm use --install 2.4
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
   # announce rvm use 2.0.0 --fuzzy
