@@ -219,11 +219,12 @@ ruby-*)
   fi
   CONFIGURE_OPTS=( --without-tcl --without-tk --without-gmp )
   case $RUBY in
-  ruby-2.4*|ruby-2.5*)
+  ruby-2.0*|ruby-2.1*|ruby-2.2*|ruby-2.3*)
+    ;;
+  *)
     CONFIGURE_OPTS+=( --enable-install-static-library );;
   esac
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -- ${CONFIGURE_OPTS[@]}
-  ;;
+  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -- ${CONFIGURE_OPTS[@]};;
 jruby-head)
   update_mvn 3.3.9
   announce rvm install $RUBY --verify-downloads 1;;
