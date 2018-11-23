@@ -74,7 +74,8 @@ matrix:
     cache: *osx_cache
   - os: linux-ppc64le
     dist: xenial
-    language: generic
+    language: bash
+    group: edge
     before_install:
       - |
          sudo systemctl stop apt-daily.service &&
