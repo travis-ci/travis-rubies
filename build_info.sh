@@ -1,1 +1,1 @@
-export RUBY=2.4.4
+export RUBY=2.4.5
