@@ -72,6 +72,10 @@ matrix:
       - sw_vers
     osx_image: xcode9.4 # macOS 10.13
     cache: *osx_cache
+  - arch: ppc64le
+    dist: xenial
+    language: bash
+    group: edge
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
