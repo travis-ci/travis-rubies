@@ -118,6 +118,7 @@ function install_autoconf() {
   tar xvf autoconf-latest.tar.gz
   pushd autoconf-*
   ./configure
+  make up
   make && sudo make install
   popd
   popd
