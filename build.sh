@@ -216,9 +216,6 @@ ruby-1.*)
     announce rvm install $RUBY --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc
   fi;;
 ruby-*)
-  if [[ $RUBY = *head* ]]; then
-    EXTRA_FLAGS="--rubygems 2.7.7 --force"
-  fi
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 jruby-head)
