@@ -72,6 +72,11 @@ matrix:
       - sw_vers
     osx_image: xcode9.4 # macOS 10.13
     cache: *osx_cache
+  - os: osx
+    before_install:
+      - sw_vers
+    osx_image: xcode10.2 # macOS 10.14
+    cache: *osx_cache
   - arch: ppc64le
     dist: xenial
     language: bash
