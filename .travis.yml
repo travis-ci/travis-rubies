@@ -36,6 +36,22 @@ matrix:
       - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
+  - os: linux
+    dist: bionic
+    language: minimal
+    group: dev
+    before_install:
+      - |
+         sudo systemctl stop apt-daily.service &&
+         sudo systemctl kill --kill-who=all apt-daily.service &&
+         while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
+           sleep 1
+         done
+    before_script:
+      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+      - "sudo apt-get install haveged"
+      - "sudo service haveged start"
   - os: osx
     before_install:
       - sw_vers
