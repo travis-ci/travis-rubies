@@ -50,7 +50,7 @@ function install_awscli() {
   if which sw_vers >> /dev/null; then
     announce brew install awscli
   elif which freebsd-version >> /dev/null; then
-    announce pkg install -y awscli
+    announce sudo pkg install -y awscli
   else
     command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
     pip install --user --upgrade pip

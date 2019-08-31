@@ -9,6 +9,11 @@ cache: ccache
 
 matrix:
   include:
+  - os: freebsd
+    dist: freebsd
+    before_install:
+      - freebsd-version
+    name: FreeBSD
   - os: linux
     sudo: required
     dist: precise
@@ -108,11 +113,6 @@ matrix:
     language: bash
     group: edge
     name: xenial-ppc64le
-  - os: freebsd
-    dist: freebsd
-    before_install:
-      - freebsd-version
-    name: FreeBSD
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
