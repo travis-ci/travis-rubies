@@ -32,7 +32,7 @@ travis_rvm_os_path() {
   if which sw_vers >> /dev/null; then
     echo "osx/$(sw_vers -productVersion | cut -d. -f1,2)/$(uname -m)"
   elif which freebsd-version >> /dev/null; then
-    echo "freebsd/$(freebsd-version | cut -d- -f1)/$(uname -m)"
+    echo "freebsd/$(freebsd-version | cut -d- -f1)/x86_64"
   else
     echo "$(lsb_release -i -s | tr '[:upper:]' '[:lower:]')/$(lsb_release -r -s)/$(uname -m)"
   fi
