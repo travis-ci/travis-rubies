@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 announce() {
   travis_time_start
   echo \$ $@
@@ -30,6 +31,8 @@ travis_retry() {
 travis_rvm_os_path() {
   if which sw_vers >> /dev/null; then
     echo "osx/$(sw_vers -productVersion | cut -d. -f1,2)/$(uname -m)"
+  elif which freebsd-version >> /dev/null; then
+    echo "freebsd/$(freebsd-version | cut -d- -f1)/x86_64"
   else
     echo "$(lsb_release -i -s | tr '[:upper:]' '[:lower:]')/$(lsb_release -r -s)/$(uname -m)"
   fi
@@ -46,6 +49,8 @@ fold_end() {
 function install_awscli() {
   if which sw_vers >> /dev/null; then
     announce brew install awscli
+  elif which freebsd-version >> /dev/null; then
+    announce sudo pkg install -y awscli
   else
     command -v pip >/dev/null || (curl -sSO https://bootstrap.pypa.io/get-pip.py && python get-pip.py --user)
     pip install --user --upgrade pip
@@ -103,6 +108,8 @@ function ensure_gpg_key() {
   if ! command -v $gpg_cmd; then
     if command -v sw_vers; then
       env HOMEBREW_NO_AUTO_UPDATE=1 brew install $gpg_cmd
+    elif which freebsd-version >> /dev/null; then
+      sudo pkg install -y $gpg_cmd
     else
       sudo apt-get install $gpg_cmd
     fi
@@ -171,6 +178,9 @@ if which sw_vers >> /dev/null; then
   echo '$ echo "" > $rvm_path/patchsets/ruby/osx_static'
   echo "" > $rvm_path/patchsets/ruby/osx_static
   fold_end rvm.4
+elif which freebsd-version >> /dev/null; then
+  fold_start rvm.4 "FreeBSD specific setup"
+  fold_end rvm.4
 else
   fold_start rvm.4 "Linux specific setup"
   MOVABLE_FLAG="--movable"
@@ -211,6 +221,9 @@ mruby*)
 ruby-1.*)
   if which sw_vers >> /dev/null; then
     echo "not building $RUBY on OSX, can't statically compile it"
+    exit
+  elif which freebsd-version >> /dev/null; then
+    echo "not building $RUBY on FreeBSD, can't statically compile it"
     exit
   else
     announce rvm install $RUBY --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc

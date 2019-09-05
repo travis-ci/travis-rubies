@@ -9,6 +9,11 @@ cache: ccache
 
 matrix:
   include:
+  - os: freebsd
+    dist: freebsd
+    before_install:
+      - freebsd-version
+    name: FreeBSD
   - os: linux
     sudo: required
     dist: precise
