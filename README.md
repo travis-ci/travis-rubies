@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/travis-ci/travis-rubies.svg?branch=build)](https://travis-ci.com/travis-ci/travis-rubies)
 # Travis Rubies
 
 my rubies, let me show you them
