@@ -134,6 +134,8 @@ function install_autoconf() {
 PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 #######################################################
+# install rvm
+fold_start rvm.0 "rvm list rubies || \curl -sSL https://get.rvm.io | bash -s stable"
 # update rvm
 fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
