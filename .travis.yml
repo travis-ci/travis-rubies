@@ -7,6 +7,7 @@ before_script:
 - "curl -sSL https://get.rvm.io | bash -s stable"
 
 script:
+- source /home/travis/.rvm/scripts/rvm
 - unset JRUBY_OPTS
 - test -f ~/.rvmrc && cat ~/.rvmrc || true
 - ./build.sh
