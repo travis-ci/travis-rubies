@@ -2,7 +2,6 @@ language: c
 
 script:
 - unset JRUBY_OPTS
-- rvm list rubies || \curl -sSL https://get.rvm.io | bash -s stable
 - test -f ~/.rvmrc && cat ~/.rvmrc || true
 - ./build.sh
 
@@ -112,7 +111,10 @@ jobs:
   - arch: arm64
     dist: bionic
     language: bash
-    name: xenial-arm64
+    name: bionic-arm64
+    before_script:
+    - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+    - "rvm list rubies || \curl -sSL https://get.rvm.io | bash -s stable"
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
