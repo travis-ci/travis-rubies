@@ -116,7 +116,7 @@ jobs:
   #   name: '10.14'
   #   cache: *osx_cache
   - arch: arm64
-    dist: bionic
+    dist: xenial
     language: bash
     name: bionic-arm64
     before_script:
