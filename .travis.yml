@@ -110,9 +110,22 @@ jobs:
     cache: *osx_cache
   - arch: ppc64le
     dist: xenial
-    language: bash
-    group: edge
     name: xenial-ppc64le
+  - arch: ppc64le
+    dist: bionic
+    name: bionic-ppc64le
+  - arch: s390x
+    dist: xenial
+    name: xenial-s390x
+  - arch: s390x
+    dist: bionic
+    name: bionic-s390x
+  - arch: arm64
+    dist: xenial
+    name: xenial-arm64
+  - arch: arm64
+    dist: bionic
+    name: bionic-arm64
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
