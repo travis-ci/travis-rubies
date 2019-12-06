@@ -191,6 +191,7 @@ fi
 
 #######################################################
 # check $RUBY
+RUBY=${VERSION}
 fold_start ruby "check which ruby to build"
 if [ -z $RUBY ]; then
   announce source ./build_info.sh
