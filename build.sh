@@ -191,7 +191,7 @@ fi
 
 #######################################################
 # check $RUBY
-if [ -n ${VERSION} ]; then
+if [[ -n ${VERSION} ]]; then
   RUBY=${VERSION}
 fi
 fold_start ruby "check which ruby to build"
