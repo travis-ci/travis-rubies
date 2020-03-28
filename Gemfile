@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.4'
+ruby '2.7.0'
 
 gem 'sinatra'
 gem 'rack-cache'

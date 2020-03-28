@@ -33,9 +33,11 @@ GEM
     mustermann (1.0.0)
     net-http-persistent (2.9.4)
     net-http-pipeline (1.0.1)
+    nio4r (2.5.2)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
-    puma (3.8.2)
+    puma (4.3.3)
+      nio4r (~> 2.0)
     rack (2.0.3)
     rack-cache (1.7.0)
       rack (>= 0.4)
@@ -61,7 +63,7 @@ DEPENDENCIES
   sinatra
 
 RUBY VERSION
-   ruby 2.3.4p301
+   ruby 2.7.0p0
 
 BUNDLED WITH
-   1.14.6
+   2.1.2
