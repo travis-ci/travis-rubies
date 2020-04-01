@@ -9,7 +9,6 @@ module Travis::Rubies::Web
 
     get '/' do
       Travis::Rubies.meter(:view, :index)
-      redirect 'http://rubies.travis-ci.org' if request.ssl?
       erb env['travis.template']
     end
 
