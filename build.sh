@@ -139,8 +139,8 @@ fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
 ensure_gpg_key
 rm -f ~/.rvmrc
-announce rvm get head --auto-dotfiles
-announce rvm reload
+# announce rvm get head --auto-dotfiles
+# announce rvm reload
 announce rvm use 2.3
 announce rvm cleanup all
 fold_end rvm.1
