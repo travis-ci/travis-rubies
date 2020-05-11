@@ -63,7 +63,7 @@ module Travis::Rubies::Web
 
     def format_arch(os_arch)
       name = os_arch.os == 'osx' ? "Mac OS X" : os_arch.os.capitalize
-      "#{name} #{os_arch.os_version}"
+      "#{name} #{os_arch.os_version} (#{os_arch.arch})"
     end
 
     def format_size(input)
