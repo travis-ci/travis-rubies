@@ -1,6 +1,6 @@
 require 'travis/rubies'
 require 'nokogiri'
-require 'open-uri'
+require 'faraday'
 
 module Travis::Rubies
   class List
@@ -21,7 +21,16 @@ module Travis::Rubies
     attr_reader :xml
 
     def initialize(content, prefix = "", url = "")
-      content, url  = URI.open(content), content if content.start_with? 'http'
+      if content.start_with? 'http'
+        uri = URI.parse content
+        conn = Faraday.new(uri) do |f|
+          f.request :retry, max: 5, retry_statuses: [400]
+        end
+        resp = conn.get
+        if resp.success?
+          content, url  = resp.body, content
+        end
+      end
       @pattern      = %r{#{prefix}(?<slug>(?<os>.*)/(?<os_version>.*)/(?<arch>.*)/(?<name>.*)\.tar\.(?<format>[^\.]+))$}
       @xml          = Nokogiri::XML(content)
       @url          = url
@@ -44,11 +53,12 @@ module Travis::Rubies
         if @xml.css("IsTruncated").text == 'true'
           continuation_token = @xml.css("NextContinuationToken").text
           puts url = "#{@url}&prefix=binaries&continuation-token=#{continuation_token}"
-          @xml = Nokogiri::XML(URI.open(url))
+          @xml = Nokogiri::XML(Faraday.get(url).body)
         else
           is_truncated = false
         end
       end
+
       rubies.compact
     end
 
