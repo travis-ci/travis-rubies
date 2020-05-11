@@ -9,7 +9,7 @@ module Travis::Rubies
     FIXNUM_MAX = (2**(0.size * 8 -2) -1)
 
     def self.travis
-      new("https://s3.amazonaws.com/travis-rubies/", "binaries/")
+      new("https://s3.amazonaws.com/travis-rubies/?list-type=2", "binaries/")
     end
 
     def self.rubinius
@@ -21,22 +21,35 @@ module Travis::Rubies
     attr_reader :xml
 
     def initialize(content, prefix = "", url = "")
-      content, url  = open(content), content if content.start_with? 'http'
+      content, url  = URI.open(content), content if content.start_with? 'http'
       @pattern      = %r{#{prefix}(?<slug>(?<os>.*)/(?<os_version>.*)/(?<arch>.*)/(?<name>.*)\.tar\.(?<format>[^\.]+))$}
       @xml          = Nokogiri::XML(content)
       @url          = url
     end
 
     def rubies
-      @xml.css('Contents').map do |element|
-        next unless match  = @pattern.match(element.css('Key').text)
-        time = Time.parse(element.css('LastModified').text)
-        size = Integer(element.css('Size').text)
-        url  = File.join(@url, element.css('Key').text)
+      rubies = []
+      is_truncated = true
+      while is_truncated do
+        @xml.css('Contents').each do |element|
+          next unless match  = @pattern.match(element.css('Key').text)
+          time = Time.parse(element.css('LastModified').text)
+          size = Integer(element.css('Size').text)
+          url  = File.join(@url, element.css('Key').text)
 
-        impl, version = split_ruby_name(match[:name])
-        Ruby.new(match[:slug], match[:name], impl, version, match[:os], match[:os_version], match[:arch], time, size, url)
-      end.compact
+          impl, version = split_ruby_name(match[:name])
+          rubies << Ruby.new(match[:slug], match[:name], impl, version, match[:os], match[:os_version], match[:arch], time, size, url)
+        end
+
+        if @xml.css("IsTruncated").text == 'true'
+          continuation_token = @xml.css("NextContinuationToken").text
+          puts url = "#{@url}&prefix=binaries&continuation-token=#{continuation_token}"
+          @xml = Nokogiri::XML(URI.open(url))
+        else
+          is_truncated = false
+        end
+      end
+      rubies.compact
     end
 
     def each(&block)
