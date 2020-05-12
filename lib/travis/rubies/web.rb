@@ -23,11 +23,6 @@ module Travis::Rubies
         use(Rack::Config) { |e| e['travis.rubies'], e['travis.template'] = List.travis, :travis }
         run(UI)
       end
-
-      map '/rubinius' do
-        use(Rack::Config) { |e| e['travis.rubies'], e['travis.template'] = List.rubinius, :rubinius }
-        run(UI)
-      end
     end
 
     def self.call(env)

@@ -15,7 +15,6 @@ module Travis::Rubies
     def self.rubinius
       new("http://binaries.rubini.us")
     end
-
     Ruby    = Struct.new(:slug, :name, :impl, :version, :os, :os_version, :arch, :last_modified, :file_size, :url)
     OsArch  = Struct.new(:os, :os_version, :arch, :rubies)
     attr_reader :xml
