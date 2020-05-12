@@ -52,7 +52,7 @@ module Travis::Rubies
 
         if @xml.css("IsTruncated").text == 'true'
           continuation_token = @xml.css("NextContinuationToken").text
-          puts url = "#{@url}&prefix=binaries&continuation-token=#{continuation_token}"
+          puts url = "#{@url}&continuation-token=#{continuation_token}"
           @xml = Nokogiri::XML(Faraday.get(url).body)
         else
           is_truncated = false
