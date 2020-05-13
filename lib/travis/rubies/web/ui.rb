@@ -52,7 +52,11 @@ module Travis::Rubies::Web
     end
 
     def rubies
-      env['travis.rubies']
+      env['travis.rubies'].rubies
+    end
+
+    def os_archs
+      env['travis.rubies'].os_archs
     end
 
     def format_arch(os_arch)
@@ -120,7 +124,7 @@ __END__
 
 @@ list
 <div class="rubies">
-  <% rubies.os_archs.each do |os_arch| %>
+  <% os_archs.each do |os_arch| %>
     <div class="os_arch">
       <h3 class="h3"><%= format_arch(os_arch) %></h3>
       <ul>
