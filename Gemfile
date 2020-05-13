@@ -15,6 +15,4 @@ gem 'faraday', '~> 1.0'
 
 gem 'aws-sdk-s3', '~> 1.64.0'
 
-group :development do
-  gem 'byebug', '~> 11.0'
-end
+gem 'byebug', '~> 11.0'
