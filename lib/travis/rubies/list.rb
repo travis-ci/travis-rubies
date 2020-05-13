@@ -1,6 +1,8 @@
 require 'travis/rubies'
 require 'nokogiri'
-require 'open-uri'
+require 'faraday'
+require 'aws-sdk-s3'
+require 'byebug'
 
 module Travis::Rubies
   class List
@@ -9,34 +11,48 @@ module Travis::Rubies
     FIXNUM_MAX = (2**(0.size * 8 -2) -1)
 
     def self.travis
-      new("https://s3.amazonaws.com/travis-rubies/", "binaries/")
-    end
-
-    def self.rubinius
-      new("http://binaries.rubini.us")
+      new(bucket: 'travis-rubies', prefix: 'binaries/')
     end
 
     Ruby    = Struct.new(:slug, :name, :impl, :version, :os, :os_version, :arch, :last_modified, :file_size, :url)
     OsArch  = Struct.new(:os, :os_version, :arch, :rubies)
-    attr_reader :xml
+    attr_reader :s3, :bucket, :prefix
 
-    def initialize(content, prefix = "", url = "")
-      content, url  = open(content), content if content.start_with? 'http'
+    def initialize(bucket:, prefix:'', region: 'us-east-1')
+      @s3 = Aws::S3::Client.new(region: region)
+      @bucket = bucket
+      @prefix = prefix
       @pattern      = %r{#{prefix}(?<slug>(?<os>.*)/(?<os_version>.*)/(?<arch>.*)/(?<name>.*)\.tar\.(?<format>[^\.]+))$}
-      @xml          = Nokogiri::XML(content)
-      @url          = url
     end
 
-    def rubies
-      @xml.css('Contents').map do |element|
-        next unless match  = @pattern.match(element.css('Key').text)
-        time = Time.parse(element.css('LastModified').text)
-        size = Integer(element.css('Size').text)
-        url  = File.join(@url, element.css('Key').text)
+    def rubies(os_arch: nil)
+      if os_arch
+        return @rubies.select do |ruby|
+          ruby.os == os_arch.os && ruby.os_version == os_arch.os_version && ruby.arch == os_arch.arch
+        end
+      else
+        return @rubies if @rubies
+      end
+      rubies = []
+      is_truncated = true
+      response = s3.list_objects_v2(bucket: bucket, prefix: prefix)
 
-        impl, version = split_ruby_name(match[:name])
-        Ruby.new(match[:slug], match[:name], impl, version, match[:os], match[:os_version], match[:arch], time, size, url)
-      end.compact
+      while is_truncated do
+        response.contents.each do |obj|
+          next unless match = @pattern.match(obj.key)
+          time = obj.last_modified
+          size = obj.size
+          url  = File.join('https://s3.amazonaws.com/', bucket, obj.key)
+          impl, version = split_ruby_name(match[:name])
+          rubies << Ruby.new(match[:slug], match[:name], impl, version, match[:os], match[:os_version], match[:arch], time, size, url)
+        end
+
+        if is_truncated = response.is_truncated
+          response = response.next_page
+        end
+      end
+
+      @rubies = rubies.compact
     end
 
     def each(&block)

@@ -23,11 +23,6 @@ module Travis::Rubies::Web
       erb :usage
     end
 
-    get '/:os/:os_version/:arch/rubinius-:rbx_version.tar*' do |os, os_version, arch, rbx_version, ext|
-      # Redirect rubinius binaries requests to rubini.us
-      redirect("http://binaries.rubini.us/#{os}/#{os_version}/#{arch}/rubinius-#{rbx_version}.tar#{ext}")
-    end
-
     get '/:os/:os_version/:arch/:name.tar*' do
       Travis::Rubies.meter(:download, params[:os], params[:os_version])
       Travis::Rubies.meter(:ruby, params[:name])
@@ -57,12 +52,16 @@ module Travis::Rubies::Web
     end
 
     def rubies
-      env['travis.rubies']
+      env['travis.rubies'].rubies
+    end
+
+    def os_archs
+      env['travis.rubies'].os_archs
     end
 
     def format_arch(os_arch)
       name = os_arch.os == 'osx' ? "Mac OS X" : os_arch.os.capitalize
-      "#{name} #{os_arch.os_version}"
+      "#{name} #{os_arch.os_version} (#{os_arch.arch})"
     end
 
     def format_size(input)
@@ -89,7 +88,7 @@ __END__
 </header>
 <section class="m-t-l">
   <h2 class="h2--green">Ruby Version Manager (RVM)</h2>
-  <p><a href="https://github.com/wayneeseguin/rvm/releases/tag/1.25.23">RVM 1.25.23</a> or later will automatically try to download binaries (after first trying the RVM server, the JRuby server and then the Rubinius server).</p>
+  <p><a href="https://github.com/wayneeseguin/rvm/releases/tag/1.25.23">RVM 1.25.23</a> or later will automatically try to download binaries (after first trying the RVM server, the JRuby server).</p>
   <p>Combine the <code>reinstall</code> command with the <code>--binary</code> flag to keep recompiled Ruby versions up to date:<p>
     <p><pre><code>rvm reinstall ruby-head --binary</code></pre></p>
     <p>If you have an outdated RVM version, update it by running <code>rvm get stable</code>.</p>
@@ -106,17 +105,10 @@ __END__
 </section>
 @@ travis
 <header class="m-t-l m-b-l">
-  <p class="text--medium">These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/rubinius">Rubinius</a>. The <i>head</i> versions will be automatically updated.</p>
+  <p class="text--medium">These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, and <a href="http://www.jruby.org/download">JRuby</a>. The <i>head</i> versions will be automatically updated.</p>
 </header>
 <div class="travis"><%= erb(:list) %></div>
 <aside class="m-t-l m-b-xl"><p class="text--medium">As always, the code is <a href="https://github.com/travis-ci/travis-rubies">on GitHub</a>.</p></aside>
-
-@@ rubinius
-<header class="m-t-l m-b-l">
-  <p class="text--medium">These Ruby versions are available on Travis CI in addition to the <a href="http://docs.travis-ci.com/user/languages/ruby/#Supported-Ruby-Versions">preinstalled Ruby versions</a> and the Ruby versions with binary builds <a href="https://rvm.io/binaries/">supplied by RVM</a>, <a href="http://www.jruby.org/download">JRuby</a> and <a href="/">Travis CI</a>.</p>
-</header>
-<div class="rubinius"><%= erb(:list) %></div>
-<aside class="m-t-l m-b-xl"><p class="text--medium">The <a href="http://rubini.us/">Rubinius</a> team is responsible for compiling and providing these binaries.</p></aside>
 
 @@ ruby
 <h2 class="h2--teal"><%= ruby.name %></h2>
@@ -132,7 +124,7 @@ __END__
 
 @@ list
 <div class="rubies">
-  <% rubies.os_archs.each do |os_arch| %>
+  <% os_archs.each do |os_arch| %>
     <div class="os_arch">
       <h3 class="h3"><%= format_arch(os_arch) %></h3>
       <ul>
@@ -175,7 +167,6 @@ __END__
       <nav class="navigation">
         <ul class="navigation-list">
           <li><a class="navigation-anchor" href="/" title="List Travis Rubies">Travis Rubies</a></li>
-          <li><a class="navigation-anchor" href="/rubinius" title="List Rubinius">Rubinius</a></li>
           <li><a class="navigation-anchor" href="/usage" title="Usage guide">Usage</a></li>
         </ul>
       </nav>
