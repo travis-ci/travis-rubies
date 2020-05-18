@@ -15,7 +15,7 @@ module Travis::Rubies::Web
     get '/index.txt' do
       Travis::Rubies.meter(:view, 'index.txt')
       content_type :txt
-      rubies.map { |r| url([r.prefix, r.slug].join()) }.join("\n")
+      rubies.map { |r| url(r.slug) }.join("\n")
     end
 
     get '/usage' do
