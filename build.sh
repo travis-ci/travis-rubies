@@ -29,9 +29,9 @@ travis_retry() {
 }
 
 travis_rvm_os_path() {
-  if which sw_vers >> /dev/null; then
+  if command -v sw_vers >> /dev/null; then
     echo "osx/$(sw_vers -productVersion | cut -d. -f1,2)/$(uname -m)"
-  elif which freebsd-version >> /dev/null; then
+  elif command -v freebsd-version >> /dev/null; then
     echo "freebsd/$(freebsd-version | cut -d- -f1)/x86_64"
   else
     echo "$(lsb_release -i -s | tr '[:upper:]' '[:lower:]')/$(lsb_release -r -s)/$(uname -m)"
@@ -131,6 +131,12 @@ function install_autoconf() {
   popd
 }
 
+function install_openssl_10_homebrew() {
+  announce brew tap shivammathur/homebrew-openssl-deprecated
+  announce brew install openssl@1.0
+  OPENSSL_FLAGS="-C --with-openssl-dir=/usr/local/opt/openssl@1.0"
+}
+
 PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 #######################################################
@@ -166,7 +172,7 @@ fold_end rvm.3
 
 #######################################################
 # install smf etc
-if which sw_vers >> /dev/null; then
+if command -v sw_vers >> /dev/null; then
   announce install_autoconf
   fold_start rvm.4 "OSX specific setup"
   announce rvm autolibs homebrew
@@ -222,15 +228,21 @@ mruby*)
   fi
   announce rvm install $RUBY --verify-downloads 1;;
 ruby-1.*)
-  if which sw_vers >> /dev/null; then
+  if command -v sw_vers >> /dev/null; then
     echo "not building $RUBY on OSX, can't statically compile it"
     exit
-  elif which freebsd-version >> /dev/null; then
+  elif command -v freebsd-version >> /dev/null; then
     echo "not building $RUBY on FreeBSD, can't statically compile it"
     exit
   else
     announce rvm install $RUBY --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc
   fi;;
+ruby-2.3*)
+  if command -v sw_vers >> /dev/null; then
+    install_openssl_10_homebrew
+  fi
+  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp ${OPENSSL_FLAGS}
+  ;;
 ruby-*)
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
