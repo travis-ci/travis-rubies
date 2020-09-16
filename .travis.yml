@@ -152,6 +152,9 @@ jobs:
   - arch: ppc64le
     dist: bionic
     name: bionic-ppc64le
+  - arch: ppc64le
+    dist: focal
+    name: focal-ppc64le
   - arch: s390x
     dist: xenial
     name: xenial-s390x
@@ -164,6 +167,9 @@ jobs:
   - arch: arm64
     dist: bionic
     name: bionic-arm64
+  - arch: arm64
+    dist: focal
+    name: focal-ppc64le
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
