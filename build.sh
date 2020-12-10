@@ -98,7 +98,7 @@ function travis_nanoseconds() {
 }
 
 function ensure_gpg_key() {
-  local key_id="409B6B1796C275462A1703113804BB82D39DC0E3"
+  local key_id="409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
   local gpg_cmd="gpg"
 
   if command -v gpg2; then
