@@ -137,6 +137,14 @@ function install_openssl_10_homebrew() {
   OPENSSL_FLAGS="-C --with-openssl-dir=/usr/local/opt/openssl@1.0"
 }
 
+function rvm_version() {
+  if [[ $RUBY =~ ^3 ]]; then
+    echo head
+  else
+    echo $SAFE_RVM_VERSION
+  fi
+}
+
 PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 #######################################################
@@ -145,7 +153,7 @@ fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
 ensure_gpg_key
 rm -f ~/.rvmrc
-announce rvm get $SAFE_RVM_VERSION --auto-dotfiles
+announce rvm get $(rvm_version) --auto-dotfiles
 announce rvm reload
 announce rvm use 2.3
 announce rvm cleanup all
