@@ -138,7 +138,7 @@ function install_openssl_10_homebrew() {
 }
 
 function rvm_version() {
-  if [[ $RUBY =~ ^3 ]]; then
+  if [[ $VERSION =~ ^3 ]]; then
     echo head
   else
     echo $SAFE_RVM_VERSION
