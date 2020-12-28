@@ -116,7 +116,8 @@ function ensure_gpg_key() {
     fi
   fi
 
-  $gpg_cmd --list-keys $key_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key1_id $key2_id
+  $gpg_cmd --list-keys $key1_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key1_id
+  $gpg_cmd --list-keys $key2_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key2_id
   curl -sSL https://rvm.io/mpapis.asc | $gpg_cmd --import -
 }
 
