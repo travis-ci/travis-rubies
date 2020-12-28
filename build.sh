@@ -98,7 +98,8 @@ function travis_nanoseconds() {
 }
 
 function ensure_gpg_key() {
-  local key_id="409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
+  local key1_id="409B6B1796C275462A1703113804BB82D39DC0E3"
+  local key2_id="7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
   local gpg_cmd="gpg"
 
   if command -v gpg2; then
@@ -115,7 +116,7 @@ function ensure_gpg_key() {
     fi
   fi
 
-  $gpg_cmd --list-keys $key_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key_id
+  $gpg_cmd --list-keys $key_id || $gpg_cmd --keyserver hkp://keys.gnupg.net --recv-keys $key1_id $key2_id
   curl -sSL https://rvm.io/mpapis.asc | $gpg_cmd --import -
 }
 
