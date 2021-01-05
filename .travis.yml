@@ -139,6 +139,12 @@ jobs:
     name: '10.14'
     arch: x86_64
     cache: *osx_cache
+    - os: osx
+    before_install:
+      - sw_vers    
+    osx_image: xcode12.3 # macOS 11.1
+    name: '11.1'
+    cache: *osx_cache  
   - os: osx
     before_install:
       - sw_vers
