@@ -7,9 +7,6 @@ script:
 
 cache: ccache
 
-env:
-  global:
-    - SAFE_RVM_VERSION='1.29.7'
 jobs:
   include:
   - os: freebsd
