@@ -21,14 +21,14 @@ jobs:
     name: precise
     arch: x86_64
     group: edge
-    before_script: "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+    before_script: "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
   - os: linux
     dist: trusty
     name: trusty
     arch: x86_64
     before_script:
       - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
     services: docker
@@ -46,7 +46,7 @@ jobs:
          done
     before_script:
       - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
   - os: linux
@@ -64,7 +64,7 @@ jobs:
          done
     before_script:
       - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
   - os: linux
@@ -82,7 +82,7 @@ jobs:
          done
     before_script:
       - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
       - "sudo apt-get install haveged"
       - "sudo service haveged start"
   - os: osx
@@ -193,3 +193,4 @@ after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
 notifications:
   email: false
+ 
