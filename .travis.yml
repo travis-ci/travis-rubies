@@ -193,3 +193,4 @@ after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
 notifications:
   email: false
+ 
