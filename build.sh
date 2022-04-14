@@ -236,7 +236,7 @@ mruby*)
   if which apt-get >> /dev/null; then
     announce sudo apt-get -q install gperf
   fi
-  announce rvm install $RUBY --verify-downloads 1;;
+  announce rvm install ruby-$RUBY --verify-downloads 1;;
 ruby-1.*)
   if command -v sw_vers >> /dev/null; then
     echo "not building $RUBY on OSX, can't statically compile it"
@@ -245,21 +245,21 @@ ruby-1.*)
     echo "not building $RUBY on FreeBSD, can't statically compile it"
     exit
   else
-    announce rvm install $RUBY --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc
+    announce rvm install ruby-$RUBY --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc
   fi;;
 ruby-2.3*)
   if command -v sw_vers >> /dev/null; then
     install_openssl_10_homebrew
   fi
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp ${OPENSSL_FLAGS}
+  announce rvm install ruby-$RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp ${OPENSSL_FLAGS}
   ;;
 ruby-*)
-  announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  announce rvm install ruby-$RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 jruby-head)
   update_mvn 3.3.9
-  announce rvm install $RUBY --verify-downloads 1;;
-*)      announce rvm install $RUBY --verify-downloads 1;;
+  announce rvm install ruby-$RUBY --verify-downloads 1;;
+*)      announce rvm install ruby-$RUBY --verify-downloads 1;;
 esac
 
 announce rvm prepare $RUBY
