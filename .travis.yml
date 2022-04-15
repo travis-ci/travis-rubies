@@ -165,7 +165,13 @@ jobs:
       - sw_vers    
     osx_image: xcode13.2 # macOS 12.1
     name: '12.1'
-    cache: *osx_cache        
+    cache: *osx_cache   
+  - os: osx
+    before_install:
+      - sw_vers    
+    osx_image: xcode13.3 # macOS 12.3
+    name: '12.3'
+    cache: *osx_cache 
   - os: osx
     before_install:
       - sw_vers
