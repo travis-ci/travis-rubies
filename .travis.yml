@@ -199,7 +199,7 @@ jobs:
     name: bionic-arm64
   - arch: arm64
     dist: focal
-    name: focal-ppc64le
+    name: focal-arm64
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
