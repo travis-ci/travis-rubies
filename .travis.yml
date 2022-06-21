@@ -138,6 +138,13 @@ jobs:
     cache: *osx_cache
   - os: osx
     before_install:
+      - sw_vers
+    osx_image: xcode11.4.1 # macOS 10.15
+    name: '10.15'
+    arch: x86_64
+    cache: *osx_cache    
+  - os: osx
+    before_install:
       - sw_vers    
     osx_image: xcode12.3 # macOS 11.1
     name: '11.1'
@@ -177,13 +184,6 @@ jobs:
       - sw_vers
     osx_image: xcode13.4 # macOS 12.4
     name: '12.4'
-    cache: *osx_cache    
-  - os: osx
-    before_install:
-      - sw_vers
-    osx_image: xcode11.4.1 # macOS 10.15
-    name: '10.15'
-    arch: x86_64
     cache: *osx_cache    
   - arch: ppc64le
     dist: xenial
