@@ -1,217 +1,244 @@
 language: c
 
 script:
-- unset JRUBY_OPTS
-- test -f ~/.rvmrc && cat ~/.rvmrc || true
-- ./build.sh
+  - unset JRUBY_OPTS
+  - test -f ~/.rvmrc && cat ~/.rvmrc || true
+  - ./build.sh
 
 cache: ccache
 
 jobs:
   include:
-  - os: freebsd
-    dist: freebsd
-    before_install:
-      - freebsd-version
-    name: FreeBSD
-    arch: x86_64
-  - os: linux
-    sudo: required
-    dist: precise
-    name: precise
-    arch: x86_64
-    group: edge
-    before_script: "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-  - os: linux
-    dist: trusty
-    name: trusty
-    arch: x86_64
-    before_script:
-      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-      - "sudo apt-get install haveged"
-      - "sudo service haveged start"
-    services: docker
-  - os: linux
-    dist: xenial
-    name: xenial
-    arch: x86_64
-    language: generic
-    before_install:
-      - |
-         sudo systemctl stop apt-daily.service &&
-         sudo systemctl kill --kill-who=all apt-daily.service &&
-         while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
-           sleep 1
-         done
-    before_script:
-      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-      - "sudo apt-get install haveged"
-      - "sudo service haveged start"
-  - os: linux
-    dist: bionic
-    name: bionic
-    arch: x86_64
-    language: minimal
-    group: dev
-    before_install:
-      - |
-         sudo systemctl stop apt-daily.service &&
-         sudo systemctl kill --kill-who=all apt-daily.service &&
-         while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
-           sleep 1
-         done
-    before_script:
-      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-      - "sudo apt-get install haveged"
-      - "sudo service haveged start"
-  - os: linux
-    dist: focal
-    name: focal
-    arch: x86_64
-    language: minimal
-    group: dev
-    before_install:
-      - |
-         sudo systemctl stop apt-daily.service &&
-         sudo systemctl kill --kill-who=all apt-daily.service &&
-         while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
-           sleep 1
-         done
-    before_script:
-      - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
-      - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
-      - "sudo apt-get install haveged"
-      - "sudo service haveged start"
-  - os: osx
-    before_install:
-      - sw_vers
-      - unset -f cd
-    install:
-      - unset -f pushd
-      - unset -f popd
-    osx_image: xcode6.4
-    name: '10.10'
-    arch: x86_64
-    cache: &osx_cache
-      ccache: true
-      directories:
-        - /usr/local/Cellar/python
-        - /usr/local/opt/python
-  - os: osx
-    before_install:
-      - sw_vers
-      - unset -f cd
-    install:
-      - unset -f pushd
-      - unset -f popd
-    osx_image: xcode7.3 # macOS 10.11
-    name: '10.11'
-    arch: x86_64
-    cache: *osx_cache
-  - os: osx
-    before_install:
-      - sw_vers
-      - unset -f cd
-    install:
-      - unset -f pushd
-      - unset -f popd
-    osx_image: xcode8.3 # macOS 10.12
-    name: '10.12'
-    arch: x86_64
-    cache: *osx_cache
-  - os: osx
-    before_install:
-      - sw_vers
-    osx_image: xcode9.4 # macOS 10.13
-    name: '10.13'
-    arch: x86_64
-    cache: *osx_cache
-  - os: osx
-    before_install:
-      - sw_vers
-    osx_image: xcode10.2 # macOS 10.14
-    name: '10.14'
-    arch: x86_64
-    cache: *osx_cache
-  - os: osx
-    before_install:
-      - sw_vers
-    osx_image: xcode11.4.1 # macOS 10.15
-    name: '10.15'
-    arch: x86_64
-    cache: *osx_cache    
-  - os: osx
-    before_install:
-      - sw_vers    
-    osx_image: xcode12.3 # macOS 11.1
-    name: '11.1'
-    cache: *osx_cache  
-  - os: osx
-    before_install:
-      - sw_vers    
-    osx_image: xcode12.4 # macOS 11.2
-    name: '11.2'
-    cache: *osx_cache
-  - os: osx
-    before_install:
-      - sw_vers    
-    osx_image: xcode12.5 # macOS 11.4
-    name: '11.4'
-    cache: *osx_cache
-  - os: osx
-    before_install:
-      - sw_vers    
-    osx_image: xcode13.1 # macOS 11.6
-    name: '11.6'
-    cache: *osx_cache    
-  - os: osx
-    before_install:
-      - sw_vers    
-    osx_image: xcode13.2 # macOS 12.1
-    name: '12.1'
-    cache: *osx_cache   
-  - os: osx
-    before_install:
-      - sw_vers    
-    osx_image: xcode13.3 # macOS 12.3
-    name: '12.3'
-    cache: *osx_cache 
-  - os: osx
-    before_install:
-      - sw_vers
-    osx_image: xcode13.4 # macOS 12.4
-    name: '12.4'
-    cache: *osx_cache    
-  - arch: ppc64le
-    dist: xenial
-    name: xenial-ppc64le
-  - arch: ppc64le
-    dist: bionic
-    name: bionic-ppc64le
-  - arch: ppc64le
-    dist: focal
-    name: focal-ppc64le
-  - arch: s390x
-    dist: xenial
-    name: xenial-s390x
-  - arch: s390x
-    dist: bionic
-    name: bionic-s390x
-  - arch: s390x
-    dist: focal
-    name: focal-s390x
-  - arch: arm64
-    dist: xenial
-    name: xenial-arm64
-  - arch: arm64
-    dist: bionic
-    name: bionic-arm64
-  - arch: arm64
-    dist: focal
-    name: focal-arm64
+    - os: freebsd
+      dist: freebsd
+      before_install:
+        - freebsd-version
+      name: FreeBSD
+      arch: x86_64
+    - os: linux
+      sudo: required
+      dist: precise
+      name: precise
+      arch: x86_64
+      group: edge
+      before_script: "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+    - os: linux
+      dist: trusty
+      name: trusty
+      arch: x86_64
+      before_script:
+        - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+        - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+        - "sudo apt-get install haveged"
+        - "sudo service haveged start"
+      services: docker
+    - os: linux
+      dist: xenial
+      name: xenial
+      arch: x86_64
+      language: generic
+      before_install:
+        - |
+          sudo systemctl stop apt-daily.service &&
+          sudo systemctl kill --kill-who=all apt-daily.service &&
+          while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
+            sleep 1
+          done
+      before_script:
+        - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+        - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+        - "sudo apt-get install haveged"
+        - "sudo service haveged start"
+    - os: linux
+      dist: bionic
+      name: bionic
+      arch: x86_64
+      language: minimal
+      group: dev
+      before_install:
+        - |
+          sudo systemctl stop apt-daily.service &&
+          sudo systemctl kill --kill-who=all apt-daily.service &&
+          while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
+            sleep 1
+          done
+      before_script:
+        - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+        - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+        - "sudo apt-get install haveged"
+        - "sudo service haveged start"
+    - os: linux
+      dist: focal
+      name: focal
+      arch: x86_64
+      language: minimal
+      group: dev
+      before_install:
+        - |
+          sudo systemctl stop apt-daily.service &&
+          sudo systemctl kill --kill-who=all apt-daily.service &&
+          while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
+            sleep 1
+          done
+      before_script:
+        - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+        - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+        - "sudo apt-get install haveged"
+        - "sudo service haveged start"
+    - os: linux
+      dist: jammy
+      name: jammy
+      arch: x86_64
+      language: minimal
+      group: dev
+      before_install:
+        - |
+          sudo systemctl stop apt-daily.service &&
+          sudo systemctl kill --kill-who=all apt-daily.service &&
+          while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
+            sleep 1
+          done
+      before_script:
+        - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+        - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+        - "sudo apt-get install haveged"
+        - "sudo service haveged start"
+    - os: osx
+      before_install:
+        - sw_vers
+        - unset -f cd
+      install:
+        - unset -f pushd
+        - unset -f popd
+      osx_image: xcode6.4
+      name: "10.10"
+      arch: x86_64
+      cache: &osx_cache
+        ccache: true
+        directories:
+          - /usr/local/Cellar/python
+          - /usr/local/opt/python
+    - os: osx
+      before_install:
+        - sw_vers
+        - unset -f cd
+      install:
+        - unset -f pushd
+        - unset -f popd
+      osx_image: xcode7.3 # macOS 10.11
+      name: "10.11"
+      arch: x86_64
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+        - unset -f cd
+      install:
+        - unset -f pushd
+        - unset -f popd
+      osx_image: xcode8.3 # macOS 10.12
+      name: "10.12"
+      arch: x86_64
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode9.4 # macOS 10.13
+      name: "10.13"
+      arch: x86_64
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode10.2 # macOS 10.14
+      name: "10.14"
+      arch: x86_64
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode11.4.1 # macOS 10.15
+      name: "10.15"
+      arch: x86_64
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode12.3 # macOS 11.1
+      name: "11.1"
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode12.4 # macOS 11.2
+      name: "11.2"
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode12.5 # macOS 11.4
+      name: "11.4"
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode13.1 # macOS 11.6
+      name: "11.6"
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode13.2 # macOS 12.1
+      name: "12.1"
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode13.3 # macOS 12.3
+      name: "12.3"
+      cache: *osx_cache
+    - os: osx
+      before_install:
+        - sw_vers
+      osx_image: xcode13.4 # macOS 12.4
+      name: "12.4"
+      cache: *osx_cache
+    - arch: ppc64le
+      dist: xenial
+      name: xenial-ppc64le
+    - arch: ppc64le
+      dist: bionic
+      name: bionic-ppc64le
+    - arch: ppc64le
+      dist: focal
+      name: focal-ppc64le
+    - arch: ppc64le
+      dist: jammy
+      name: jammy-ppc64le
+    - arch: s390x
+      dist: xenial
+      name: xenial-s390x
+    - arch: s390x
+      dist: bionic
+      name: bionic-s390x
+    - arch: s390x
+      dist: focal
+      name: focal-s390x
+    - arch: s390x
+      dist: jammy
+      name: jammy-s390x
+    - arch: arm64
+      dist: xenial
+      name: xenial-arm64
+    - arch: arm64
+      dist: bionic
+      name: bionic-arm64
+    - arch: arm64
+      dist: focal
+      name: focal-arm64
+    - arch: arm64
+      dist: jammy
+      name: jammy-arm64
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
@@ -220,4 +247,3 @@ after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
 
 notifications:
   email: false
- 
