@@ -200,9 +200,8 @@ jobs:
     - os: osx
       before_install:
         - sw_vers
-      osx_image: xcode13.4 # macOS 12.4
-      name: "12.4"
-      cache: *osx_cache
+      osx_image: xcode-cs # macOS 12.4 test
+      name: '12.4'
     - arch: ppc64le
       dist: xenial
       name: xenial-ppc64le
