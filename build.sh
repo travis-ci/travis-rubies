@@ -203,7 +203,7 @@ else
 
   # workaround for Ruby 2.3.x
   if [[ $VERSION =~ 2.3.* ]]; then
-    announce echo "deb http://security.ubuntu.com/ubuntu bionic-security main" | sudo tee -a /etc/apt/sources.list
+    echo "deb http://security.ubuntu.com/ubuntu bionic-security main" | sudo tee -a /etc/apt/sources.list
     announce sudo apt update
     announce sudo apt-get install openssl
     announce sudo apt-cache policy libssl1.0-dev
