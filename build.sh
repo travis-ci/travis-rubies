@@ -264,7 +264,7 @@ ruby-*)
   ;;
 # Ruby YJIT
 ruby-3*)
-  rust_setup()
+  rust_setup
   announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 jruby-head)
