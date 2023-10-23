@@ -147,6 +147,12 @@ function rvm_version() {
   fi
 }
 
+# Rust toolchain setup for ruby YJIT
+function rust_setup() {
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+  source "$HOME/.cargo/env"
+}
+
 PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 #######################################################
@@ -255,6 +261,11 @@ ruby-2.3*)
   ;;
 ruby-*)
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  ;;
+# Ruby YJIT
+ruby-3*)
+  rust_setup()
+  announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 jruby-head)
   update_mvn 3.3.9
