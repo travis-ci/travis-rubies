@@ -259,11 +259,11 @@ ruby-2.3*)
   fi
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp ${OPENSSL_FLAGS}
   ;;
-ruby-*)
+ruby-2.*)
   announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 # Ruby YJIT
-ruby-3*)
+ruby-3.*)
   rust_setup
   announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
