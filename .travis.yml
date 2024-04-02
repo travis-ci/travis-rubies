@@ -1,12 +1,9 @@
 language: c
-
 script:
   - unset JRUBY_OPTS
   - test -f ~/.rvmrc && cat ~/.rvmrc || true
   - ./build.sh
-
 cache: ccache
-
 jobs:
   include:
     - os: freebsd
@@ -218,6 +215,9 @@ jobs:
     - arch: ppc64le
       dist: focal
       name: focal-ppc64le
+    - arch: ppc64le
+      dist: jammy
+      name: jammy-ppc64le
     - arch: s390x
       dist: xenial
       name: xenial-s390x
@@ -227,6 +227,9 @@ jobs:
     - arch: s390x
       dist: focal
       name: focal-s390x
+    - arch: s390x
+      dist: jammy
+      name: jammy-s390x
     - arch: arm64
       dist: xenial
       name: xenial-arm64
@@ -236,12 +239,13 @@ jobs:
     - arch: arm64
       dist: focal
       name: focal-arm64
+    - arch: arm64
+      dist: jammy
+      name: jammy-arm64
 
 
 before_cache:
   - echo rvm_auto_reload_flag=1 >> ~/.rvmrc
-
 after_failure: find $rvm_path/log/ -type f | xargs ls -t | head -n 1 | xargs cat
-
 notifications:
   email: false
