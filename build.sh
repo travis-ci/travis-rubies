@@ -269,7 +269,7 @@ ruby-2.*)
 ruby-3.*)
   rust_setup
   
-  announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  announce rvm install $RUBY $EXTRA_FLAGS --with-gcc=clang --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 jruby-head)
   update_mvn 3.3.9
