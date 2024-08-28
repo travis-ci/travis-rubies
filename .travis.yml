@@ -41,6 +41,7 @@ jobs:
           while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
             sleep 1
           done
+          sudo apt update && sudo apt install clang -y
       before_script:
         - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
         - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
@@ -59,6 +60,7 @@ jobs:
           while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
             sleep 1
           done
+          sudo apt update && sudo apt install clang -y
       before_script:
         - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
         - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
@@ -77,6 +79,7 @@ jobs:
           while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
             sleep 1
           done
+          sudo apt update && sudo apt install clang -y
       before_script:
         - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
         - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
@@ -95,6 +98,7 @@ jobs:
           while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
             sleep 1
           done
+          sudo apt update && sudo apt install clang -y
       before_script:
         - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
         - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
