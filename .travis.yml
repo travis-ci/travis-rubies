@@ -51,8 +51,6 @@ jobs:
       dist: bionic
       name: bionic
       arch: x86_64
-      language: minimal
-      group: dev
       before_install:
         - |
           sudo systemctl stop apt-daily.service &&
@@ -70,8 +68,6 @@ jobs:
       dist: focal
       name: focal
       arch: x86_64
-      language: minimal
-      group: dev
       before_install:
         - |
           sudo systemctl stop apt-daily.service &&
@@ -89,8 +85,6 @@ jobs:
       dist: jammy
       name: jammy
       arch: x86_64
-      language: minimal
-      group: dev
       before_install:
         - |
           sudo systemctl stop apt-daily.service &&
