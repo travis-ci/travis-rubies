@@ -166,7 +166,7 @@ announce curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 announce curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 announce curl -sSL https://get.rvm.io | bash -s stable
 announce rvm reset 
-announce rvm use --install 2.4.2
+announce rvm use --install 2.7.5
 announce rvm cleanup all
 fold_end rvm.1
 
@@ -195,7 +195,7 @@ if command -v sw_vers >> /dev/null; then
   announce install_autoconf
   fold_start rvm.4 "OSX specific setup"
   announce rvm autolibs homebrew
-  announce rvm use --install 2.4.2
+  announce rvm use --install 2.7.5
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
   # announce rvm use 2.0.0 --fuzzy
