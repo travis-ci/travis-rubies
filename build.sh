@@ -165,8 +165,9 @@ announce rvm reload
 announce curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 announce curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 announce curl -sSL https://get.rvm.io | bash -s stable
+source /Users/travis/.rvm/scripts/rvm
 announce rvm reset 
-announce rvm use --install 2.7.5
+#announce rvm use --install 2.7.5
 announce rvm cleanup all
 fold_end rvm.1
 
