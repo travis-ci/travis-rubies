@@ -284,6 +284,9 @@ esac
 announce rvm prepare $RUBY
 fold_end build
 
+# DEBUG
+cat /Users/travis/.rvm/log/*_ruby-3.2.5/configure.log
+
 #######################################################
 # make sure bundler works
 fold_start check.1 "make sure bundler works"
