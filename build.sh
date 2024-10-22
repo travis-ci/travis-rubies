@@ -282,10 +282,11 @@ jruby-head)
 esac
 
 announce rvm prepare $RUBY
-fold_end build
 
 # DEBUG
-cat /Users/travis/.rvm/log/*_ruby-3.2.5/configure.log
+announce cat /Users/travis/.rvm/log/*_ruby-3.2.5/configure.log
+
+fold_end build
 
 #######################################################
 # make sure bundler works
