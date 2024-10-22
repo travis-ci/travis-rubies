@@ -168,7 +168,7 @@ announce curl -sSL https://get.rvm.io | bash -s stable
 source /Users/travis/.rvm/scripts/rvm
 announce rvm reset 
 announce rvm cleanup all
-announce rvm get stable
+announce rvm get stable --auto-dotfiles
 fold_end rvm.1
 
 #######################################################
