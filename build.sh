@@ -48,7 +48,8 @@ fold_end() {
 
 function install_awscli() {
   if which sw_vers >> /dev/null; then
-    announce brew install awscli
+    #announce brew install awscli
+    announce pip install awscli
   elif which freebsd-version >> /dev/null; then
     announce sudo pkg install -y awscli
   else
