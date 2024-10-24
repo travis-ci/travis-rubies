@@ -136,7 +136,7 @@ function install_autoconf() {
 
 function install_openssl_10_homebrew() {
   announce brew tap shivammathur/homebrew-openssl-deprecated
-  announce brew install openssl@1.0
+  announce HOMEBREW_NO_AUTO_UPDATE=1 brew install openssl@1.0
   OPENSSL_FLAGS="-C --with-openssl-dir=/usr/local/opt/openssl@1.0"
 }
 
@@ -162,14 +162,14 @@ fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
 ensure_gpg_key
 rm -f ~/.rvmrc
-announce rvm reload
 announce curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 announce curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 announce curl -sSL https://get.rvm.io | bash -s stable
 source /Users/travis/.rvm/scripts/rvm
-announce rvm reset 
-announce rvm cleanup all
+# announce rvm reset 
+# announce rvm cleanup all
 announce rvm get stable --auto-dotfiles
+announce rvm reload
 fold_end rvm.1
 
 #######################################################
@@ -273,8 +273,11 @@ ruby-3.0*)
 # Ruby YJIT - YJIT compiler introduced in Ruby 3.1
 ruby-3.*)
   rust_setup
-  
-  announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  if command -v sw_vers >> /dev/null; then
+    announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  else
+    announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  fi
   ;;
 jruby-head)
   update_mvn 3.3.9
