@@ -1,6 +1,6 @@
 language: c
 script:
-  - unset JRUBY_OPTS
+  #- unset JRUBY_OPTS
   - test -f ~/.rvmrc && cat ~/.rvmrc || true
   - ./build.sh
 cache: ccache

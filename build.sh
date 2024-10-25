@@ -48,7 +48,8 @@ fold_end() {
 
 function install_awscli() {
   if which sw_vers >> /dev/null; then
-    announce brew install awscli
+    #announce brew install awscli
+    announce pip install awscli
   elif which freebsd-version >> /dev/null; then
     announce sudo pkg install -y awscli
   else
@@ -135,7 +136,7 @@ function install_autoconf() {
 
 function install_openssl_10_homebrew() {
   announce brew tap shivammathur/homebrew-openssl-deprecated
-  announce brew install openssl@1.0
+  announce HOMEBREW_NO_AUTO_UPDATE=1 brew install openssl@1.0
   OPENSSL_FLAGS="-C --with-openssl-dir=/usr/local/opt/openssl@1.0"
 }
 
@@ -161,13 +162,14 @@ fold_start rvm.1 "update rvm"
 announce rvm remove 1.8.7
 ensure_gpg_key
 rm -f ~/.rvmrc
-announce rvm reload
 announce curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 announce curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 announce curl -sSL https://get.rvm.io | bash -s stable
-announce rvm reset 
-announce rvm use --install 2.4.2
-announce rvm cleanup all
+source /Users/travis/.rvm/scripts/rvm
+# announce rvm reset 
+# announce rvm cleanup all
+announce rvm get stable --auto-dotfiles
+announce rvm reload
 fold_end rvm.1
 
 #######################################################
@@ -195,7 +197,7 @@ if command -v sw_vers >> /dev/null; then
   announce install_autoconf
   fold_start rvm.4 "OSX specific setup"
   announce rvm autolibs homebrew
-  announce rvm use --install 2.4.2
+  announce rvm use --install 2.7.5
   announce sudo mkdir -p /etc/openssl
   announce sudo chown -R $USER: /etc/openssl
   # announce rvm use 2.0.0 --fuzzy
@@ -271,8 +273,11 @@ ruby-3.0*)
 # Ruby YJIT - YJIT compiler introduced in Ruby 3.1
 ruby-3.*)
   rust_setup
-  
-  announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  if command -v sw_vers >> /dev/null; then
+    announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  else
+    announce rvm install $RUBY $EXTRA_FLAGS --enable-yjit --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
+  fi
   ;;
 jruby-head)
   update_mvn 3.3.9
@@ -281,6 +286,10 @@ jruby-head)
 esac
 
 announce rvm prepare $RUBY
+
+# DEBUG
+announce cat /Users/travis/.rvm/log/*_ruby-3.2.5/configure.log
+
 fold_end build
 
 #######################################################
