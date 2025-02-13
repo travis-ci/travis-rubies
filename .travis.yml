@@ -98,6 +98,24 @@ jobs:
         - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
         - "sudo apt-get install haveged"
         - "sudo service haveged start"
+        - os: linux
+        dist: noble
+        name: noble
+        arch: x86_64
+        before_install:
+          - |
+            sudo systemctl stop apt-daily.service &&
+            sudo systemctl kill --kill-who=all apt-daily.service &&
+            while ! (systemctl list-units --all apt-daily.service | fgrep -q dead) ; do
+              sleep 1
+            done
+            sudo apt update && sudo apt install clang -y
+        before_script:
+          - 'echo -e "gem-wrappers\nrubygems-bundler\nbundler\nrake\nrvm\n" >> ~/.rvm/gemsets/global.gems'
+          - "gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
+          - "sudo apt-get install haveged"
+          - "sudo service haveged start"
+  
     - os: osx
       before_install:
         - sw_vers
@@ -216,6 +234,9 @@ jobs:
     - arch: ppc64le
       dist: jammy
       name: jammy-ppc64le
+    - arch: ppc64le
+      dist: noble
+      name: noble-ppc64le
     - arch: s390x
       dist: xenial
       name: xenial-s390x
@@ -228,6 +249,9 @@ jobs:
     - arch: s390x
       dist: jammy
       name: jammy-s390x
+    - arch: s390x
+      dist: noble
+      name: noble-s390x
     - arch: arm64
       dist: xenial
       name: xenial-arm64
@@ -240,6 +264,9 @@ jobs:
     - arch: arm64
       dist: jammy
       name: jammy-arm64
+    - arch: arm64
+      dist: noble
+      name: noble-arm64
 
 
 before_cache:
