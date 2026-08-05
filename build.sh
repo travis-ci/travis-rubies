@@ -247,6 +247,8 @@ mruby*)
   if which apt-get >> /dev/null; then
     announce sudo apt-get -q install gperf
   fi
+  announce rvm get head
+  announce rvm reload
   announce rvm install $RUBY --verify-downloads 1;;
 ruby-1.*)
   if command -v sw_vers >> /dev/null; then
