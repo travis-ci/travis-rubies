@@ -226,6 +226,8 @@ if [ -z $RUBY ]; then
   announce source ./build_info.sh
 fi
 [[ $RUBY ]] || { echo 'please set $RUBY' && exit 1; }
+announce rvm get head
+announce rvm reload
 export RUBY=$(rvm strings $RUBY)
 announce export RUBY=${RUBY//[[:blank:]]/}
 echo "EVERYBODY STAND BACK, WE'RE INSTALLING $RUBY"
@@ -247,8 +249,6 @@ mruby*)
   if which apt-get >> /dev/null; then
     announce sudo apt-get -q install gperf
   fi
-  announce rvm get head
-  announce rvm reload
   announce rvm install $RUBY --verify-downloads 1;;
 ruby-1.*)
   if command -v sw_vers >> /dev/null; then
@@ -273,7 +273,7 @@ ruby-3.0*)
    announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 $MOVABLE_FLAG --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
   ;;
 # Ruby YJIT - YJIT compiler introduced in Ruby 3.1
-ruby-3.*)
+ruby-3.*|ruby-4.*)
   rust_setup
   if command -v sw_vers >> /dev/null; then
     announce rvm install $RUBY $EXTRA_FLAGS --verify-downloads 1 --disable-install-doc -C --without-tcl,--without-tk,--without-gmp
